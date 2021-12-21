@@ -5,8 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,7 +57,10 @@ public class RoomController {
 	    
 	    if(!time.toLowerCase().equals("Morning".toLowerCase()) && !time.toLowerCase().equals("Afternoon".toLowerCase())) {
 	    	room.setExamTime(null);
+	    }else {
+	    	room.setExamTime(time.toLowerCase());
 	    };
+	    
 		if(!level.toLowerCase().equals("A2".toLowerCase()) && !level.toLowerCase().equals("B1".toLowerCase())) {
 			room.setLevel(null);
 		};
@@ -64,6 +69,28 @@ public class RoomController {
 		response.put("data", roomRepository.save(room));
 		return response;
 	};
+	
+	// Update candidate
+ 	@CrossOrigin(origins = "http://localhost:3000")
+ 	@PutMapping("rooms/{id}")
+    public ResponseEntity<LinkedHashMap<String, Object>> updateRoom(@PathVariable(value = "id") long roomId, @Valid @RequestBody Room updateRoom) {
+     	LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+	    Room editRoom = null;
+	    Room room = roomRepository.findById(roomId).orElseThrow(() -> new ResourceNotFoundException("Room "+roomId+" not found"));
+	    
+	    String time = updateRoom.getExamTime();
+	    
+	    if(!time.toLowerCase().equals("Morning".toLowerCase()) && !time.toLowerCase().equals("Afternoon".toLowerCase())) {
+	    	room.setExamTime(null);
+	    }else {
+	    	room.setExamTime(time.toLowerCase());
+	    };
+	     
+	    editRoom = roomRepository.save(room);
+		response.put("status", 200);
+		response.put("data", editRoom);
+	    return ResponseEntity.ok().body(response);
+    };
 	
 	// Delete examination
 	@CrossOrigin(origins = "http://localhost:3000")
