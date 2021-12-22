@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -37,7 +38,8 @@ public class Examination {
 	@Column(name = "exam_date")
 	private String examDate;
 	
-	@JsonManagedReference
+//	@JsonManagedReference
+//	@JsonBackReference
 	@OneToMany(mappedBy="examination")
     private Set<Room> rooms;
 	

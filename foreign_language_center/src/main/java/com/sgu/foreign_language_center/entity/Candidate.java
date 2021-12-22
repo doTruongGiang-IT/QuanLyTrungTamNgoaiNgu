@@ -1,10 +1,15 @@
 package com.sgu.foreign_language_center.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -13,6 +18,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "candidates")
@@ -74,8 +82,10 @@ public class Candidate {
 	@Column(name = "email", unique=true)
 	private String email;
     
-    @OneToOne(mappedBy="candidate")
-    private CandidatesInRoom candidatesInRoom;
+//    @JsonManagedReference
+//    @JsonBackReference
+    @OneToMany(mappedBy="candidate")
+    private Set<CandidatesInRoom> candidatesInRooms;
     
     public Candidate() {};
 
@@ -89,7 +99,7 @@ public class Candidate {
 			@NotNull @NotBlank(message = "Day provide is required") String dayProvide,
 			@NotNull @NotBlank(message = "Place provide is required") @Size(min = 4, message = "Place provide should have at least 4 characters") String placeProvide,
 			@NotNull @NotBlank(message = "Place provide is required") @Size(min = 10, message = "Phone number should have at least 10 characters") String phoneNumber,
-			@NotNull @NotEmpty @Email String email, CandidatesInRoom candidatesInRoom) {
+			@NotNull @NotEmpty @Email String email, Set<CandidatesInRoom> candidatesInRooms) {
 		super();
 		this.identityCard = identityCard;
 		this.firstName = firstName;
@@ -101,7 +111,7 @@ public class Candidate {
 		this.placeProvide = placeProvide;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.candidatesInRoom = candidatesInRoom;
+		this.candidatesInRooms = candidatesInRooms;
 	}
 
 	public long getIdentityCard() {
@@ -184,12 +194,12 @@ public class Candidate {
 		this.email = email;
 	}
 
-	public CandidatesInRoom getCandidatesInRoom() {
-		return candidatesInRoom;
+	public Set<CandidatesInRoom> getCandidatesInRoom() {
+		return candidatesInRooms;
 	}
 
-	public void setCandidatesInRoom(CandidatesInRoom candidatesInRoom) {
-		this.candidatesInRoom = candidatesInRoom;
+	public void setCandidatesInRoom(Set<CandidatesInRoom> candidatesInRooms) {
+		this.candidatesInRooms = candidatesInRooms;
 	}
 	
 }

@@ -15,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "supervisors")
@@ -24,7 +25,8 @@ public class Supervisor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@JsonBackReference
+//	@JsonBackReference
+//	@JsonManagedReference
 	@ManyToOne
     @JoinColumn(name="room_id", nullable=false)
     private Room room;

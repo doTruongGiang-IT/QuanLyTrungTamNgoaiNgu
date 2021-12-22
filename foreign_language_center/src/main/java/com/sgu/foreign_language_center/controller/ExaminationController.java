@@ -1,8 +1,10 @@
 package com.sgu.foreign_language_center.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.validation.Valid;
@@ -34,8 +36,18 @@ public class ExaminationController {
 	@GetMapping("examinations")
 	public LinkedHashMap<String, Object> getAllEamination() {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+		List<Object> list = new ArrayList<Object>();
+		List<Examination> examinations = examinationRepository.findAll();
+		for(Examination examination : examinations) {
+			LinkedHashMap<String, Object> formatExamination = new LinkedHashMap<String, Object>();
+			formatExamination.put("id", examination.getId());
+			formatExamination.put("name", examination.getName());
+			formatExamination.put("examDate", examination.getExamDate());
+			list.add(formatExamination);
+		};
+		
 		response.put("status", 200);
-		response.put("data", examinationRepository.findAll());
+		response.put("data", list);
 		return response;
 	};
 	
@@ -44,9 +56,14 @@ public class ExaminationController {
 	@GetMapping("examinations/{id}")
 	public LinkedHashMap<String, Object> getEamination(@PathVariable(value = "id") long examinationId) {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+		LinkedHashMap<String, Object> formatExamination = new LinkedHashMap<String, Object>();
 		Examination examination = examinationRepository.findById(examinationId).orElseThrow(() -> new ResourceNotFoundException("Examination "+examinationId+" not found"));
+		formatExamination.put("id", examination.getId());
+		formatExamination.put("name", examination.getName());
+		formatExamination.put("examDate", examination.getExamDate());
+		
 		response.put("status", 200);
-		response.put("data", examination);
+		response.put("data", formatExamination);
 		return response;
 	};
 	
@@ -55,6 +72,7 @@ public class ExaminationController {
 	@PostMapping("examinations")
 	public LinkedHashMap<String, Object> createExamination(@Valid @RequestBody Examination examination) {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+		LinkedHashMap<String, Object> formatExamination = new LinkedHashMap<String, Object>();
 //		Set<Room> roomList = new HashSet<Room>();
 		String dateString = examination.getExamDate();
 		String name = examination.getName();
@@ -68,10 +86,13 @@ public class ExaminationController {
 	    if (name.replaceAll(" ", "").equals("")) {
 	    	examination.setName(null);
 	    };
+	    Examination newExamination = examinationRepository.save(examination);
+	    formatExamination.put("id", newExamination.getId());
+	    formatExamination.put("name", newExamination.getName());
+	    formatExamination.put("examDate", newExamination.getExamDate());
 	    
-//	    examination.setRooms(roomList);
 		response.put("status", 201);
-		response.put("data", examinationRepository.save(examination));
+		response.put("data", formatExamination);
 		return response;
 	};
     
@@ -80,7 +101,8 @@ public class ExaminationController {
  	@PutMapping("examinations/{id}")
     public ResponseEntity<LinkedHashMap<String, Object>> updateExamination(@PathVariable(value = "id") long examinationId, @Valid @RequestBody Examination updateExamination) {
      	LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
-	    Examination editExamination = null;
+     	LinkedHashMap<String, Object> formatExamination = new LinkedHashMap<String, Object>();
+     	Examination editExamination = null;
 	    Examination examination = examinationRepository.findById(examinationId).orElseThrow(() -> new ResourceNotFoundException("Examination "+examinationId+" not found"));
 	    String dateString = updateExamination.getExamDate();
 	    String name = updateExamination.getName();
@@ -102,8 +124,12 @@ public class ExaminationController {
 	    };
 	     
 	 	editExamination = examinationRepository.save(examination);
+	 	formatExamination.put("id", editExamination.getId());
+	 	formatExamination.put("name", editExamination.getName());
+	    formatExamination.put("examDate", editExamination.getExamDate());
+	    
 		response.put("status", 200);
-		response.put("data", editExamination);
+		response.put("data", formatExamination);
 	    return ResponseEntity.ok().body(response);
     };
 	

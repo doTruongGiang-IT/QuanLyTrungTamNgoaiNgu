@@ -5,14 +5,21 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -22,12 +29,18 @@ public class CandidatesInRoom {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long candidates_in_room_id;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="identityCard", nullable=false)
+
+//	@JsonManagedReference
+//	@JsonBackReference
+	@ManyToOne
+//	@PrimaryKeyJoinColumn
+    @JoinColumn(name="identity_card", nullable=false)
     private Candidate candidate;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+
+//	@JsonManagedReference
+//	@JsonBackReference
+	@ManyToOne
+//	@PrimaryKeyJoinColumn
     @JoinColumn(name="room_id", nullable=false)
     private Room room;
 	
@@ -37,22 +50,22 @@ public class CandidatesInRoom {
 	private String candidateNumber;
 	
 	@NotNull
-	@NotBlank(message = "Listening score is required")
+//	@NotBlank(message = "Listening score is required")
 	@Column(name="listening_score")
 	private float listeningScore;
 	
 	@NotNull
-	@NotBlank(message = "Reading score is required")
+//	@NotBlank(message = "Reading score is required")
 	@Column(name="reading_score")
 	private float readingScore;
 	
 	@NotNull
-	@NotBlank(message = "Speaking score is required")
+//	@NotBlank(message = "Speaking score is required")
 	@Column(name="speaking_score")
 	private float speakingScore;
 	
 	@NotNull
-	@NotBlank(message = "Writing score is required")
+//	@NotBlank(message = "Writing score is required")
 	@Column(name="writing_score")
 	private float writingScore;
 	
