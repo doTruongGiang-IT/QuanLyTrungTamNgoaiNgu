@@ -1,6 +1,8 @@
 package com.sgu.foreign_language_center.entity;
 
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.validation.constraints.NotBlank;
@@ -26,17 +30,21 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long room_id;
 	
-	@JsonManagedReference
+//	@JsonManagedReference
+//	@JsonBackReference
 	@OneToMany(mappedBy="room")
     private Set<Supervisor> supervisors;
 	
-	@JsonBackReference
+//	@JsonBackReference
+//	@JsonManagedReference
 	@ManyToOne
     @JoinColumn(name="examination_id", nullable=false)
     private Examination examination;
 	
-	@OneToOne(mappedBy="room")
-    private CandidatesInRoom candidatesInRoom;
+//	@JsonManagedReference
+//	@JsonBackReference
+	@OneToMany(mappedBy="room")
+    private Set<CandidatesInRoom> candidatesInRooms;
 	
 	@NotNull
 	@NotBlank(message = "Exam time is required")
@@ -55,14 +63,14 @@ public class Room {
 	
 	public Room() {}
 
-	public Room(Set<Supervisor> supervisors, Examination examination, CandidatesInRoom candidatesInRoom,
+	public Room(Set<Supervisor> supervisors, Examination examination, Set<CandidatesInRoom> candidatesInRooms,
 			@NotNull @NotBlank(message = "Exam time is required") String examTime,
 			@NotNull @NotBlank(message = "Level is required") String level,
 			@NotNull @NotBlank(message = "Room identify is required") String roomIdentify) {
 		super();
 		this.supervisors = supervisors;
 		this.examination = examination;
-		this.candidatesInRoom = candidatesInRoom;
+		this.candidatesInRooms = candidatesInRooms;
 		this.examTime = examTime;
 		this.level = level;
 		this.roomIdentify = roomIdentify;
@@ -92,12 +100,12 @@ public class Room {
 		this.examination = examination;
 	}
 
-	public CandidatesInRoom getCandidatesInRoom() {
-		return candidatesInRoom;
+	public Set<CandidatesInRoom> getCandidatesInRoom() {
+		return candidatesInRooms;
 	}
 
-	public void setCandidatesInRoom(CandidatesInRoom candidatesInRoom) {
-		this.candidatesInRoom = candidatesInRoom;
+	public void setCandidatesInRoom(Set<CandidatesInRoom> candidatesInRooms) {
+		this.candidatesInRooms = candidatesInRooms;
 	}
 
 	public String getExamTime() {

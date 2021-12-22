@@ -1,7 +1,9 @@
 package com.sgu.foreign_language_center.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,19 @@ public class RoomController {
 	@GetMapping("rooms")
 	public LinkedHashMap<String, Object> getAllRoom() {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+		List<Object> list = new ArrayList<Object>();
+		List<Room> rooms = roomRepository.findAll();
+		for(Room room : rooms) {
+			LinkedHashMap<String, Object> formatRoom = new LinkedHashMap<String, Object>();
+			formatRoom.put("id", room.getId());
+			formatRoom.put("examination", room.getExamination().getId());
+			formatRoom.put("examTime", room.getExamTime());
+			formatRoom.put("level", room.getLevel());
+			formatRoom.put("roomIdentify", room.getRoomIdentify());
+			list.add(formatRoom);
+		};
 		response.put("status", 200);
-		response.put("data", roomRepository.findAll());
+		response.put("data", list);
 		return response;
 	};
 	
@@ -42,8 +55,14 @@ public class RoomController {
 	public LinkedHashMap<String, Object> getRoom(@PathVariable(value = "id") long roomId) {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
 		Room room = roomRepository.findById(roomId).orElseThrow(() -> new ResourceNotFoundException("Room "+roomId+" not found"));
+		LinkedHashMap<String, Object> formatRoom = new LinkedHashMap<String, Object>();
+		formatRoom.put("id", room.getId());
+		formatRoom.put("examination", room.getExamination().getId());
+		formatRoom.put("examTime", room.getExamTime());
+		formatRoom.put("level", room.getLevel());
+		formatRoom.put("roomIdentify", room.getRoomIdentify());
 		response.put("status", 200);
-		response.put("data", room);
+		response.put("data", formatRoom);
 		return response;
 	};
 	
@@ -52,6 +71,7 @@ public class RoomController {
 	@PostMapping("rooms")
 	public LinkedHashMap<String, Object> createRoom(@Valid @RequestBody Room room) {
 		LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+		LinkedHashMap<String, Object> formatRoom = new LinkedHashMap<String, Object>();
 	    String time = room.getExamTime();
 	    String level = room.getLevel();
 	    
@@ -65,8 +85,19 @@ public class RoomController {
 			room.setLevel(null);
 		};
 		
+		Room newRoom = roomRepository.save(room);
+		formatRoom.put("id", newRoom.getId());
+		formatRoom.put("examination", newRoom.getExamination().getId());
+		formatRoom.put("examTime", newRoom.getExamTime());
+		formatRoom.put("level", newRoom.getLevel());
+		
+		/* Generate room identify in BUS
+		 * String.format("%03d", yournumber);
+		 *  */
+		formatRoom.put("roomIdentify", newRoom.getRoomIdentify());
+		
 		response.put("status", 201);
-		response.put("data", roomRepository.save(room));
+		response.put("data", formatRoom);
 		return response;
 	};
 	
@@ -75,6 +106,7 @@ public class RoomController {
  	@PutMapping("rooms/{id}")
     public ResponseEntity<LinkedHashMap<String, Object>> updateRoom(@PathVariable(value = "id") long roomId, @Valid @RequestBody Room updateRoom) {
      	LinkedHashMap<String, Object> response = new LinkedHashMap<String, Object>();
+     	LinkedHashMap<String, Object> formatRoom = new LinkedHashMap<String, Object>();
 	    Room editRoom = null;
 	    Room room = roomRepository.findById(roomId).orElseThrow(() -> new ResourceNotFoundException("Room "+roomId+" not found"));
 	    
@@ -87,8 +119,14 @@ public class RoomController {
 	    };
 	     
 	    editRoom = roomRepository.save(room);
+	    formatRoom.put("id", editRoom.getId());
+	    formatRoom.put("examination", editRoom.getExamination().getId());
+	    formatRoom.put("examTime", editRoom.getExamTime());
+	    formatRoom.put("level", editRoom.getLevel());
+	    formatRoom.put("roomIdentify", editRoom.getRoomIdentify());
+		
 		response.put("status", 200);
-		response.put("data", editRoom);
+		response.put("data", formatRoom);
 	    return ResponseEntity.ok().body(response);
     };
 	
