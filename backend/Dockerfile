@@ -3,6 +3,5 @@ WORKDIR /src
 COPY ["backend.csproj", ""]
 RUN dotnet restore "./backend.csproj"
 COPY . .
-EXPOSE 12345
 RUN dotnet dev-certs https --trust
-ENTRYPOINT dotnet watch run
+ENTRYPOINT dotnet watch run --urls=http://+:5001 --project backend.csproj

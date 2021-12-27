@@ -19,7 +19,7 @@ services:
     networks:
       - ftpl_net
     ports:
-      - "0.0.0.0:8079:12345"
+      - "0.0.0.0:8079:5001"
     depends_on:
       - ftpl-database
 
