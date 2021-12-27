@@ -21,7 +21,7 @@ public class ExaminationDTO {
 		this.id = id;
 	};
 	
-	public int getName() {
+	public String getName() {
 		return name;
 	};
 	
@@ -29,7 +29,7 @@ public class ExaminationDTO {
 		this.name = name;
 	};
 	
-	public int getExamDate() {
+	public String getExamDate() {
 		return examDate;
 	};
 	
