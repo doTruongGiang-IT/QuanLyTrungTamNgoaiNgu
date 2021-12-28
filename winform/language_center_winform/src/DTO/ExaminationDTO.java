@@ -3,16 +3,23 @@ package DTO;
 public class ExaminationDTO {
 	private int id;
 	private String name;
-	private String examDate;
+	private String date;
 	
 	public ExaminationDTO(){};
 	
-	public ExaminationDTO(int id, String name, String examDate) {
+	public ExaminationDTO(int id, String name, String date) {
+		super();
 		this.id = id;
 		this.name = name;
-		this.examDate = examDate;
+		this.date = date;
 	};
-	
+
+	public ExaminationDTO(String name, String date) {
+		super();
+		this.name = name;
+		this.date = date;
+	};
+
 	public int getId() {
 		return id;
 	};
@@ -29,11 +36,11 @@ public class ExaminationDTO {
 		this.name = name;
 	};
 	
-	public String getExamDate() {
-		return examDate;
+	public String getDate() {
+		return date;
 	};
 	
-	public void setExamDate(String examDate) {
-		this.examDate = examDate;
+	public void setDate(String date) {
+		this.date = date;
 	};
 }
