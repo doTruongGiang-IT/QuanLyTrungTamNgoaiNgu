@@ -11,13 +11,13 @@ public class SupervisorBUS {
     private SupervisorDAO supervisorDAO = new SupervisorDAO();
     
     public List<SupervisorDTO> getSupervisors() {
-        if (supervisors == null) {
+        if(supervisors == null) {
         	supervisors = new ArrayList<>();
         };
         
-        try {
+        try{
         	supervisors = supervisorDAO.getSupervisors();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -26,9 +26,9 @@ public class SupervisorBUS {
     
     public SupervisorDTO getExamination(int id) {
     	SupervisorDTO supervisor = new SupervisorDTO();
-        try {
+        try{
         	supervisor = supervisorDAO.getSupervisor(id);
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -36,27 +36,27 @@ public class SupervisorBUS {
     };
     
     public void insert(SupervisorDTO supervisor) throws Exception {
-    	try {
+    	try{
     		supervisorDAO.insert(supervisor);
     		supervisors.add(supervisor);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		};
     };
     
     public void update(SupervisorDTO supervisor) throws Exception {
     	int index = -1;
-        for (int i = 0; i < supervisors.size(); i++) {
-            if ((supervisors.get(i)).getId() == supervisor.getId()) {
+        for(int i = 0; i < supervisors.size(); i++) {
+            if((supervisors.get(i)).getId() == supervisor.getId()) {
             	index = i;
             };
         };
         
         if(index != -1) {
-        	try {
+        	try{
         		supervisorDAO.update(supervisor);
         		supervisors.set(index, supervisor);
-    		} catch (Exception e) {
+    		}catch (Exception e) {
     			// TODO: handle exception
     		};
         };
@@ -64,16 +64,16 @@ public class SupervisorBUS {
 
     public void delete(int id) throws Exception {
         int index = -1;
-    	for (int i = 0; i < supervisors.size(); i++) {
-            if ((supervisors.get(i)).getId() == id) {
+    	for(int i = 0; i < supervisors.size(); i++) {
+            if((supervisors.get(i)).getId() == id) {
             	index = i;
             };
         };
         if(index != -1) {
-        	try {
+        	try{
         		supervisorDAO.delete(id);
         		supervisors.remove(index);
-    		} catch (Exception e) {
+    		}catch (Exception e) {
     			// TODO: handle exception
     		};
         };
@@ -81,14 +81,14 @@ public class SupervisorBUS {
     
     public String search(String searchKey) {
         String name = "";
-        try {
+        try{
         	supervisors = supervisorDAO.getSupervisors();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
-        for (SupervisorDTO supervisor : supervisors) {
-            if (supervisor.getName().toLowerCase().equals(searchKey.toLowerCase())) {
+        for(SupervisorDTO supervisor : supervisors) {
+            if(supervisor.getName().toLowerCase().equals(searchKey.toLowerCase())) {
                 name = supervisor.getName();
             };
         };

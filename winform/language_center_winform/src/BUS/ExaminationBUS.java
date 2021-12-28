@@ -11,13 +11,13 @@ public class ExaminationBUS {
     private ExaminationDAO examinationDAO = new ExaminationDAO();
     
     public List<ExaminationDTO> getExaminations() {
-        if (examinations == null) {
+        if(examinations == null) {
         	examinations = new ArrayList<>();
         };
         
-        try {
+        try{
         	examinations = examinationDAO.getExaminations();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -26,9 +26,9 @@ public class ExaminationBUS {
     
     public ExaminationDTO getExamination(int id) {
     	ExaminationDTO examination = new ExaminationDTO();
-        try {
+        try{
         	examination = examinationDAO.getExamination(id);
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -36,27 +36,27 @@ public class ExaminationBUS {
     };
     
     public void insert(ExaminationDTO examination) throws Exception {
-    	try {
+    	try{
     		examinationDAO.insert(examination);
             examinations.add(examination);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		};
     };
     
     public void update(ExaminationDTO examination) throws Exception {
     	int index = -1;
-        for (int i = 0; i < examinations.size(); i++) {
-            if ((examinations.get(i)).getId() == examination.getId()) {
+        for(int i = 0; i < examinations.size(); i++) {
+            if((examinations.get(i)).getId() == examination.getId()) {
             	index = i;
             };
         };
         
         if(index != -1) {
-        	try {
+        	try{
         		examinationDAO.update(examination);
                 examinations.set(index, examination);
-    		} catch (Exception e) {
+    		}catch (Exception e) {
     			// TODO: handle exception
     		};
         };
@@ -64,16 +64,16 @@ public class ExaminationBUS {
 
     public void delete(int id) throws Exception {
         int index = -1;
-    	for (int i = 0; i < examinations.size(); i++) {
-            if ((examinations.get(i)).getId() == id) {
+    	for(int i = 0; i < examinations.size(); i++) {
+            if((examinations.get(i)).getId() == id) {
             	index = i;
             };
         };
         if(index != -1) {
-        	try {
+        	try{
         		examinationDAO.delete(id);
                 examinations.remove(index);
-    		} catch (Exception e) {
+    		}catch (Exception e) {
     			// TODO: handle exception
     		};
         };
@@ -81,14 +81,14 @@ public class ExaminationBUS {
     
     public String search(String searchKey) {
         String name = "";
-        try {
+        try{
         	examinations = examinationDAO.getExaminations();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
-        for (ExaminationDTO examination : examinations) {
-            if (examination.getName().toLowerCase().equals(searchKey.toLowerCase())) {
+        for(ExaminationDTO examination : examinations) {
+            if(examination.getName().toLowerCase().equals(searchKey.toLowerCase())) {
                 name = examination.getName();
             };
         };
