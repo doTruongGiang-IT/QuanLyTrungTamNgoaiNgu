@@ -79,8 +79,8 @@ public class CandidateBUS {
         };
     };
     
-    public String search(String searchKey) {
-        String name = "";
+    public List<CandidateDTO> search(String name) {
+    	List<CandidateDTO> candidatesSearch = new ArrayList<CandidateDTO>();
         try{
         	candidates = candidateDAO.getCandidates();
         }catch (Exception e) {
@@ -88,12 +88,12 @@ public class CandidateBUS {
         };
         
         for(CandidateDTO candidate : candidates) {
-            if(candidate.getFirst_name().toLowerCase().equals(searchKey.toLowerCase()) || candidate.getLast_name().toLowerCase().equals(searchKey.toLowerCase())) {
-                name = candidate.getFirst_name() + candidate.getLast_name();
+            if(candidate.getFirst_name().toLowerCase().equals(name.toLowerCase()) || candidate.getLast_name().toLowerCase().equals(name.toLowerCase())) {
+            	candidatesSearch.add(candidate);
             };
         };
         
-        return name;
+        return candidatesSearch;
     };
 	
 }

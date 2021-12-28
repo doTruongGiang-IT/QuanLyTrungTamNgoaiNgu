@@ -79,8 +79,8 @@ public class ExaminationBUS {
         };
     };
     
-    public String search(String searchKey) {
-        String name = "";
+    public List<ExaminationDTO> search(String name) {
+    	List<ExaminationDTO> examinationsSearch = new ArrayList<ExaminationDTO>();
         try{
         	examinations = examinationDAO.getExaminations();
         }catch (Exception e) {
@@ -88,12 +88,12 @@ public class ExaminationBUS {
         };
         
         for(ExaminationDTO examination : examinations) {
-            if(examination.getName().toLowerCase().equals(searchKey.toLowerCase())) {
-                name = examination.getName();
+            if(examination.getName().toLowerCase().equals(name.toLowerCase())) {
+            	examinationsSearch.add(examination);
             };
         };
         
-        return name;
+        return examinationsSearch;
     };
 	
 }

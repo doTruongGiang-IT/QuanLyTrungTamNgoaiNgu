@@ -79,8 +79,8 @@ public class RoomBUS {
         };
     };
     
-    public String search(String searchKey) {
-        String name = "";
+    public List<RoomDTO> search(String name) {
+    	List<RoomDTO> roomsSearch = new ArrayList<RoomDTO>();
         try{
         	rooms = roomDAO.getRooms();
         }catch (Exception e) {
@@ -88,12 +88,12 @@ public class RoomBUS {
         };
         
         for(RoomDTO room : rooms) {
-            if(room.getName().toLowerCase().equals(searchKey.toLowerCase())) {
-                name = room.getName();
+            if(room.getName().toLowerCase().equals(name.toLowerCase())) {
+            	roomsSearch.add(room);
             };
         };
         
-        return name;
+        return roomsSearch;
     };
 	
 }
