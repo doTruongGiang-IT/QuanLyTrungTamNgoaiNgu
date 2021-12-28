@@ -11,13 +11,13 @@ public class RoomBUS {
     private RoomDAO roomDAO = new RoomDAO();
     
     public List<RoomDTO> getRooms() {
-        if (rooms == null) {
+        if(rooms == null) {
         	rooms = new ArrayList<>();
         };
         
-        try {
+        try{
         	rooms = roomDAO.getRooms();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -26,9 +26,9 @@ public class RoomBUS {
     
     public RoomDTO getExamination(int id) {
     	RoomDTO room = new RoomDTO();
-        try {
+        try{
         	room = roomDAO.getRoom(id);
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
@@ -36,27 +36,27 @@ public class RoomBUS {
     };
     
     public void insert(RoomDTO room) throws Exception {
-    	try {
+    	try{
     		roomDAO.insert(room);
             rooms.add(room);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		};
     };
     
     public void update(RoomDTO room) throws Exception {
     	int index = -1;
-        for (int i = 0; i < rooms.size(); i++) {
-            if ((rooms.get(i)).getId() == room.getId()) {
+        for(int i = 0; i < rooms.size(); i++) {
+            if((rooms.get(i)).getId() == room.getId()) {
             	index = i;
             };
         };
         
         if(index != -1) {
-        	try {
+        	try{
         		roomDAO.update(room);
                 rooms.set(index, room);
-    		} catch (Exception e) {
+    		}catch (Exception e) {
     			// TODO: handle exception
     		};
         };
@@ -81,14 +81,14 @@ public class RoomBUS {
     
     public String search(String searchKey) {
         String name = "";
-        try {
+        try{
         	rooms = roomDAO.getRooms();
-        } catch (Exception e) {
+        }catch (Exception e) {
             System.out.println(e);
         };
         
-        for (RoomDTO room : rooms) {
-            if (room.getName().toLowerCase().equals(searchKey.toLowerCase())) {
+        for(RoomDTO room : rooms) {
+            if(room.getName().toLowerCase().equals(searchKey.toLowerCase())) {
                 name = room.getName();
             };
         };
