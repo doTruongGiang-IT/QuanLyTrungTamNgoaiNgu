@@ -5,11 +5,11 @@ public class RoomDTO {
 	private int examination_id;
 	private String name;
 	private String level;
-	private String time;
+	private boolean time;
 	
 	public RoomDTO() {}
 
-	public RoomDTO(int id, int examination_id, String name, String level, String time) {
+	public RoomDTO(int id, int examination_id, String name, String level, boolean time) {
 		super();
 		this.id = id;
 		this.examination_id = examination_id;
@@ -18,7 +18,7 @@ public class RoomDTO {
 		this.time = time;
 	};
 
-	public RoomDTO(int examination_id, String name, String level, String time) {
+	public RoomDTO(int examination_id, String name, String level, boolean time) {
 		super();
 		this.examination_id = examination_id;
 		this.name = name;
@@ -58,11 +58,11 @@ public class RoomDTO {
 		this.level = level;
 	}
 
-	public String getTime() {
+	public boolean getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(boolean time) {
 		this.time = time;
 	};
 	
