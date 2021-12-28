@@ -79,8 +79,8 @@ public class SupervisorBUS {
         };
     };
     
-    public String search(String searchKey) {
-        String name = "";
+    public List<SupervisorDTO> search(String name) {
+    	List<SupervisorDTO> supervisorsSearch = new ArrayList<SupervisorDTO>();
         try{
         	supervisors = supervisorDAO.getSupervisors();
         }catch (Exception e) {
@@ -88,12 +88,12 @@ public class SupervisorBUS {
         };
         
         for(SupervisorDTO supervisor : supervisors) {
-            if(supervisor.getName().toLowerCase().equals(searchKey.toLowerCase())) {
-                name = supervisor.getName();
+            if(supervisor.getName().toLowerCase().equals(name.toLowerCase())) {
+            	supervisorsSearch.add(supervisor);
             };
         };
         
-        return name;
+        return supervisorsSearch;
     };
 	
 }
