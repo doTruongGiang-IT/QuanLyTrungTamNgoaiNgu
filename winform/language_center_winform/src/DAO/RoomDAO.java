@@ -7,17 +7,17 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
-import DTO.ExaminationDTO;
+import DTO.RoomDTO;
 
-public class ExaminationDAO {
+public class RoomDAO {
 
-	private List<ExaminationDTO> examinations = null;
+	private List<RoomDTO> rooms = null;
 	private String API_URL = "";
 	
-	public ExaminationDAO() {};
+	public RoomDAO() {};
 	
-	public List<ExaminationDTO> getExaminations() throws Exception {
-		examinations = new ArrayList<ExaminationDTO>();
+	public List<RoomDTO> getRooms() throws Exception {
+		rooms = new ArrayList<RoomDTO>();
 		HttpClient client = HttpClient.newHttpClient();
 	    HttpRequest request = HttpRequest.newBuilder()
 	            .uri(new URI(API_URL))
@@ -27,10 +27,10 @@ public class ExaminationDAO {
 	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject responseObj = new JSONObject(response.body().toString());
         System.out.println(responseObj);
-        return examinations;
+        return rooms;
     };
     
-    public ExaminationDTO getExamination(int id) throws Exception {
+    public RoomDTO getRoom(int id) throws Exception {
     	HttpClient client = HttpClient.newHttpClient();
 	    HttpRequest request = HttpRequest.newBuilder()
 	            .uri(new URI(API_URL))
@@ -43,24 +43,24 @@ public class ExaminationDAO {
         return null;
     };
     
-    public void insert(ExaminationDTO examination) throws Exception {
+    public void insert(RoomDTO room) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 	    HttpRequest request = HttpRequest.newBuilder()
 	            .uri(new URI(API_URL))
 	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .POST(HttpRequest.BodyPublishers.ofString(examination.toString()))
+	            .POST(HttpRequest.BodyPublishers.ofString(room.toString()))
 	            .build();
 	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject responseObj = new JSONObject(response.body().toString());
         System.out.println(responseObj);
     };
     
-    public void update(ExaminationDTO examination) throws Exception {
+    public void update(RoomDTO room) throws Exception {
         HttpClient client = HttpClient.newHttpClient();
 	    HttpRequest request = HttpRequest.newBuilder()
 	            .uri(new URI(API_URL))
 	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .PUT(HttpRequest.BodyPublishers.ofString(examination.toString()))
+	            .PUT(HttpRequest.BodyPublishers.ofString(room.toString()))
 	            .build();
 	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject responseObj = new JSONObject(response.body().toString());
@@ -78,5 +78,5 @@ public class ExaminationDAO {
         JSONObject responseObj = new JSONObject(response.body().toString());
         System.out.println(responseObj);
     };
-   
+	
 }
