@@ -1,0 +1,33 @@
+.search {
+    height: fit-content;
+}
+
+.search_container {
+    display: flex;
+    padding: 45px;
+    justify-content: space-between;
+    align-items: flex-start;    
+}
+
+.search_info, .search_result {
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+}
+
+.search_info {
+    width: 35%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.search_result {
+    width: 60%;
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
