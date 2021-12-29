@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models.Data
 {
-    public class QLTTNNContext : DbContext, IQLTTNNContext
+    public class QLTTNNContext : DbContext
     {
         public QLTTNNContext(DbContextOptions<QLTTNNContext> options): base(options)
         {
 
         }
-        public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<Candidate> candidates { get; set; }
     }
 }

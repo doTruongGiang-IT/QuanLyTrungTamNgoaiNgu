@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<QLTTNNContext>(options => options.UseNpgsql(connectionString));
 builder.Services.AddControllers();
-builder.Services.AddScoped<IQLTTNNContext, QLTTNNContext>();
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

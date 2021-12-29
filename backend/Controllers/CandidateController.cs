@@ -1,3 +1,5 @@
+using backend.Models;
+using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -7,16 +9,59 @@ namespace backend.Controllers
     public class CandidateController : ControllerBase
     {
         private readonly ILogger<CandidateController> _logger;
+        private readonly ICandidateRepository repository;
 
-        public CandidateController(ILogger<CandidateController> logger)
+        public CandidateController(ILogger<CandidateController> logger, ICandidateRepository repository)
         {
-            _logger = logger;
+            this._logger = logger;
+            this.repository = repository;
         }
 
         [HttpGet]
-        public String Get()
+        public IActionResult GetAll()
         {
-            return "Hello world!";
+            return Ok(this.repository.GetAll());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {   
+
+            return Ok(this.repository.Get(id));
+        }   
+
+        [HttpPost]
+        public IActionResult Create([FromBody]Candidate candidate)
+        {
+            return Ok(this.repository.Create(candidate));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                this.repository.Delete(id);
+                return Ok(id);
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody]Candidate candidate)
+        {
+            try
+            {
+                this.repository.Update(candidate);
+                return Ok(candidate);
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
         }
     }
 }
