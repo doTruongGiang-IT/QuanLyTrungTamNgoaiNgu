@@ -1,8 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+// using System.Data.Entity.Core;
+
 namespace backend.Models
 {
     public class Supervisor
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

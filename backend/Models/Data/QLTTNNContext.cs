@@ -12,5 +12,6 @@ namespace backend.Models.Data
         public DbSet<Supervisor> supervisors { get; set; }
         public DbSet<Room> rooms { get; set; }
         public DbSet<Examination> examinations { get; set; }
+        public DbSet<CandidateRoom> candidate_rooms { get; set; }
     }
 }
