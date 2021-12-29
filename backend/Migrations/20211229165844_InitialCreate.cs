@@ -82,6 +82,20 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "supervisor_rooms",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    supervisor_id = table.Column<int>(type: "integer", nullable: false),
+                    room_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_supervisor_rooms", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "supervisors",
                 columns: table => new
                 {
@@ -108,6 +122,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "rooms");
+
+            migrationBuilder.DropTable(
+                name: "supervisor_rooms");
 
             migrationBuilder.DropTable(
                 name: "supervisors");
