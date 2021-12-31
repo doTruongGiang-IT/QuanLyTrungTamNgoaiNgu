@@ -14,6 +14,7 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IExaminationRepository, ExaminationRepository>();
 builder.Services.AddScoped<ICandidateRoomRepository, CandidateRoomRepository>();
 builder.Services.AddScoped<ISupervisorRoomRepository, SupervisorRoomRepository>();
+builder.Services.AddScoped<IRegistrationFormRepository, RegistrationFormRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

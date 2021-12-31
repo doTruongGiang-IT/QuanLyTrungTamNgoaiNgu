@@ -12,7 +12,7 @@ using backend.Models.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(QLTTNNContext))]
-    [Migration("20211229165844_InitialCreate")]
+    [Migration("20211231120951_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,6 +107,10 @@ namespace backend.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("candidate_id");
+
+                    b.HasIndex("room_id");
+
                     b.ToTable("candidate_rooms");
                 });
 
@@ -128,6 +132,36 @@ namespace backend.Migrations
                     b.HasKey("id");
 
                     b.ToTable("examinations");
+                });
+
+            modelBuilder.Entity("backend.Models.RegistrationForm", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("candidate_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("examination_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("level")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("candidate_id");
+
+                    b.HasIndex("examination_id");
+
+                    b.ToTable("registration_forms");
                 });
 
             modelBuilder.Entity("backend.Models.Room", b =>
@@ -154,22 +188,24 @@ namespace backend.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("examination_id");
+
                     b.ToTable("rooms");
                 });
 
             modelBuilder.Entity("backend.Models.Supervisor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("supervisors");
                 });
@@ -190,7 +226,105 @@ namespace backend.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("room_id");
+
+                    b.HasIndex("supervisor_id");
+
                     b.ToTable("supervisor_rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.CandidateRoom", b =>
+                {
+                    b.HasOne("backend.Models.Candidate", "candidate")
+                        .WithMany("candidateRooms")
+                        .HasForeignKey("candidate_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Room", "room")
+                        .WithMany("candidateRooms")
+                        .HasForeignKey("room_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("candidate");
+
+                    b.Navigation("room");
+                });
+
+            modelBuilder.Entity("backend.Models.RegistrationForm", b =>
+                {
+                    b.HasOne("backend.Models.Candidate", "candidate")
+                        .WithMany("registrationForms")
+                        .HasForeignKey("candidate_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Examination", "examination")
+                        .WithMany("registrationForms")
+                        .HasForeignKey("examination_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("candidate");
+
+                    b.Navigation("examination");
+                });
+
+            modelBuilder.Entity("backend.Models.Room", b =>
+                {
+                    b.HasOne("backend.Models.Examination", "Examination")
+                        .WithMany("rooms")
+                        .HasForeignKey("examination_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Examination");
+                });
+
+            modelBuilder.Entity("backend.Models.SupervisorRoom", b =>
+                {
+                    b.HasOne("backend.Models.Room", "room")
+                        .WithMany("supervisorRooms")
+                        .HasForeignKey("room_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Supervisor", "supervisor")
+                        .WithMany("supervisorRooms")
+                        .HasForeignKey("supervisor_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("room");
+
+                    b.Navigation("supervisor");
+                });
+
+            modelBuilder.Entity("backend.Models.Candidate", b =>
+                {
+                    b.Navigation("candidateRooms");
+
+                    b.Navigation("registrationForms");
+                });
+
+            modelBuilder.Entity("backend.Models.Examination", b =>
+                {
+                    b.Navigation("registrationForms");
+
+                    b.Navigation("rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.Room", b =>
+                {
+                    b.Navigation("candidateRooms");
+
+                    b.Navigation("supervisorRooms");
+                });
+
+            modelBuilder.Entity("backend.Models.Supervisor", b =>
+                {
+                    b.Navigation("supervisorRooms");
                 });
 #pragma warning restore 612, 618
         }

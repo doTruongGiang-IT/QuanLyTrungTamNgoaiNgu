@@ -8,5 +8,9 @@ namespace backend.Models
         public int id { get; set; }
         public string name { get; set; }
         public DateTime date { get; set; }
+
+        public ICollection<RegistrationForm> registrationForms { get; set; }
+
+        public ICollection<Room> rooms { get; set; }
     }
 }

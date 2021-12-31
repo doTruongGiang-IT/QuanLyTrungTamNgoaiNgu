@@ -6,7 +6,8 @@ namespace backend.Models
     public class Supervisor
     {
         [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public ICollection<SupervisorRoom> supervisorRooms { get; set; }
     }
 }
