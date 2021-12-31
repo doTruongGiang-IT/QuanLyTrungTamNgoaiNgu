@@ -12,7 +12,7 @@ using backend.Models.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(QLTTNNContext))]
-    [Migration("20211231120951_InitialCreate")]
+    [Migration("20211231125023_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
