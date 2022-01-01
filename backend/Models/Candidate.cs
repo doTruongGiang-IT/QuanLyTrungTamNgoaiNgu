@@ -17,5 +17,9 @@ namespace backend.Models
         public DateTime date_of_birth { get; set; }
         public string place_of_birth { get; set; }
         public string phone { get; set; }
+
+        public ICollection<RegistrationForm> registrationForms { get; set; }
+
+        public ICollection<CandidateRoom> candidateRooms { get; set; }
     }
 }
