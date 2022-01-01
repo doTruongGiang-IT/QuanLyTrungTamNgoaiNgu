@@ -171,6 +171,25 @@ namespace backend.Migrations
 
                     b.ToTable("supervisors");
                 });
+
+            modelBuilder.Entity("backend.Models.SupervisorRoom", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<int>("room_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("supervisor_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("id");
+
+                    b.ToTable("supervisor_rooms");
+                });
 #pragma warning restore 612, 618
         }
     }

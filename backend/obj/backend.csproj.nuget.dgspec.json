@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/src/backend.csproj": {}
+    "C:\\Users\\kieud\\OneDrive\\Desktop\\Mô hình phân lớp\\Thi cuoi ki\\Do an thi cuoi ki\\QuanLyTrungTamNgoaiNgu\\backend\\backend.csproj": {}
   },
   "projects": {
-    "/src/backend.csproj": {
+    "C:\\Users\\kieud\\OneDrive\\Desktop\\Mô hình phân lớp\\Thi cuoi ki\\Do an thi cuoi ki\\QuanLyTrungTamNgoaiNgu\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/src/backend.csproj",
+        "projectUniqueName": "C:\\Users\\kieud\\OneDrive\\Desktop\\Mô hình phân lớp\\Thi cuoi ki\\Do an thi cuoi ki\\QuanLyTrungTamNgoaiNgu\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "/src/backend.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/src/obj/",
+        "projectPath": "C:\\Users\\kieud\\OneDrive\\Desktop\\Mô hình phân lớp\\Thi cuoi ki\\Do an thi cuoi ki\\QuanLyTrungTamNgoaiNgu\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\kieud\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kieud\\OneDrive\\Desktop\\Mô hình phân lớp\\Thi cuoi ki\\Do an thi cuoi ki\\QuanLyTrungTamNgoaiNgu\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\kieud\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
