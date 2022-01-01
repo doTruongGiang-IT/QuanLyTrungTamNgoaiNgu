@@ -1,0 +1,68 @@
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/appsettings.Development.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/appsettings.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/backend.exe
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/backend.deps.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/backend.runtimeconfig.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/backend.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/ref/backend.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/backend.pdb
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Humanizer.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Microsoft.OpenApi.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Npgsql.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.csproj.AssemblyReference.cache
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.AssemblyInfoInputs.cache
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.AssemblyInfo.cs
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.csproj.CoreCompileInputs.cache
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.MvcApplicationPartsAssemblyInfo.cs
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.MvcApplicationPartsAssemblyInfo.cache
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/staticwebassets.build.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/staticwebassets.development.json
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/scopedcss/bundle/backend.styles.css
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.csproj.CopyComplete
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/ref/backend.dll
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.pdb
+C:/Users/kieud/OneDrive/Desktop/Mô hình phân lớp/Thi cuoi ki/Do an thi cuoi ki/QuanLyTrungTamNgoaiNgu/backend/obj/Debug/net6.0/backend.genruntimeconfig.cache
+/src/bin/Debug/net6.0/appsettings.Development.json
+/src/bin/Debug/net6.0/appsettings.json
+/src/bin/Debug/net6.0/backend
+/src/bin/Debug/net6.0/backend.deps.json
+/src/bin/Debug/net6.0/backend.runtimeconfig.json
+/src/bin/Debug/net6.0/backend.dll
+/src/bin/Debug/net6.0/ref/backend.dll
+/src/bin/Debug/net6.0/backend.pdb
+/src/bin/Debug/net6.0/Humanizer.dll
+/src/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
+/src/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/src/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Design.dll
+/src/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll
+/src/bin/Debug/net6.0/Microsoft.OpenApi.dll
+/src/bin/Debug/net6.0/Npgsql.dll
+/src/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/src/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+/src/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/src/bin/Debug/net6.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/src/obj/Debug/net6.0/backend.csproj.AssemblyReference.cache
+/src/obj/Debug/net6.0/backend.GeneratedMSBuildEditorConfig.editorconfig
+/src/obj/Debug/net6.0/backend.AssemblyInfoInputs.cache
+/src/obj/Debug/net6.0/backend.AssemblyInfo.cs
+/src/obj/Debug/net6.0/backend.csproj.CoreCompileInputs.cache
+/src/obj/Debug/net6.0/backend.MvcApplicationPartsAssemblyInfo.cs
+/src/obj/Debug/net6.0/backend.MvcApplicationPartsAssemblyInfo.cache
+/src/obj/Debug/net6.0/staticwebassets.build.json
+/src/obj/Debug/net6.0/staticwebassets.development.json
+/src/obj/Debug/net6.0/scopedcss/bundle/backend.styles.css
+/src/obj/Debug/net6.0/backend.csproj.CopyComplete
+/src/obj/Debug/net6.0/backend.dll
+/src/obj/Debug/net6.0/ref/backend.dll
+/src/obj/Debug/net6.0/backend.pdb
+/src/obj/Debug/net6.0/backend.genruntimeconfig.cache

@@ -1,0 +1,27 @@
+version: "3.0"
+services:
+  ftpl-database:
+    image: postgres:latest
+    networks:
+      - ftpl_net
+    environment:
+      POSTGRES_DB: english_center_db
+      POSTGRES_USER: ftpl_user
+      POSTGRES_PASSWORD: asd123!@#
+    ports:
+      - 5433:5432
+
+  ftpl-backend:
+    image: ftpl_backend:latest
+    container_name: ftpl_backend
+    volumes:
+      - ./:/src
+    networks:
+      - ftpl_net
+    ports:
+      - "0.0.0.0:8079:5001"
+    depends_on:
+      - ftpl-database
+
+networks:
+  ftpl_net: null
