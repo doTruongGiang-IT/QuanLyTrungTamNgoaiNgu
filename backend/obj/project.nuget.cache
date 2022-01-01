@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Dxp0aPysSb+oPkge9G71lKGJg5bCohPM+rChZ3iDT5mIXQc330kkzq2mH65aJl8yrT2BADVvfZWeUZoCWhptYw==",
+  "dgSpecHash": "R5OJcqjq+JIoWpXQRuWO7KXnF59CQfeJEMXErBUYdpRQwbWLi+j0z2YW7ejRxGIVUb1jHllrHk1MNJkF+x77AQ==",
   "success": true,
   "projectFilePath": "/src/backend.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "/root/.nuget/packages/microsoft.entityframeworkcore.analyzers/6.0.1/microsoft.entityframeworkcore.analyzers.6.0.1.nupkg.sha512",
     "/root/.nuget/packages/microsoft.entityframeworkcore.design/6.0.1/microsoft.entityframeworkcore.design.6.0.1.nupkg.sha512",
     "/root/.nuget/packages/microsoft.entityframeworkcore.relational/6.0.1/microsoft.entityframeworkcore.relational.6.0.1.nupkg.sha512",
+    "/root/.nuget/packages/microsoft.entityframeworkcore.tools/6.0.1/microsoft.entityframeworkcore.tools.6.0.1.nupkg.sha512",
     "/root/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "/root/.nuget/packages/microsoft.extensions.caching.abstractions/6.0.0/microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "/root/.nuget/packages/microsoft.extensions.caching.memory/6.0.0/microsoft.extensions.caching.memory.6.0.0.nupkg.sha512",
