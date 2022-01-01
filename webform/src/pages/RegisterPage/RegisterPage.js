@@ -17,7 +17,7 @@ const RegisterPage = () => {
             <h1>Register Form</h1>
             <RegisterForm ref={registerFormRef} />
             <ReactToPrint
-                trigger={() => <Button type="primary">Register</Button>}
+                trigger={() => <Button type="primary">Print</Button>}
                 content={() => registerFormRef.current}
             />
         </div>
