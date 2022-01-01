@@ -10,6 +10,7 @@ builder.Services.AddDbContext<QLTTNNContext>(options => options.UseNpgsql(connec
 builder.Services.AddControllers();
 builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 builder.Services.AddScoped<ISupervisorRepository, SupervisorRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
