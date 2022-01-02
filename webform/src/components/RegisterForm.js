@@ -31,6 +31,46 @@ const formItemLayout = {
 
 const RegisterForm = React.forwardRef((props, ref) => {
     const [form] = Form.useForm();
+    let formValue = {
+        identityCard: "",
+        firstName: "",
+        lastName: "",
+        gender: "",
+        dayOfBirth: "",
+        placeOfBirth: "",
+        dayProvide: "",
+        placeProvide: "",
+        phoneNumber: "",
+        email: "",
+        level: ""
+    };
+
+    const onFinish = (values) => {
+        let dayOfBirth = document.evaluate('//*[@id="register_dayOfBirth"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        let dayProvide = document.evaluate('//*[@id="register_dayProvide"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        let gender = document.evaluate('//*[@id="register"]/div[5]/div[2]/div/div/div/div/span[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        let level = document.evaluate('//*[@id="register"]/div[8]/div[2]/div/div/div/div/span[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        
+        for(let key in formValue) {
+            if(values.target.id.includes(key)) {
+                formValue[key] = values.target.value;
+            };
+            if(dayOfBirth.title !== "") {
+                formValue.dayOfBirth = dayOfBirth.title;
+            };
+            if(dayProvide.title !== "") {
+                formValue.dayProvide = dayProvide.title;
+            };
+            if(gender.title !== "") {
+                formValue.gender = gender.title === "Nam" ? "male" : "female";
+            };
+            if(level.title !== "") {
+                formValue.level = level.title;
+            };
+        };
+
+        props.checkForm(formValue);
+    };
 
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
@@ -53,7 +93,7 @@ const RegisterForm = React.forwardRef((props, ref) => {
                 {...formItemLayout}
                 form={form}
                 name="register"
-                // onFinish={onFinish}
+                onChange={onFinish}
                 initialValues={{
                     prefix: '84',
                 }}
@@ -122,6 +162,52 @@ const RegisterForm = React.forwardRef((props, ref) => {
                 </Form.Item>
 
                 <Form.Item
+                    name="phoneNumber"
+                    label="Số điện thoại"
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Hãy nhập số điện thoại!',
+                    },
+                    ]}
+                >
+                    <Input
+                    addonBefore={prefixSelector}
+                    style={{
+                        width: '100%',
+                    }}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    name="email"
+                    label="E-mail"
+                    rules={[
+                    {
+                        type: 'email',
+                        message: 'Dữ liệu nhập vào không phải E-mail!',
+                    },
+                    {
+                        required: true,
+                        message: 'Hãy nhập E-mail!',
+                    },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    name="level"
+                    label="Trình độ đăng ký"
+                    rules={[{ required: true, message: 'Hãy chọn trình độ!' }]}
+                >
+                    <Select placeholder="Hãy chọn trình độ">
+                        <Option value="B1">B1</Option>
+                        <Option value="A2">A2</Option>
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
                     name="dayOfBirth"
                     label="Ngày sinh"
                     rules={[
@@ -171,52 +257,6 @@ const RegisterForm = React.forwardRef((props, ref) => {
                     ]}
                 >
                     <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="phoneNumber"
-                    label="Số điện thoại"
-                    rules={[
-                    {
-                        required: true,
-                        message: 'Hãy nhập số điện thoại!',
-                    },
-                    ]}
-                >
-                    <Input
-                    addonBefore={prefixSelector}
-                    style={{
-                        width: '100%',
-                    }}
-                    />
-                </Form.Item>
-
-                <Form.Item
-                    name="email"
-                    label="E-mail"
-                    rules={[
-                    {
-                        type: 'email',
-                        message: 'Dữ liệu nhập vào không phải E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Hãy nhập E-mail!',
-                    },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="level"
-                    label="Trình độ đăng ký"
-                    rules={[{ required: true, message: 'Hãy chọn trình độ!' }]}
-                >
-                    <Select placeholder="Hãy chọn trình độ">
-                        <Option value="B1">B1</Option>
-                        <Option value="A2">A2</Option>
-                    </Select>
                 </Form.Item>
             </Form>
         </div>
