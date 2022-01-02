@@ -11,18 +11,18 @@ const RegisterPage = () => {
     const dispatch = useDispatch();
     const registerState = useSelector(state => state.register);
     const registerFormRef = useRef();
-    const [disabled, setDisabled] = useState(true);
+    // const [disabled, setDisabled] = useState(true);
 
-    const checkForm = (formValue) => {
-        setDisabled(!Object.values(formValue).every(val => val !== ""));
-    };
+    // const checkForm = (formValue) => {
+    //     setDisabled(!Object.values(formValue).every(val => val !== ""));
+    // };
 
     return (
         <div className="register">
             <h1>Register Form</h1>
-            <RegisterForm ref={registerFormRef} checkForm={checkForm} />
+            <RegisterForm ref={registerFormRef} />
             <ReactToPrint
-                trigger={() => <Button type="primary" disabled={disabled}>Print</Button>}
+                trigger={() => <Button type="primary">Print</Button>}
                 content={() => registerFormRef.current}
             />
         </div>
