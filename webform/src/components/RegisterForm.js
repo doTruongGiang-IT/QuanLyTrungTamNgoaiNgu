@@ -93,7 +93,7 @@ const RegisterForm = React.forwardRef((props, ref) => {
                 {...formItemLayout}
                 form={form}
                 name="register"
-                onChange={onFinish}
+                // onChange={onFinish}
                 initialValues={{
                     prefix: '84',
                 }}
