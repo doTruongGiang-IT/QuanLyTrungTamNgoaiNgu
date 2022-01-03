@@ -44,5 +44,15 @@ namespace backend.Models.Repositories
             this.context.examinations.Update(examination);
             this.context.SaveChanges();
         }
+
+        public ExaminationDTO GetCurrent()
+        {
+            DateTime now = DateTime.Now;
+            var firstDayOfMonth = DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc);
+            var lastDayOfMonth = DateTime.SpecifyKind(firstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            Examination examination = this.context.examinations.SingleOrDefault(e => e.date >= firstDayOfMonth && e.date <= lastDayOfMonth);
+            
+            return examination.ConvertToExaminationDTO();
+        }
     }
 }

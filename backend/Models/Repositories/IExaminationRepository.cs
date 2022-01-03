@@ -9,5 +9,6 @@ namespace backend.Models.Repositories
          ExaminationDTO Create(ExaminationDTO examinationDTO);
          void Update(ExaminationDTO examinationDTO);
          void Delete(int id);
+         ExaminationDTO GetCurrent();
     }
 }

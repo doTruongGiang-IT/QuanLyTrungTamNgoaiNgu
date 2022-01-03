@@ -3,12 +3,14 @@ namespace backend.Models.DTOs
     public static class Mapper
     {
         public static Examination ConvertToExamination(this ExaminationDTO examinationDTO)
-        {
+        {   
+            DateTime olddate = DateTime.Parse(examinationDTO.date);
+            DateTime newdate = DateTime.SpecifyKind(olddate, DateTimeKind.Utc);
             return new Examination()
             {
                 id = examinationDTO.id,
                 name = examinationDTO.name,
-                date = examinationDTO.date
+                date = newdate
             };
         }
 
@@ -18,7 +20,7 @@ namespace backend.Models.DTOs
             {
                 id = examination.id,
                 name = examination.name,
-                date = examination.date
+                date = examination.date.ToString("yyyy'-'MM'-'dd")
             };
         }
 
@@ -29,17 +31,21 @@ namespace backend.Models.DTOs
 
         public static Candidate ConvertToCandidate(this CandidateDTO candidateDTO)
         {
+            DateTime issue_olddate = DateTime.Parse(candidateDTO.issue_date);
+            DateTime issue_newdate = DateTime.SpecifyKind(issue_olddate, DateTimeKind.Utc);
+            DateTime birth_olddate = DateTime.Parse(candidateDTO.date_of_birth);
+            DateTime birth_newdate = DateTime.SpecifyKind(birth_olddate, DateTimeKind.Utc);
             return new Candidate()
             {
                 id = candidateDTO.id,
                 identification = candidateDTO.identification,
-                issue_date = candidateDTO.issue_date,
+                issue_date = issue_newdate,
                 issue_place = candidateDTO.issue_place,
                 email = candidateDTO.email,
                 first_name = candidateDTO.first_name,
                 last_name = candidateDTO.last_name,
                 gender = candidateDTO.gender,
-                date_of_birth = candidateDTO.date_of_birth,
+                date_of_birth = birth_newdate,
                 place_of_birth = candidateDTO.place_of_birth,
                 phone = candidateDTO.phone
             };
@@ -51,13 +57,13 @@ namespace backend.Models.DTOs
             {
                 id = candidate.id,
                 identification = candidate.identification,
-                issue_date = candidate.issue_date,
+                issue_date = candidate.issue_date.ToString("yyyy'-'MM'-'dd"),
                 issue_place = candidate.issue_place,
                 email = candidate.email,
                 first_name = candidate.first_name,
                 last_name = candidate.last_name,
                 gender = candidate.gender,
-                date_of_birth = candidate.date_of_birth,
+                date_of_birth = candidate.date_of_birth.ToString("yyyy'-'MM'-'dd"),
                 place_of_birth = candidate.place_of_birth,
                 phone = candidate.phone
             };

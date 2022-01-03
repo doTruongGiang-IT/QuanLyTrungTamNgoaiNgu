@@ -64,5 +64,11 @@ namespace backend.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("current")]
+        public IActionResult GetCurrent()
+        {
+            return Ok(this.repository.GetCurrent());    
+        }
     }
 }

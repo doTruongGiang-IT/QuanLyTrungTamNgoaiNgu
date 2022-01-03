@@ -64,5 +64,12 @@ namespace backend.Controllers
                 return NotFound();
             }
         }
+
+        //truyen SBD tra ve phong thi, ket qua, thi sinh.
+        [HttpGet("information/{sbd}")]
+        public IActionResult GetInfor(string sbd)
+        {
+            return Ok(this.repository.GetInfor(sbd));
+        }
     }
 }
