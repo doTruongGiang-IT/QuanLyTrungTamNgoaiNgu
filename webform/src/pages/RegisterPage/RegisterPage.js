@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Button
 } from 'antd';
@@ -11,13 +11,18 @@ const RegisterPage = () => {
     const dispatch = useDispatch();
     const registerState = useSelector(state => state.register);
     const registerFormRef = useRef();
+    // const [disabled, setDisabled] = useState(true);
+
+    // const checkForm = (formValue) => {
+    //     setDisabled(!Object.values(formValue).every(val => val !== ""));
+    // };
 
     return (
         <div className="register">
             <h1>Register Form</h1>
             <RegisterForm ref={registerFormRef} />
             <ReactToPrint
-                trigger={() => <Button type="primary">Register</Button>}
+                trigger={() => <Button type="primary">Print</Button>}
                 content={() => registerFormRef.current}
             />
         </div>
