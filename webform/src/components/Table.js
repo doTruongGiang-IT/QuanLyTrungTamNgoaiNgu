@@ -1,38 +1,31 @@
 import React from 'react';
-import { Table, Space } from 'antd';
+import { Table } from 'antd';
 
 const TableComponent = ({tab, search}) => {
-    console.log(search);
     const columnsSchedule = [
         {
-            title: 'Examination',
-            dataIndex: 'examination',
-            key: 'examination',
-            width: '20%'
+            title: 'Candidate Number',
+            dataIndex: 'candidate_no',
+            key: 'candidate_no',
+            width: '25%'
         },
         {
             title: 'Level',
             dataIndex: 'level',
             key: 'level',
-            width: '20%'
+            width: '25%'
         },
         {
             title: 'Room',
             dataIndex: 'room',
             key: 'room',
-            width: '20%'
-        },
-        {
-            title: 'Date',
-            key: 'date',
-            dataIndex: 'date',
-            width: '20%'
+            width: '25%'
         },
         {
             title: 'Time',
             key: 'time',
             dataIndex: 'time',
-            width: '20%'
+            width: '25%'
         },
     ];
 
@@ -63,18 +56,46 @@ const TableComponent = ({tab, search}) => {
         },
     ];
 
+    const columnsCandidates = [
+        {
+            title: 'STT',
+            dataIndex: 'stt',
+            key: 'stt',
+            width: '25%'
+        },
+        {
+            title: 'Candidate Number',
+            dataIndex: 'candidate_no',
+            key: 'candidate_no',
+            width: '25%'
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            width: '25%'
+        },
+        {
+            title: 'Phone',
+            key: 'phone',
+            dataIndex: 'phone',
+            width: '25%'
+        },
+    ];
+
     const dataSchedule = [
         {
-            "examination": "Noel",
+            "key": 1,
+            "candidate_no": "A2001",
             "level": "A2",
             "room": "A2P06",
-            "date": "2019/10/24",
             "time": "morning"
         }
     ];
 
     const dataScore = [
         {
+            "key": 1,
             "listening": 8,
             "reading": 7.5,
             "writing": 6,
@@ -82,8 +103,32 @@ const TableComponent = ({tab, search}) => {
         }
     ];
 
+    const dataCandidates = [
+        {
+            "key": 1,
+            "stt": 1,
+            "candidate_no": "A2001",
+            "name": "Do Truong Giang",
+            "phone": "0776134908",
+        },
+        {
+            "key": 2,
+            "stt": 2,
+            "candidate_no": "A2002",
+            "name": "Luu Thanh Dat",
+            "phone": "0907236436",
+        },
+        {
+            "key": 3,
+            "stt": 3,
+            "candidate_no": "A2003",
+            "name": "Le Dang Khanh Dung",
+            "phone": "0802436845",
+        },
+    ];
+
     return (
-        <Table columns={tab === "schedule" ? columnsSchedule : columnsScore} dataSource={tab === "schedule" ? dataSchedule : dataScore} pagination={false} />
+        <Table columns={tab === "schedule" ? columnsSchedule : (tab === "score" ? columnsScore : columnsCandidates)} dataSource={tab === "schedule" ? dataSchedule : (tab === "score" ? dataScore : dataCandidates)} pagination={false} />
     )
 }
 
