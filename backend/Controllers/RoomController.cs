@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +32,9 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]Room room)
+        public IActionResult Create([FromBody]RoomDTO roomDTO)
         {
-            return Ok(this.repository.Create(room));
+            return Ok(this.repository.Create(roomDTO));
         }
 
         [HttpDelete("{id}")]
@@ -51,12 +52,12 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Room room)
+        public IActionResult Update([FromBody]RoomDTO roomDTO)
         {
             try
             {
-                this.repository.Update(room);
-                return Ok(room);
+                this.repository.Update(roomDTO);
+                return Ok(roomDTO);
             }
             catch(Exception ex)
             {

@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -11,22 +12,24 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public IEnumerable<Supervisor> GetAll()
+        public IEnumerable<SupervisorDTO> GetAll()
         {
-            return this.context.supervisors.ToList();
+            return this.context.supervisors.ToList().ConverToSupervisorDTO();
         }
-        public Supervisor Get(int id)
+        public SupervisorDTO Get(int id)
         {
-            return this.context.supervisors.Find(id);
+            return this.context.supervisors.Find(id).ConverToSupervisorDTO();
         }
-        public Supervisor Create(Supervisor supervisor)
+        public SupervisorDTO Create(SupervisorDTO supervisorDTO)
         {
+            Supervisor supervisor = supervisorDTO.ConvertToSupervisor();
             this.context.supervisors.Add(supervisor);
             this.context.SaveChanges();
-            return supervisor;
+            return supervisorDTO;
         }
-        public void Update(Supervisor supervisor)
+        public void Update(SupervisorDTO supervisorDTO)
         {
+            Supervisor supervisor = supervisorDTO.ConvertToSupervisor();
             this.context.supervisors.Update(supervisor);
             this.context.SaveChanges();
         }

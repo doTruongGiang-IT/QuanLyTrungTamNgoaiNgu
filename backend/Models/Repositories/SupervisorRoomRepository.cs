@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -10,22 +11,24 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public IEnumerable<SupervisorRoom> GetAll()
+        public IEnumerable<SupervisorRoomDTO> GetAll()
         {
-            return this.context.supervisor_rooms.ToList();
+            return this.context.supervisor_rooms.ToList().ConvertToSupervisorRoomDTO();
         }
-        public SupervisorRoom Get(int id)
+        public SupervisorRoomDTO Get(int id)
         {
-            return this.context.supervisor_rooms.Find(id);
+            return this.context.supervisor_rooms.Find(id).ConvertToSupervisorRoomDTO();
         }
-        public SupervisorRoom Create(SupervisorRoom supervisorRoom)
+        public SupervisorRoomDTO Create(SupervisorRoomDTO supervisorRoomDTO)
         {
+            SupervisorRoom supervisorRoom = supervisorRoomDTO.ConvertToSupervisorRoom();
             this.context.supervisor_rooms.Add(supervisorRoom);
             this.context.SaveChanges();
-            return supervisorRoom;
+            return supervisorRoomDTO;
         }
-        public void Update(SupervisorRoom supervisorRoom)
+        public void Update(SupervisorRoomDTO supervisorRoomDTO)
         {
+            SupervisorRoom supervisorRoom = supervisorRoomDTO.ConvertToSupervisorRoom();
             this.context.supervisor_rooms.Update(supervisorRoom);
             this.context.SaveChanges();
         }

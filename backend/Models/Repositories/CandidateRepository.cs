@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -10,11 +11,12 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public Candidate Create(Candidate candidate)
+        public CandidateDTO Create(CandidateDTO candidateDTO)
         {
-            var result = this.context.candidates.Add(candidate);
+            Candidate candidate = candidateDTO.ConvertToCandidate();
+            this.context.candidates.Add(candidate);
             this.context.SaveChanges();
-            return candidate;
+            return candidateDTO;
 ;
         }
 
@@ -25,18 +27,19 @@ namespace backend.Models.Repositories
             this.context.SaveChanges();
         }
 
-        public Candidate Get(int id)
+        public CandidateDTO Get(int id)
         {
-            return this.context.candidates.Find(id);
+            CandidateDTO candidateDTO = this.context.candidates.Find(id).ConvertToCandidateDTO();
+            return candidateDTO;
         }
 
-        public IEnumerable<Candidate> GetAll()
+        public IEnumerable<CandidateDTO> GetAll()
         {
-            return this.context.candidates.ToList();
+            return this.context.candidates.ToList().ConvertToCandidateDTO();
         }
 
-        public void Update(Candidate candidate)
-        {   
+        public void Update(CandidateDTO candidateDTO)
+        {   Candidate candidate = candidateDTO.ConvertToCandidate();
             this.context.candidates.Update(candidate);
             this.context.SaveChanges();
         }

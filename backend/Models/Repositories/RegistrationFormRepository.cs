@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -10,22 +11,24 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public IEnumerable<RegistrationForm> GetAll()
+        public IEnumerable<RegistrationFormDTO> GetAll()
         {
-            return this.context.registration_forms.ToList();
+            return this.context.registration_forms.ToList().ConvertToRegistrationFormDTO();
         }
-        public RegistrationForm Get(int id)
+        public RegistrationFormDTO Get(int id)
         {
-            return this.context.registration_forms.Find(id);
+            return this.context.registration_forms.Find(id).ConvertToRegistrationFormDTO();
         }
-        public RegistrationForm Create(RegistrationForm registrationForm)
+        public RegistrationFormDTO Create(RegistrationFormDTO registrationFormDTO)
         {
+            RegistrationForm registrationForm = registrationFormDTO.ConvertToRegistrationForm();
             this.context.registration_forms.Add(registrationForm);
             this.context.SaveChanges();
-            return registrationForm;
+            return registrationFormDTO;
         }
-        public void Update(RegistrationForm registrationForm)
+        public void Update(RegistrationFormDTO registrationFormDTO)
         {
+            RegistrationForm registrationForm = registrationFormDTO.ConvertToRegistrationForm();
             this.context.registration_forms.Update(registrationForm);
             this.context.SaveChanges();
         }
