@@ -22,9 +22,10 @@ namespace backend.Models.Repositories
         public RoomDTO Create(RoomDTO roomDTO)
         {
             Room room = roomDTO.ConvertToRoom();
-            this.context.rooms.Add(room);
+            var result = this.context.rooms.Add(room);
             this.context.SaveChanges();
-            return roomDTO;
+            RoomDTO roomDTOResult = result.Entity.ConvertToRoomDTO();
+            return roomDTOResult;
         }
         public void Update(RoomDTO roomDTO)
         {

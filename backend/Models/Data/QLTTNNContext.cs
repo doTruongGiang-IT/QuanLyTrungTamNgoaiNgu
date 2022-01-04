@@ -18,7 +18,8 @@ namespace backend.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => new {c.identification, c.email, c.phone}).IsUnique();
         }
     }
 }

@@ -22,9 +22,10 @@ namespace backend.Models.Repositories
         public SupervisorRoomDTO Create(SupervisorRoomDTO supervisorRoomDTO)
         {
             SupervisorRoom supervisorRoom = supervisorRoomDTO.ConvertToSupervisorRoom();
-            this.context.supervisor_rooms.Add(supervisorRoom);
+            var result = this.context.supervisor_rooms.Add(supervisorRoom);
             this.context.SaveChanges();
-            return supervisorRoomDTO;
+            SupervisorRoomDTO supervisorRoomDTOResult = result.Entity.ConvertToSupervisorRoomDTO();
+            return supervisorRoomDTOResult;
         }
         public void Update(SupervisorRoomDTO supervisorRoomDTO)
         {

@@ -22,9 +22,10 @@ namespace backend.Models.Repositories
         public RegistrationFormDTO Create(RegistrationFormDTO registrationFormDTO)
         {
             RegistrationForm registrationForm = registrationFormDTO.ConvertToRegistrationForm();
-            this.context.registration_forms.Add(registrationForm);
+            var result = this.context.registration_forms.Add(registrationForm);
             this.context.SaveChanges();
-            return registrationFormDTO;
+            RegistrationFormDTO registrationFormDTOResult = result.Entity.ConvertToRegistrationFormDTO();
+            return registrationFormDTOResult;
         }
         public void Update(RegistrationFormDTO registrationFormDTO)
         {

@@ -14,9 +14,25 @@ namespace backend.Models.Repositories
         public ExaminationDTO Create(ExaminationDTO examinationDTO)
         {
             Examination examination = examinationDTO.ConvertToExamination();
+            DateTime now = DateTime.Now;
+            // var firstDayOfMonth = DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc);
+            // var lastDayOfMonth = DateTime.SpecifyKind(firstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            if(DateTime.Compare(examination.date, now) < 0)
+            {
+                return null;
+            }
+            var examfirstDayOfMonth = DateTime.SpecifyKind(new DateTime(examination.date.Year, examination.date.Month, 1), DateTimeKind.Utc);
+            var examlastDayOfMonth = DateTime.SpecifyKind(examfirstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            var checkExam = this.context.examinations.Where(e => e.date >= examfirstDayOfMonth && e.date <= examlastDayOfMonth).FirstOrDefault();
+            if(checkExam != null)
+            {
+
+                return null;
+            }
             var result = this.context.examinations.Add(examination);
             this.context.SaveChanges();
-            return examinationDTO;
+            ExaminationDTO examinationDTOResult = result.Entity.ConvertToExaminationDTO();
+            return examinationDTOResult;
 ;
         }
 
