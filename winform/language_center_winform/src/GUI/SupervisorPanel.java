@@ -24,6 +24,7 @@ public class SupervisorPanel extends JPanel {
 	private JTable tableSupervisor;
 	private JTextField textSupervisorName;
 	private JTextField textSearch;
+	private JTextField textSupervisorId;
 
 	/**
 	 * Create the panel.
@@ -50,23 +51,42 @@ public class SupervisorPanel extends JPanel {
 		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
+		JLabel lblNewLabel = new JLabel("Supervisor Id");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		panel_3.add(lblNewLabel, gbc_lblNewLabel);
+		
+		textSupervisorId = new JTextField();
+		textSupervisorId.setEditable(false);
+		GridBagConstraints gbc_textSupervisorId = new GridBagConstraints();
+		gbc_textSupervisorId.insets = new Insets(0, 0, 5, 5);
+		gbc_textSupervisorId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textSupervisorId.gridx = 1;
+		gbc_textSupervisorId.gridy = 0;
+		panel_3.add(textSupervisorId, gbc_textSupervisorId);
+		textSupervisorId.setColumns(10);
+		
 		JLabel lblSupervisorName = new JLabel("Supervisor Name");
 		lblSupervisorName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblSupervisorName = new GridBagConstraints();
 		gbc_lblSupervisorName.weightx = 0.3;
 		gbc_lblSupervisorName.anchor = GridBagConstraints.WEST;
-		gbc_lblSupervisorName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSupervisorName.insets = new Insets(0, 0, 0, 5);
 		gbc_lblSupervisorName.gridx = 0;
-		gbc_lblSupervisorName.gridy = 0;
+		gbc_lblSupervisorName.gridy = 1;
 		panel_3.add(lblSupervisorName, gbc_lblSupervisorName);
 		
 		textSupervisorName = new JTextField();
 		textSupervisorName.setColumns(10);
 		GridBagConstraints gbc_textSupervisorName = new GridBagConstraints();
 		gbc_textSupervisorName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textSupervisorName.insets = new Insets(0, 0, 5, 5);
+		gbc_textSupervisorName.insets = new Insets(0, 0, 0, 5);
 		gbc_textSupervisorName.gridx = 1;
-		gbc_textSupervisorName.gridy = 0;
+		gbc_textSupervisorName.gridy = 1;
 		panel_3.add(textSupervisorName, gbc_textSupervisorName);
 		
 		JPanel panel_2 = new JPanel();

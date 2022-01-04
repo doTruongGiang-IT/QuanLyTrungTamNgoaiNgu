@@ -218,17 +218,9 @@ public class ResultPanel extends JPanel {
 		panel_5.add(panel_8);
 		panel_8.setLayout(new GridLayout(0, 10, 0, 0));
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_8.add(btnAdd);
-		
-		JButton btnChange = new JButton("Change");
-		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_8.add(btnChange);
-		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_8.add(btnDelete);
+		JButton btnApply = new JButton("Apply");
+		btnApply.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_8.add(btnApply);
 		
 		JPanel panel_7 = new JPanel();
 		panel_5.add(panel_7);

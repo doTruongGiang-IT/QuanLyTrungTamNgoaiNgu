@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RoomPanel extends JPanel {
 	private JTable table;
@@ -169,24 +171,38 @@ public class RoomPanel extends JPanel {
 		
 		JPanel panel_5 = new JPanel();
 		panel_4.add(panel_5);
-		panel_5.setLayout(new GridLayout(0, 10, 0, 0));
+		GridBagLayout gbl_panel_5 = new GridBagLayout();
+		gbl_panel_5.columnWidths = new int[] {200, 50, 0};
+		gbl_panel_5.rowHeights = new int[] {50};
+		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_5.rowWeights = new double[]{0.0};
+		panel_5.setLayout(gbl_panel_5);
 		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_5.add(btnAdd);
-		
-		JButton btnChange = new JButton("Change");
-		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_5.add(btnChange);
-		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_5.add(btnDelete);
-		
-		JButton btnGenerateRoom = new JButton("Generate");
+		JButton btnGenerateRoom = new JButton("Generate Room for Examination");
+		btnGenerateRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnGenerateRoom.setToolTipText("Create Room for this Examination");
 		btnGenerateRoom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_5.add(btnGenerateRoom);
+		GridBagConstraints gbc_btnGenerateRoom = new GridBagConstraints();
+		gbc_btnGenerateRoom.fill = GridBagConstraints.BOTH;
+		gbc_btnGenerateRoom.insets = new Insets(0, 0, 0, 5);
+		gbc_btnGenerateRoom.gridx = 0;
+		gbc_btnGenerateRoom.gridy = 0;
+		panel_5.add(btnGenerateRoom, gbc_btnGenerateRoom);
+		
+		JButton btnChange = new JButton("Change");
+		btnChange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnChange = new GridBagConstraints();
+		gbc_btnChange.fill = GridBagConstraints.BOTH;
+		gbc_btnChange.gridx = 1;
+		gbc_btnChange.gridy = 0;
+		panel_5.add(btnChange, gbc_btnChange);
 		
 		JPanel panel_6 = new JPanel();
 		panel_4.add(panel_6);

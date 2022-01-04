@@ -120,10 +120,6 @@ public class CandidatePanel extends JPanel {
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnAdd);
 		
-		JButton btnChange = new JButton("Change");
-		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel_4.add(btnChange);
-		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnDelete);
