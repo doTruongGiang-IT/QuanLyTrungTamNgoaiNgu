@@ -23,9 +23,10 @@ namespace backend.Models.Repositories
         public SupervisorDTO Create(SupervisorDTO supervisorDTO)
         {
             Supervisor supervisor = supervisorDTO.ConvertToSupervisor();
-            this.context.supervisors.Add(supervisor);
+            var result = this.context.supervisors.Add(supervisor);
             this.context.SaveChanges();
-            return supervisorDTO;
+            SupervisorDTO supervisorDTOResult = result.Entity.ConverToSupervisorDTO();
+            return supervisorDTOResult;
         }
         public void Update(SupervisorDTO supervisorDTO)
         {

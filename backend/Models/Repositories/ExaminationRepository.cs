@@ -29,9 +29,10 @@ namespace backend.Models.Repositories
 
                 return null;
             }
-            this.context.examinations.Add(examination);
+            var result = this.context.examinations.Add(examination);
             this.context.SaveChanges();
-            return examinationDTO;
+            ExaminationDTO examinationDTOResult = result.Entity.ConvertToExaminationDTO();
+            return examinationDTOResult;
 ;
         }
 

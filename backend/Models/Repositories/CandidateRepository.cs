@@ -14,9 +14,10 @@ namespace backend.Models.Repositories
         public CandidateDTO Create(CandidateDTO candidateDTO)
         {
             Candidate candidate = candidateDTO.ConvertToCandidate();
-            this.context.candidates.Add(candidate);
+            var result = this.context.candidates.Add(candidate);
             this.context.SaveChanges();
-            return candidateDTO;
+            CandidateDTO candidateDTOReusult = result.Entity.ConvertToCandidateDTO();
+            return candidateDTOReusult;
 ;
         }
 

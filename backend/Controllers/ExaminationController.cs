@@ -40,7 +40,7 @@ namespace backend.Controllers
                 {
                     return BadRequest();
                 }
-                return Ok();
+                return Ok(checkExam);
             }
             catch(Exception ex)
             {
