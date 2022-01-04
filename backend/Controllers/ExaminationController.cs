@@ -38,7 +38,7 @@ namespace backend.Controllers
                 var checkExam = this.repository.Create(examinationDTO);
                 if(checkExam == null)
                 {
-                    return StatusCode(500);
+                    return BadRequest();
                 }
                 return Ok();
             }
