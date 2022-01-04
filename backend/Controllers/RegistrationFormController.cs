@@ -34,7 +34,16 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]RegistrationFormDTO registrationFormDTO)
         {
-            return Ok(this.repository.Create(registrationFormDTO));
+            try
+            {
+                RegistrationFormDTO checkRegFr = this.repository.Create(registrationFormDTO);
+                return Ok(checkRegFr);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpDelete("{id}")]

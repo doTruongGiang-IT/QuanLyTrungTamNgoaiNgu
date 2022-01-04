@@ -34,7 +34,15 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]SupervisorRoomDTO supervisorRoomDTO)
         {
-            return Ok(this.repository.Create(supervisorRoomDTO));
+             try
+            {
+                SupervisorRoomDTO checkSupRoo = this.repository.Create(supervisorRoomDTO);
+                return Ok(checkSupRoo);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]

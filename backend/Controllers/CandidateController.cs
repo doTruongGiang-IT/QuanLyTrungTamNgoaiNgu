@@ -34,7 +34,15 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]CandidateDTO candidateDTO)
         {
-            return Ok(this.repository.Create(candidateDTO));
+            try
+            {
+                CandidateDTO candidate = this.repository.Create(candidateDTO);
+                return Ok(candidate);
+            }catch(Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpDelete("{id}")]

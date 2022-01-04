@@ -34,7 +34,18 @@ namespace backend.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]ExaminationDTO examinationDTO)
         {
-            return Ok(this.repository.Create(examinationDTO));
+            try{
+                var checkExam = this.repository.Create(examinationDTO);
+                if(checkExam == null)
+                {
+                    return StatusCode(500);
+                }
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -68,7 +79,14 @@ namespace backend.Controllers
         [HttpGet("current")]
         public IActionResult GetCurrent()
         {
-            return Ok(this.repository.GetCurrent());    
+            try{
+                var examination =  this.repository.GetCurrent();
+                return Ok(examination);
+            }catch(Exception ex)
+            {
+                return StatusCode(500);
+            }
+                
         }
     }
 }
