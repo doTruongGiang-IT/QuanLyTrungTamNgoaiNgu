@@ -12,71 +12,58 @@ import DTO.ExaminationDTO;
 public class ExaminationDAO {
 
 	private List<ExaminationDTO> examinations = null;
-	private String API_URL = "";
 	
 	public ExaminationDAO() {};
 	
-	public List<ExaminationDTO> getExaminations() throws Exception {
+	public List<ExaminationDTO> getExaminations() {
 		examinations = new ArrayList<ExaminationDTO>();
-		HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .GET()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+//		HttpClient client = HttpClient.newHttpClient();
+//	    HttpRequest request = HttpRequest.newBuilder()
+//	            .uri(new URI(API_URL))
+//	            .headers("Content-Type", "application/json;charset=UTF-8")
+//	            .GET()
+//	            .build();
+//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//        JSONObject responseObj = new JSONObject(response.body().toString());
+//        System.out.println(responseObj);
         return examinations;
     };
     
-    public ExaminationDTO getExamination(int id) throws Exception {
-    	HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .GET()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
-        return null;
+    public ExaminationDTO getExamination(int id) {
+    	ExaminationDTO examinationDTO = null;
+    	ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("Examination/"+String.valueOf(id), "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		examinationDTO = new ExaminationDTO(res.data);
+    	}else {
+    		examinationDTO = null;
+    	};
+        return examinationDTO;
     };
     
-    public void insert(ExaminationDTO examination) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .POST(HttpRequest.BodyPublishers.ofString(examination.toString()))
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    public void insert(ExaminationDTO examination) {
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Examination", "POST", examination.toString());
     };
     
     public void update(ExaminationDTO examination) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .PUT(HttpRequest.BodyPublishers.ofString(examination.toString()))
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Examination", "PUT", examination.toString());
     };
     
     public void delete(int id) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .DELETE()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Examination/"+String.valueOf(id), "DELETE", null);
     };
+    
+    public static void main(String args[]) {
+		ExaminationDAO examDAO = new ExaminationDAO();
+		ExaminationDTO dto = examDAO.getExamination(1);
+		if(dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getName());
+			System.out.println(dto.getDate());
+		};
+	};
    
 }

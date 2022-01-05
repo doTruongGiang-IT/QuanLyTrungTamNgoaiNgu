@@ -35,17 +35,20 @@ public class RoomBUS {
         return room;
     };
     
-    public void insert(RoomDTO room) throws Exception {
+    public boolean insert(RoomDTO room) {
     	try{
     		roomDAO.insert(room);
             rooms.add(room);
+            return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert room error");
+			return false;
+		}
     };
     
-    public void update(RoomDTO room) throws Exception {
+    public boolean update(RoomDTO room) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < rooms.size(); i++) {
             if((rooms.get(i)).getId() == room.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class RoomBUS {
         	try{
         		roomDAO.update(room);
                 rooms.set(index, room);
+                result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update examination error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for (int i = 0; i < rooms.size(); i++) {
             if ((rooms.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class RoomBUS {
         	try {
         		roomDAO.delete(id);
         		rooms.remove(index);
+        		result = true;
     		} catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete examination error");
     		};
         };
+        return result;
     };
     
     public List<RoomDTO> search(String name) {

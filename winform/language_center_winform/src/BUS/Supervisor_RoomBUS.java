@@ -38,17 +38,20 @@ public class Supervisor_RoomBUS {
         return supervisor_room;
     };
     
-    public void insert(Supervisor_RoomDTO supervisor_room) throws Exception {
+    public boolean insert(Supervisor_RoomDTO supervisor_room) {
     	try{
     		supervisor_roomDAO.insert(supervisor_room);
     		supervisor_rooms.add(supervisor_room);
+    		return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert supervisor_room error");
+			return false;
+		}
     };
     
-    public void update(Supervisor_RoomDTO supervisor_room) throws Exception {
+    public boolean update(Supervisor_RoomDTO supervisor_room) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < supervisor_rooms.size(); i++) {
             if((supervisor_rooms.get(i)).getId() == supervisor_room.getId()) {
             	index = i;
@@ -59,14 +62,17 @@ public class Supervisor_RoomBUS {
         	try{
         		supervisor_roomDAO.update(supervisor_room);
         		supervisor_rooms.set(index, supervisor_room);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update supervisor_room error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < supervisor_rooms.size(); i++) {
             if((supervisor_rooms.get(i)).getId() == id) {
             	index = i;
@@ -76,10 +82,12 @@ public class Supervisor_RoomBUS {
         	try{
         		supervisor_roomDAO.delete(id);
         		supervisor_rooms.remove(index);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete supervisor_room error");
     		};
         };
+        return result;
     };
     
     public List<Supervisor_RoomDTO> search(String name) {

@@ -35,17 +35,20 @@ public class ExaminationBUS {
         return examination;
     };
     
-    public void insert(ExaminationDTO examination) throws Exception {
+    public boolean insert(ExaminationDTO examination) {
     	try{
     		examinationDAO.insert(examination);
             examinations.add(examination);
+            return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert examination error");
+			return false;
+		}
     };
     
-    public void update(ExaminationDTO examination) throws Exception {
+    public boolean update(ExaminationDTO examination) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < examinations.size(); i++) {
             if((examinations.get(i)).getId() == examination.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class ExaminationBUS {
         	try{
         		examinationDAO.update(examination);
                 examinations.set(index, examination);
+                result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
-    		};
+    			System.out.println("Update examination error");
+    		}
         };
+		return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < examinations.size(); i++) {
             if((examinations.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class ExaminationBUS {
         	try{
         		examinationDAO.delete(id);
                 examinations.remove(index);
+                result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
-    		};
+    			System.out.println("Delete examination error");
+    		}
         };
+        return result;
     };
     
     public List<ExaminationDTO> search(String name) {

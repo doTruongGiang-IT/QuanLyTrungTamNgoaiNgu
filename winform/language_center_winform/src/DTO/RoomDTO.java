@@ -1,5 +1,8 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RoomDTO {
 	private int id;
 	private int examination_id;
@@ -7,7 +10,19 @@ public class RoomDTO {
 	private String level;
 	private boolean time;
 	
-	public RoomDTO() {}
+	public RoomDTO() {};
+	
+	public RoomDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.examination_id = data.getInt("examination_id");
+			this.name = data.getString("name");
+			this.level = data.getString("level");
+			this.time = data.getBoolean("time");
+		} catch (JSONException e) {
+			System.out.println("Room error convert json -> dto");
+		}
+	};
 
 	public RoomDTO(int id, int examination_id, String name, String level, boolean time) {
 		super();
