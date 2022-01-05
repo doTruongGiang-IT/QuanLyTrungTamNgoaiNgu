@@ -35,17 +35,20 @@ public class Candidate_RoomBUS {
         return candidate_room;
     };
     
-    public void insert(Candidate_RoomDTO candidate_room) throws Exception {
+    public boolean insert(Candidate_RoomDTO candidate_room) {
     	try{
     		candidate_roomDAO.insert(candidate_room);
     		candidate_rooms.add(candidate_room);
+    		return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert caniddate_room error");
+			return false;
+		}
     };
     
-    public void update(Candidate_RoomDTO candidate_room) throws Exception {
+    public boolean update(Candidate_RoomDTO candidate_room) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < candidate_rooms.size(); i++) {
             if((candidate_rooms.get(i)).getId() == candidate_room.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class Candidate_RoomBUS {
         	try{
         		candidate_roomDAO.update(candidate_room);
         		candidate_rooms.set(index, candidate_room);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update caniddate_room error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < candidate_rooms.size(); i++) {
             if((candidate_rooms.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class Candidate_RoomBUS {
         	try{
         		candidate_roomDAO.delete(id);
         		candidate_rooms.remove(index);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete caniddate_room error");
     		};
         };
+        return result;
     };
     
     public Candidate_RoomDTO search(int identification) {

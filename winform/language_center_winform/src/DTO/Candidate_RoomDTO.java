@@ -1,5 +1,8 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Candidate_RoomDTO {
 
 	private int id;
@@ -11,7 +14,22 @@ public class Candidate_RoomDTO {
 	private float score_speaking;
 	private float score_reading;
 	
-	public Candidate_RoomDTO() {}
+	public Candidate_RoomDTO() {};
+	
+	public Candidate_RoomDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.candidate_id = data.getInt("candidate_id");
+			this.room_id = data.getInt("room_id");
+			this.candidate_no = data.getString("candidate_no");
+			this.score_listening = (float) data.getDouble("score_listening");
+			this.score_writing = (float) data.getDouble("score_writing");
+			this.score_speaking = (float) data.getDouble("score_speaking");
+			this.score_reading = (float) data.getDouble("score_reading");
+		} catch (JSONException e) {
+			System.out.println("Supervisor_room error convert json -> dto");
+		}
+	};
 
 	public Candidate_RoomDTO(int id, int candidate_id, int room_id, String candidate_no, float score_listening,
 			float score_writing, float score_speaking, float score_reading) {

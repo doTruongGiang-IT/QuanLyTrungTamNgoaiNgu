@@ -35,17 +35,20 @@ public class Registration_FormsBUS {
         return registration_form;
     };
     
-    public void insert(Registration_FormsDTO registration_form) throws Exception {
+    public boolean insert(Registration_FormsDTO registration_form) {
     	try{
     		registration_formDAO.insert(registration_form);
     		registration_forms.add(registration_form);
+    		return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert registration form error");
+			return false;
+		}
     };
     
-    public void update(Registration_FormsDTO registration_form) throws Exception {
+    public boolean update(Registration_FormsDTO registration_form) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < registration_forms.size(); i++) {
             if((registration_forms.get(i)).getId() == registration_form.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class Registration_FormsBUS {
         	try{
         		registration_formDAO.update(registration_form);
         		registration_forms.set(index, registration_form);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update registration form error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < registration_forms.size(); i++) {
             if((registration_forms.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class Registration_FormsBUS {
         	try{
         		registration_formDAO.delete(id);
         		registration_forms.remove(index);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete registration form error");
     		};
         };
+        return result;
     };
 	
 }

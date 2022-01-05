@@ -1,5 +1,8 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CandidateDTO {
 
 	private int id;
@@ -14,7 +17,25 @@ public class CandidateDTO {
 	private String place_of_birth;
 	private String phone;
 	
-	public CandidateDTO() {}
+	public CandidateDTO() {};
+	
+	public CandidateDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.identification = data.getString("identification");
+			this.first_name = data.getString("first_name");
+			this.last_name = data.getString("last_name");
+			this.email = data.getString("email");
+			this.gender = data.getString("gender");
+			this.day_of_birth = data.getString("day_of_birth");
+			this.place_of_birth = data.getString("place_of_birth");
+			this.issue_date = data.getString("issue_date");
+			this.issue_place = data.getString("issue_place");
+			this.phone = data.getString("phone");
+		} catch (JSONException e) {
+			System.out.println("Candidate error convert json -> dto");
+		}
+	};
 
 	public CandidateDTO(int id, String identification, String issue_date, String issue_place, String first_name,
 			String last_name, String email, String gender, String day_of_birth, String place_of_birth, String phone) {
