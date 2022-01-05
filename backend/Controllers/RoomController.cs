@@ -21,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetAll().Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
