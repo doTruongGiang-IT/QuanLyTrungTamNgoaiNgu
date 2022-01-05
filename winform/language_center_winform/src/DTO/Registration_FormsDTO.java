@@ -1,5 +1,8 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Registration_FormsDTO {
 
 	private int id;
@@ -8,7 +11,19 @@ public class Registration_FormsDTO {
 	private String level;
 	private boolean status;
 	
-	public Registration_FormsDTO() {}
+	public Registration_FormsDTO() {};
+	
+	public Registration_FormsDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.candidate_id = data.getInt("candidate_id");
+			this.examination_id = data.getInt("examination_id");
+			this.level = data.getString("level");
+			this.status = data.getBoolean("status");
+		} catch (JSONException e) {
+			System.out.println("Supervisor error convert json -> dto");
+		}
+	};
 
 	public Registration_FormsDTO(int id, int candidate_id, int examination_id, String level, boolean status) {
 		super();
