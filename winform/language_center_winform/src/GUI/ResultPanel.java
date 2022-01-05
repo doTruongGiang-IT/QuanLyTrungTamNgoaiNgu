@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
@@ -18,6 +20,13 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class ResultPanel extends JPanel {
 	private JTable table;
@@ -30,6 +39,8 @@ public class ResultPanel extends JPanel {
 	private JTextField textCandidateId;
 	private JTextField textCandidateno;
 	private JTextField textRoomId;
+	public JComboBox<String> comboBoxExamination;
+	public JComboBox<String> comboBoxRoom;
 
 	/**
 	 * Create the panel.
@@ -224,10 +235,10 @@ public class ResultPanel extends JPanel {
 		
 		JPanel panel_7 = new JPanel();
 		panel_5.add(panel_7);
-		panel_7.setLayout(new BorderLayout(0, 0));
+		panel_7.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JPanel panel_6_1 = new JPanel();
-		panel_7.add(panel_6_1, BorderLayout.SOUTH);
+		panel_7.add(panel_6_1);
 		GridBagLayout gbl_panel_6_1 = new GridBagLayout();
 		gbl_panel_6_1.columnWidths = new int[]{256, 256, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_6_1.rowHeights = new int[]{21, 0};
@@ -258,12 +269,52 @@ public class ResultPanel extends JPanel {
 		panel_6_1.add(btnSearch, gbc_btnSearch);
 		
 		JButton btnLoad = new JButton("Load data");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int examinationIndex = comboBoxExamination.getSelectedIndex();
+				String examinationString =  comboBoxExamination.getItemAt(examinationIndex);
+				int roomIndex = comboBoxRoom.getSelectedIndex();
+				String roomString =  comboBoxRoom.getItemAt(roomIndex);
+				if( examinationString == null || examinationString.equals("")) {
+					JOptionPane.showMessageDialog(getParent(),"Must select examination" );
+				}
+				else if(roomString == null || roomString.equals("")) {
+					JOptionPane.showMessageDialog(getParent(),"Must select room" );
+				}
+				else loadData();
+			}
+		});
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.anchor = GridBagConstraints.EAST;
 		gbc_btnLoad.gridx = 14;
 		gbc_btnLoad.gridy = 0;
 		panel_6_1.add(btnLoad, gbc_btnLoad);
+		
+		JPanel panel_9 = new JPanel();
+		panel_7.add(panel_9);
+		panel_9.setLayout(new GridLayout(0, 4, 30, 0));
+		
+		JLabel lblNewLabel_4 = new JLabel("Examination");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_9.add(lblNewLabel_4);
+		
+		comboBoxExamination = new JComboBox<String>();
+		comboBoxExamination.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					
+				}
+			}
+		});
+		panel_9.add(comboBoxExamination);
+		
+		JLabel lblNewLabel_5 = new JLabel("Room");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_9.add(lblNewLabel_5);
+		
+		comboBoxRoom = new JComboBox<String>();
+		panel_9.add(comboBoxRoom);
 		
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
@@ -275,6 +326,10 @@ public class ResultPanel extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
+	}
+	
+	public void loadData() {
+		
 	}
 
 }

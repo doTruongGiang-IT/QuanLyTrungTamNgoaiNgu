@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="D:/Downloads/java-json.jar"/>
+	<classpathentry kind="lib" path="libs/java-json.jar"/>
+	<classpathentry kind="lib" path="libs/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="libs/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/jgoodies-looks-2.4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -13,11 +13,16 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
+import com.toedter.components.JSpinField;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
 
 public class RoomPanel extends JPanel {
 	private JTable table;
@@ -25,9 +30,7 @@ public class RoomPanel extends JPanel {
 	private JTextField textExaminationId;
 	private JTextField textRoomLevel;
 	private JTextField textField_3;
-	private JTextField textRoomTime;
 	private JTextField textRoomId;
-	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -49,9 +52,9 @@ public class RoomPanel extends JPanel {
 		panel_2.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{80, 0, 130, 0};
-		gbl_panel_3.rowHeights = new int[] {30, 30, 30, 30, 30, 0};
+		gbl_panel_3.rowHeights = new int[] {35, 35, 35, 35, 30};
 		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0};
 		panel_3.setLayout(gbl_panel_3);
 		
 		JLabel lblCandidateIdentification_1_1 = new JLabel("Room Id");
@@ -84,6 +87,7 @@ public class RoomPanel extends JPanel {
 		panel_3.add(lblSupervisorName, gbc_lblSupervisorName);
 		
 		textRoomName = new JTextField();
+		textRoomName.setEditable(false);
 		textRoomName.setColumns(10);
 		GridBagConstraints gbc_textRoomName = new GridBagConstraints();
 		gbc_textRoomName.fill = GridBagConstraints.HORIZONTAL;
@@ -138,32 +142,15 @@ public class RoomPanel extends JPanel {
 		gbc_lblRoomTime.gridy = 4;
 		panel_3.add(lblRoomTime, gbc_lblRoomTime);
 		
-		textRoomTime = new JTextField();
-		textRoomTime.setColumns(10);
-		GridBagConstraints gbc_textRoomTime = new GridBagConstraints();
-		gbc_textRoomTime.insets = new Insets(0, 0, 5, 5);
-		gbc_textRoomTime.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textRoomTime.gridx = 1;
-		gbc_textRoomTime.gridy = 4;
-		panel_3.add(textRoomTime, gbc_textRoomTime);
-		
-		JLabel lblSupervisorId = new JLabel("Supervisor Id");
-		lblSupervisorId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblSupervisorId = new GridBagConstraints();
-		gbc_lblSupervisorId.anchor = GridBagConstraints.WEST;
-		gbc_lblSupervisorId.insets = new Insets(0, 0, 0, 5);
-		gbc_lblSupervisorId.gridx = 0;
-		gbc_lblSupervisorId.gridy = 5;
-		panel_3.add(lblSupervisorId, gbc_lblSupervisorId);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 5;
-		panel_3.add(textField, gbc_textField);
+		JSpinner timeSpinner = new JSpinner( new SpinnerDateModel());
+		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
+		timeSpinner.setEditor(timeEditor);
+		GridBagConstraints gbc_timeSpinner = new GridBagConstraints();
+		gbc_timeSpinner.fill = GridBagConstraints.HORIZONTAL;
+		gbc_timeSpinner.insets = new Insets(0, 0, 5, 5);
+		gbc_timeSpinner.gridx = 1;
+		gbc_timeSpinner.gridy = 4;
+		panel_3.add(timeSpinner, gbc_timeSpinner);
 		
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4);
@@ -172,31 +159,27 @@ public class RoomPanel extends JPanel {
 		JPanel panel_5 = new JPanel();
 		panel_4.add(panel_5);
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
-		gbl_panel_5.columnWidths = new int[] {200, 50, 0};
+		gbl_panel_5.columnWidths = new int[] {50, 50, 0};
 		gbl_panel_5.rowHeights = new int[] {50};
 		gbl_panel_5.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_5.rowWeights = new double[]{0.0};
 		panel_5.setLayout(gbl_panel_5);
-		
-		JButton btnGenerateRoom = new JButton("Generate Room for Examination");
-		btnGenerateRoom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnGenerateRoom.setToolTipText("Create Room for this Examination");
-		btnGenerateRoom.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnGenerateRoom = new GridBagConstraints();
-		gbc_btnGenerateRoom.fill = GridBagConstraints.BOTH;
-		gbc_btnGenerateRoom.insets = new Insets(0, 0, 0, 5);
-		gbc_btnGenerateRoom.gridx = 0;
-		gbc_btnGenerateRoom.gridy = 0;
-		panel_5.add(btnGenerateRoom, gbc_btnGenerateRoom);
 		
 		JButton btnChange = new JButton("Change");
 		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		JButton btnAddSupervisor = new JButton("Add Supervisor");
+		btnAddSupervisor.setVisible(false);
+		btnAddSupervisor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnAddSupervisor = new GridBagConstraints();
+		gbc_btnAddSupervisor.fill = GridBagConstraints.BOTH;
+		gbc_btnAddSupervisor.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAddSupervisor.gridx = 0;
+		gbc_btnAddSupervisor.gridy = 0;
+		panel_5.add(btnAddSupervisor, gbc_btnAddSupervisor);
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnChange = new GridBagConstraints();
 		gbc_btnChange.fill = GridBagConstraints.BOTH;
@@ -246,6 +229,29 @@ public class RoomPanel extends JPanel {
 		gbc_btnLoad.gridx = 14;
 		gbc_btnLoad.gridy = 0;
 		panel_6_1.add(btnLoad, gbc_btnLoad);
+		
+		JPanel panel_7 = new JPanel();
+		panel_6.add(panel_7, BorderLayout.NORTH);
+		GridBagLayout gbl_panel_7 = new GridBagLayout();
+		gbl_panel_7.columnWidths = new int[] {100, 200};
+		gbl_panel_7.rowHeights = new int[] {30};
+		gbl_panel_7.columnWeights = new double[]{0.0, 1.0};
+		gbl_panel_7.rowWeights = new double[]{0.0};
+		panel_7.setLayout(gbl_panel_7);
+		
+		JLabel lblNewLabel = new JLabel("Examination");
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		panel_7.add(lblNewLabel, gbc_lblNewLabel);
+		
+		JComboBox comboBoxExamination = new JComboBox();
+		GridBagConstraints gbc_comboBoxExamination = new GridBagConstraints();
+		gbc_comboBoxExamination.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxExamination.gridx = 1;
+		gbc_comboBoxExamination.gridy = 0;
+		panel_7.add(comboBoxExamination, gbc_comboBoxExamination);
 		
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);

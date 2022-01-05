@@ -15,15 +15,19 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CandidatePanel extends JPanel {
-	private JTextField textCandidateId;
 	private JTable tableCandidate;
 	private JTextField textField_1;
 	private JTextField textCandidateName;
 	private JTextField textCandidateIdent;
+	private JTextField textField;
 
 	/**
 	 * Create the panel.
@@ -44,31 +48,30 @@ public class CandidatePanel extends JPanel {
 		panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
+		gbl_panel_3.rowHeights = new int[] {30, 40, 40, 30};
 		gbl_panel_3.columnWidths = new int[]{80, 0, 130, 0};
-		gbl_panel_3.rowHeights = new int[] {50, 50, 50, 0};
 		gbl_panel_3.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0};
 		panel_3.setLayout(gbl_panel_3);
 		
-		JLabel lblSupervisorName = new JLabel("Candidate Id");
-		lblSupervisorName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblSupervisorName = new GridBagConstraints();
-		gbc_lblSupervisorName.weightx = 0.3;
-		gbc_lblSupervisorName.anchor = GridBagConstraints.WEST;
-		gbc_lblSupervisorName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSupervisorName.gridx = 0;
-		gbc_lblSupervisorName.gridy = 0;
-		panel_3.add(lblSupervisorName, gbc_lblSupervisorName);
+		JLabel lblNewLabel = new JLabel("Candidate Id");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textCandidateId = new JTextField();
-		textCandidateId.setEditable(false);
-		textCandidateId.setColumns(10);
-		GridBagConstraints gbc_textCandidateId = new GridBagConstraints();
-		gbc_textCandidateId.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textCandidateId.insets = new Insets(0, 0, 5, 5);
-		gbc_textCandidateId.gridx = 1;
-		gbc_textCandidateId.gridy = 0;
-		panel_3.add(textCandidateId, gbc_textCandidateId);
+		textField = new JTextField();
+		textField.setEditable(false);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 0;
+		panel_3.add(textField, gbc_textField);
+		textField.setColumns(10);
 		
 		JLabel lblCandidateName = new JLabel("Candidate Name");
 		lblCandidateName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -93,7 +96,7 @@ public class CandidatePanel extends JPanel {
 		lblCandidateIdentification.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblCandidateIdentification = new GridBagConstraints();
 		gbc_lblCandidateIdentification.anchor = GridBagConstraints.WEST;
-		gbc_lblCandidateIdentification.insets = new Insets(0, 0, 0, 5);
+		gbc_lblCandidateIdentification.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCandidateIdentification.gridx = 0;
 		gbc_lblCandidateIdentification.gridy = 2;
 		panel_3.add(lblCandidateIdentification, gbc_lblCandidateIdentification);
@@ -102,7 +105,7 @@ public class CandidatePanel extends JPanel {
 		textCandidateIdent.setEditable(false);
 		textCandidateIdent.setColumns(10);
 		GridBagConstraints gbc_textCandidateIdent = new GridBagConstraints();
-		gbc_textCandidateIdent.insets = new Insets(0, 0, 0, 5);
+		gbc_textCandidateIdent.insets = new Insets(0, 0, 5, 5);
 		gbc_textCandidateIdent.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textCandidateIdent.gridx = 1;
 		gbc_textCandidateIdent.gridy = 2;
@@ -125,17 +128,40 @@ public class CandidatePanel extends JPanel {
 		panel_4.add(btnDelete);
 		
 		JButton btnCreateRegistration = new JButton("Registration");
+		btnCreateRegistration.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openRegistrationDialog();
+			}
+		});
 		btnCreateRegistration.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnCreateRegistration);
 		
 		JButton btnViewResult = new JButton("View Result");
+		btnViewResult.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnViewResult.setVisible(false);
 		
 		JButton btnViewDetail = new JButton("Detail");
+		btnViewDetail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openDetailCandidateDialog();
+			}
+		});
 		btnViewDetail.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnViewDetail);
 		btnViewResult.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnViewResult);
+		
+		JButton btnFindCandidate = new JButton("Find Candidate");
+		btnFindCandidate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openFindCandidateDialog();
+			}
+		});
+		btnFindCandidate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		panel_4.add(btnFindCandidate);
 		
 		JPanel panel_5 = new JPanel();
 		panel_2.add(panel_5);
@@ -190,6 +216,21 @@ public class CandidatePanel extends JPanel {
 		tableCandidate = new JTable();
 		scrollPane.setViewportView(tableCandidate);
 
+	}
+	
+	public void openRegistrationDialog() {
+		JDialog registrationDialog = new RegisterFormDialog();
+		registrationDialog.setVisible(true);;
+	}
+	
+	public void openDetailCandidateDialog() {
+		JDialog registrationDialog = new DetailCandidate();
+		registrationDialog.setVisible(true);;
+	}
+	
+	public void openFindCandidateDialog() {
+		JDialog findcandidateDialog = new FindCandidateDialog();
+		findcandidateDialog.setVisible(true);
 	}
 
 }
