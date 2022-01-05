@@ -56,4 +56,18 @@ public class ExaminationDTO {
 	public void setDate(String date) {
 		this.date = date;
 	};
+	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("name", this.name);
+			obj.put("date", this.date);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
 }

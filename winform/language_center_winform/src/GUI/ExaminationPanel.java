@@ -6,11 +6,13 @@ import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.ComponentOrientation;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -106,11 +108,10 @@ public class ExaminationPanel extends JPanel {
 		panel_3.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		LocalDate minDate = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
-		LocalDate maxDate = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
 		Date minSelectableDate = Date.from(minDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date maxSelectableDate = Date.from(maxDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		dateChooser.setSelectableDateRange(minSelectableDate, maxSelectableDate);
+		dateChooser.setMinSelectableDate(minSelectableDate);
 		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
 		gbc_dateChooser.insets = new Insets(0, 0, 0, 5);
 		gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
@@ -132,6 +133,25 @@ public class ExaminationPanel extends JPanel {
 		panel_4.setLayout(gbl_panel_4);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = textExaminationName.getText();
+				Date dateUnformat = dateChooser.getDate();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String date = sdf.format(dateUnformat);
+//				System.out.print(date);
+//				if(name == null || name.equals("")) {
+//					JOptionPane.showMessageDialog(getParent(), "Name must not be null")
+//				}
+//				else if() {
+//					
+//				}
+//				else {
+//					
+//				}
+				addExamination(name, date);
+			}
+		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.fill = GridBagConstraints.BOTH;
@@ -244,11 +264,22 @@ public class ExaminationPanel extends JPanel {
 		examList = examBus.getExaminations();
 		for (ExaminationDTO examinationDTO : examList) {
 			Vector<String> row = new Vector<String>();
-			row.add(Integer.toString(examinationDTO.getId());
+			row.add(Integer.toString(examinationDTO.getId()));
 			row.add(examinationDTO.getName());
 			row.add(examinationDTO.getDate());
 			vctData.add(row);
 		}
 		tableExamination.setModel(new DefaultTableModel(vctData, vctHeader));
+	}
+	
+	public void addExamination(String name,String date) {
+		ExaminationBUS bus = new ExaminationBUS();
+		ExaminationDTO dto = new ExaminationDTO();
+		dto.setId(0);
+		dto.setDate(date);
+		dto.setName(name);
+		System.out.println(date);
+		System.out.println(name);
+		bus.insert(dto);
 	}
 }

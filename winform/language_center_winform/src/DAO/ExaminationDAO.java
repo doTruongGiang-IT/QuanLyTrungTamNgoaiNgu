@@ -43,12 +43,13 @@ public class ExaminationDAO {
     
     public void insert(ExaminationDTO examination) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Examination", "POST", examination.toString());
+    	Response res =  apiConn.callAPI("Examination", "POST", examination.toJSONObject().toString());
+    	System.out.println(res.status_code);
     };
     
     public void update(ExaminationDTO examination) throws Exception {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Examination", "PUT", examination.toString());
+    	apiConn.callAPI("Examination", "PUT", examination.toJSONObject().toString());
     };
     
     public void delete(int id) throws Exception {

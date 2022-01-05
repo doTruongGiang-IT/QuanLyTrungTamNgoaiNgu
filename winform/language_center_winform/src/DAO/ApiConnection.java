@@ -73,7 +73,7 @@ public class ApiConnection {
 	
 	public static void main(String args[]) {
 		ApiConnection conn = new ApiConnection();
-		Response res = conn.callAPI("http://4be9-171-239-189-40.ngrok.io/api/Candidate/12", "GET", null);
+		Response res = conn.callAPI("Examination", "POST", "{\"id\": 0,\"name\": \"B1 1\",\"date\": \"2022-11-17\"}");
 		System.out.println(res.status_code);
 		System.out.println(res.data != null ? res.data.toString() : "Not found");
 	};

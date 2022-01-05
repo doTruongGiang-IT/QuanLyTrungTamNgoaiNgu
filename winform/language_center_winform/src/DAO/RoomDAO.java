@@ -44,12 +44,12 @@ public class RoomDAO {
     
     public void insert(RoomDTO room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Room", "POST", room.toString());
+    	apiConn.callAPI("Room", "POST", room.toJSONObject().toString());
     };
     
     public void update(RoomDTO room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Room", "PUT", room.toString());
+    	apiConn.callAPI("Room", "PUT", room.toJSONObject().toString());
     };
     
     public void delete(int id) {

@@ -3,11 +3,14 @@ package BUS;
 import DTO.ExaminationDTO;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import DAO.ExaminationDAO;
 
 public class ExaminationBUS {
 
-	public static List<ExaminationDTO> examinations;
+	public static List<ExaminationDTO> examinations = new ArrayList<ExaminationDTO>();
     private ExaminationDAO examinationDAO = new ExaminationDAO();
     
     public List<ExaminationDTO> getExaminations() {
@@ -42,6 +45,7 @@ public class ExaminationBUS {
             return true;
 		}catch (Exception e) {
 			System.out.println("Insert examination error");
+			e.printStackTrace();
 			return false;
 		}
     };

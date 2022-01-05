@@ -81,4 +81,20 @@ public class RoomDTO {
 		this.time = time;
 	};
 	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("examination_id", this.examination_id);
+			obj.put("name", this.name);
+			obj.put("level", this.level);
+			obj.put("time", this.time);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
+	
 }
