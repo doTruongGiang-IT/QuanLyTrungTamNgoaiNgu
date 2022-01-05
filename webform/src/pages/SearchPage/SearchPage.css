@@ -15,12 +15,17 @@
 }
 
 .search_info {
-    width: 35%;
+    width: 38%;
     padding: 20px;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+}
+
+.search_info_fields {
+    width: 100%;
+    display: flex;
 }
 
 .search_result {
@@ -30,4 +35,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+}
+
+.certificate {
+    margin-top: 20px;
+    width: 100%;
+    background-image: url("../../certificate.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 580px 500px;
+    border: 1px solid #1C3873 ;
+}
+
+.certificate h2 {
+    font-size: 24px;
+    margin: 250px auto;
+    margin-top: 180px;
+    color: #1C3873;
+    font-weight: 500;
 }

@@ -16,19 +16,20 @@ const StatsPage = () => {
     return (
         <div className='stats candidates'>
             <div className='stats_select candidates_select'>
-                <Select placeholder="Select examination" style={{ width: 150 }} onChange={handleChangeExamination}>
+                <Select placeholder="Chọn kỳ thi" style={{ width: 150 }} onChange={handleChangeExamination}>
                     <Option value="Noel">Noel</Option>
                     <Option value="New Year">New Year</Option>
                     <Option value="Summer">Summer</Option>
                 </Select>
-                <Select placeholder="Select level" style={{ width: 150 }} onChange={handleChangeLevel} >
+                <Select placeholder="Chọn trình độ" style={{ width: 150 }} onChange={handleChangeLevel} >
                     <Option value="A2">A2</Option>
                     <Option value="B1">B1</Option>
                 </Select>
+                <span style={{marginLeft: 10, color: "gray"}}><strong>Số lượng kỳ thi:</strong> <span>320</span></span>
             </div>
             <div className='stats_results candidates_results'>
-                <h2><strong>Rooms:</strong> <span>32</span></h2>
-                <h2><strong>Candidates:</strong> <span>132</span></h2>
+                <h2><strong>Số lượng phòng thi:</strong> <span>32</span></h2>
+                <h2><strong>Số lượng thí sinh:</strong> <span>132</span></h2>
             </div>
         </div>
     )
