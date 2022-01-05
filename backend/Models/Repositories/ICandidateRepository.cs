@@ -9,5 +9,6 @@ namespace backend.Models.Repositories
         CandidateDTO Create(CandidateDTO candidate);
         void Update(CandidateDTO candidate);
         void Delete(int id);
+        IEnumerable<CandidateDTO> GetByRoom(int room_id);
     }
 }
