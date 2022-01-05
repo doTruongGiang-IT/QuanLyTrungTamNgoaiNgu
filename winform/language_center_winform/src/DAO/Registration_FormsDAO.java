@@ -45,12 +45,12 @@ public class Registration_FormsDAO {
     
     public void insert(Registration_FormsDTO registration_form) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("RegistrationForm", "POST", registration_form.toString());
+    	apiConn.callAPI("RegistrationForm", "POST", registration_form.toJSONObject().toString());
     };
     
     public void update(Registration_FormsDTO registration_form) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("RegistrationForm", "PUT", registration_form.toString());
+    	apiConn.callAPI("RegistrationForm", "PUT", registration_form.toJSONObject().toString());
     };
     
     public void delete(int id) {

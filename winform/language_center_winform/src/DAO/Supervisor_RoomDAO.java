@@ -46,12 +46,12 @@ public class Supervisor_RoomDAO {
     
     public void insert(Supervisor_RoomDTO supervisor_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("SupervisorRoom", "POST", supervisor_room.toString());
+    	apiConn.callAPI("SupervisorRoom", "POST", supervisor_room.toJSONObject().toString());
     };
     
     public void update(Supervisor_RoomDTO supervisor_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("SupervisorRoom", "PUT", supervisor_room.toString());
+    	apiConn.callAPI("SupervisorRoom", "PUT", supervisor_room.toJSONObject().toString());
     };
     
     public void delete(int id) {

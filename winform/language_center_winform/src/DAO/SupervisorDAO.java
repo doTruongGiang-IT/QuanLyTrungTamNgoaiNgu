@@ -46,12 +46,12 @@ public class SupervisorDAO {
     
     public void insert(SupervisorDTO supervisor) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Supervisor", "POST", supervisor.toString());
+    	apiConn.callAPI("Supervisor", "POST", supervisor.toJSONObject().toString());
     };
     
     public void update(SupervisorDTO supervisor) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Supervisor", "PUT", supervisor.toString());
+    	apiConn.callAPI("Supervisor", "PUT", supervisor.toJSONObject().toString());
     };
     
     public void delete(int id) {

@@ -45,12 +45,12 @@ public class CandidateDAO {
     
     public void insert(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Candidate", "POST", candidate.toString());
+    	apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
     };
     
     public void update(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Candidate", "PUT", candidate.toString());
+    	apiConn.callAPI("Candidate", "PUT", candidate.toJSONObject().toString());
     };
     
     public void delete(int id) {

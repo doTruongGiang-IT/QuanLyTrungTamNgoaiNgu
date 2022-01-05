@@ -82,4 +82,20 @@ public class Registration_FormsDTO {
 		this.status = status;
 	}
 	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("candidate_id", this.candidate_id);
+			obj.put("examination_id", this.examination_id);
+			obj.put("level", this.level);
+			obj.put("status", this.status);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
+	
 }

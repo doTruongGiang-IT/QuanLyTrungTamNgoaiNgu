@@ -45,12 +45,12 @@ public class Candidate_RoomDAO {
     
     public void insert(Candidate_RoomDTO candidate_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("CandidateRoom", "POST", candidate_room.toString());
+    	apiConn.callAPI("CandidateRoom", "POST", candidate_room.toJSONObject().toString());
     };
     
     public void update(Candidate_RoomDTO candidate_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("CandidateRoom", "PUT", candidate_room.toString());
+    	apiConn.callAPI("CandidateRoom", "PUT", candidate_room.toJSONObject().toString());
     };
     
     public void delete(int id) {

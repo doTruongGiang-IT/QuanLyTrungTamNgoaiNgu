@@ -58,4 +58,18 @@ public class Supervisor_RoomDTO {
 		this.room_id = room_id;
 	}
 	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("supervisor_id", this.supervisor_id);
+			obj.put("room_id", this.room_id);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
+	
 }

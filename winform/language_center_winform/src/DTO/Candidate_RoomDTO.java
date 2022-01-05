@@ -120,4 +120,23 @@ public class Candidate_RoomDTO {
 		this.score_reading = score_reading;
 	}
 	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("canidadate_id",candidate_id);
+			obj.put("room_id",room_id);
+			obj.put("candidate_no",candidate_no);
+			obj.put("score_listening",score_listening);
+			obj.put("score_writing",score_writing);
+			obj.put("score_speaking",score_speaking);
+			obj.put("score_reading",score_reading);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
+	
 }

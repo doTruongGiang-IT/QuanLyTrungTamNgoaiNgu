@@ -156,4 +156,26 @@ public class CandidateDTO {
 		this.phone = phone;
 	}
 	
+	public JSONObject toJSONObject() {
+		JSONObject obj = new JSONObject();
+		try {
+			obj.put("id", this.id);
+			obj.put("identification", this.identification);
+			obj.put("issue_date", this.issue_date);
+			obj.put("issue_place", this.issue_place);
+			obj.put("first_name", this.first_name);
+			obj.put("last_name", this.last_name);
+			obj.put("email", this.email);
+			obj.put("gender", this.gender);
+			obj.put("day_of_birth", this.day_of_birth);
+			obj.put("place_of_birth", this.place_of_birth);
+			obj.put("phone", this.phone);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			System.out.println("Convert to JSON error" + e);
+		}
+		return obj;
+	}
+	
 }
