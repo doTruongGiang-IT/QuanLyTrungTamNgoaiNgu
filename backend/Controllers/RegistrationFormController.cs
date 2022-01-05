@@ -93,7 +93,13 @@ namespace backend.Controllers
             List <RegistrationFormDTO> registrationsCurrentExamsA2 = new List<RegistrationFormDTO>();
             List <RegistrationFormDTO> registrationsCurrentExamsB1 = new List<RegistrationFormDTO>();
 
-            int currentExamID = examinationRepository.GetCurrent().id;
+            ExaminationDTO currentExamination = examinationRepository.GetCurrent();
+
+            if (!currentExamination.registration_status) {
+                return StatusCode(400);   
+            }
+
+            int currentExamID = currentExamination.id;
 
             foreach (RegistrationFormDTO registration in registrations) 
             {
@@ -215,6 +221,9 @@ namespace backend.Controllers
                     roomId++;
                 }
             }
+
+            currentExamination.registration_status = false;
+            examinationRepository.Update(currentExamination);
 
             return StatusCode(200);   
         }
