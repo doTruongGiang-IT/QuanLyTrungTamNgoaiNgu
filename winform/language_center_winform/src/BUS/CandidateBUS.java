@@ -35,17 +35,20 @@ public class CandidateBUS {
         return candidate;
     };
     
-    public void insert(CandidateDTO candidate) throws Exception {
+    public boolean insert(CandidateDTO candidate) {
     	try{
     		candidateDAO.insert(candidate);
     		candidates.add(candidate);
+    		return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert candidate error");
+			return false;
+		}
     };
     
-    public void update(CandidateDTO candidate) throws Exception {
+    public boolean update(CandidateDTO candidate) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < candidates.size(); i++) {
             if((candidates.get(i)).getId() == candidate.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class CandidateBUS {
         	try{
         		candidateDAO.update(candidate);
         		candidates.set(index, candidate);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update candidate error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < candidates.size(); i++) {
             if((candidates.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class CandidateBUS {
         	try{
         		candidateDAO.delete(id);
         		candidates.remove(index);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete candidate error");
     		};
         };
+        return result;
     };
     
     public List<CandidateDTO> search(String name) {

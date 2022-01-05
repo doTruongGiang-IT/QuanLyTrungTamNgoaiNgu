@@ -1,12 +1,25 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Supervisor_RoomDTO {
 
 	private int id;
 	private int supervisor_id;
 	private int room_id;
 	
-	public Supervisor_RoomDTO() {}
+	public Supervisor_RoomDTO() {};
+	
+	public Supervisor_RoomDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.supervisor_id = data.getInt("supervisor_id");
+			this.room_id = data.getInt("room_id");
+		} catch (JSONException e) {
+			System.out.println("Supervisor_room error convert json -> dto");
+		}
+	};
 
 	public Supervisor_RoomDTO(int id, int supervisor_id, int room_id) {
 		super();

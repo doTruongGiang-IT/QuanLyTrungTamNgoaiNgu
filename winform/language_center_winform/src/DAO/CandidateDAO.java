@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 import DTO.CandidateDTO;
+import DTO.RoomDTO;
 
 public class CandidateDAO {
 
@@ -16,67 +17,45 @@ public class CandidateDAO {
 	
 	public CandidateDAO() {};
 	
-	public List<CandidateDTO> getCandidates() throws Exception {
+	public List<CandidateDTO> getCandidates() {
 		candidates = new ArrayList<CandidateDTO>();
-		HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .GET()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+//		HttpClient client = HttpClient.newHttpClient();
+//	    HttpRequest request = HttpRequest.newBuilder()
+//	            .uri(new URI(API_URL))
+//	            .headers("Content-Type", "application/json;charset=UTF-8")
+//	            .GET()
+//	            .build();
+//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//        JSONObject responseObj = new JSONObject(response.body().toString());
+//        System.out.println(responseObj);
         return candidates;
     };
     
-    public CandidateDTO getCandidate(int id) throws Exception {
-    	HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .GET()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
-        return null;
+    public CandidateDTO getCandidate(int id) {
+    	CandidateDTO candidateDTO = null;
+    	ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("Candidate/"+String.valueOf(id), "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		candidateDTO = new CandidateDTO(res.data);
+    	}else {
+    		candidateDTO = null;
+    	};
+        return candidateDTO;
     };
     
-    public void insert(CandidateDTO candidate) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .POST(HttpRequest.BodyPublishers.ofString(candidate.toString()))
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    public void insert(CandidateDTO candidate) {
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Candidate", "POST", candidate.toString());
     };
     
-    public void update(CandidateDTO candidate) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .PUT(HttpRequest.BodyPublishers.ofString(candidate.toString()))
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    public void update(CandidateDTO candidate) {
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Candidate", "PUT", candidate.toString());
     };
     
-    public void delete(int id) throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-	    HttpRequest request = HttpRequest.newBuilder()
-	            .uri(new URI(API_URL))
-	            .headers("Content-Type", "application/json;charset=UTF-8")
-	            .DELETE()
-	            .build();
-	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        JSONObject responseObj = new JSONObject(response.body().toString());
-        System.out.println(responseObj);
+    public void delete(int id) {
+    	ApiConnection apiConn = new ApiConnection();
+    	apiConn.callAPI("Candidate/"+String.valueOf(id), "DELETE", null);
     };
 	
 }

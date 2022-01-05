@@ -35,17 +35,20 @@ public class SupervisorBUS {
         return supervisor;
     };
     
-    public void insert(SupervisorDTO supervisor) throws Exception {
+    public boolean insert(SupervisorDTO supervisor) {
     	try{
     		supervisorDAO.insert(supervisor);
     		supervisors.add(supervisor);
+    		return true;
 		}catch (Exception e) {
-			System.out.println(e);
-		};
+			System.out.println("Insert supervisor error");
+			return false;
+		}
     };
     
-    public void update(SupervisorDTO supervisor) throws Exception {
+    public boolean update(SupervisorDTO supervisor) {
     	int index = -1;
+    	boolean result = false;
         for(int i = 0; i < supervisors.size(); i++) {
             if((supervisors.get(i)).getId() == supervisor.getId()) {
             	index = i;
@@ -56,14 +59,17 @@ public class SupervisorBUS {
         	try{
         		supervisorDAO.update(supervisor);
         		supervisors.set(index, supervisor);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Update supervisor error");
     		};
         };
+        return result;
     };
 
-    public void delete(int id) throws Exception {
+    public boolean delete(int id) {
         int index = -1;
+        boolean result = false;
     	for(int i = 0; i < supervisors.size(); i++) {
             if((supervisors.get(i)).getId() == id) {
             	index = i;
@@ -73,10 +79,12 @@ public class SupervisorBUS {
         	try{
         		supervisorDAO.delete(id);
         		supervisors.remove(index);
+        		result = true;
     		}catch (Exception e) {
-    			// TODO: handle exception
+    			System.out.println("Delete supervisor error");
     		};
         };
+        return result;
     };
     
     public List<SupervisorDTO> search(String name) {

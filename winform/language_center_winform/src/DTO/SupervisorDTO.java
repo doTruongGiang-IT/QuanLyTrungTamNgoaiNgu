@@ -1,11 +1,23 @@
 package DTO;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class SupervisorDTO {
 
 	private int id;
 	private String name;
 	
-	public SupervisorDTO() {}
+	public SupervisorDTO() {};
+	
+	public SupervisorDTO(JSONObject data) {
+		try {
+			this.id = data.getInt("id");
+			this.name = data.getString("name");
+		} catch (JSONException e) {
+			System.out.println("Supervisor error convert json -> dto");
+		}
+	};
 
 	public SupervisorDTO(int id, String name) {
 		super();
