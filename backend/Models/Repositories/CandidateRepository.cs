@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -10,11 +11,33 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public Candidate Create(Candidate candidate)
+        public CandidateDTO Create(CandidateDTO candidateDTO)
         {
-            var result = this.context.candidates.Add(candidate);
+            Candidate candidate = this.context.candidates.SingleOrDefault(c => c.identification==candidateDTO.identification);
+            if(candidate != null)
+            {
+                DateTime issue_olddate = DateTime.Parse(candidateDTO.issue_date);
+                DateTime issue_newdate = DateTime.SpecifyKind(issue_olddate, DateTimeKind.Utc);
+                DateTime birth_olddate = DateTime.Parse(candidateDTO.date_of_birth);
+                DateTime birth_newdate = DateTime.SpecifyKind(birth_olddate, DateTimeKind.Utc);
+                candidate.issue_date = issue_newdate;
+                candidate.issue_place = candidateDTO.issue_place;
+                candidate.email = candidateDTO.email;
+                candidate.first_name = candidateDTO.first_name;
+                candidate.last_name = candidateDTO.last_name;
+                candidate.gender = candidateDTO.gender;
+                candidate.date_of_birth = birth_newdate;
+                candidate.place_of_birth = candidateDTO.place_of_birth;
+                candidate.phone = candidateDTO.phone;
+                this.context.candidates.Update(candidate);
+                this.context.SaveChanges();
+                return candidate.ConvertToCandidateDTO();
+            }
+            Candidate newCandidate = candidateDTO.ConvertToCandidate();
+            var result = this.context.candidates.Add(newCandidate);
             this.context.SaveChanges();
-            return candidate;
+            CandidateDTO candidateDTOReusult = result.Entity.ConvertToCandidateDTO();
+            return candidateDTOReusult;
 ;
         }
 
@@ -25,18 +48,19 @@ namespace backend.Models.Repositories
             this.context.SaveChanges();
         }
 
-        public Candidate Get(int id)
+        public CandidateDTO Get(int id)
         {
-            return this.context.candidates.Find(id);
+            CandidateDTO candidateDTO = this.context.candidates.Find(id).ConvertToCandidateDTO();
+            return candidateDTO;
         }
 
-        public IEnumerable<Candidate> GetAll()
+        public IEnumerable<CandidateDTO> GetAll()
         {
-            return this.context.candidates.ToList();
+            return this.context.candidates.ToList().ConvertToCandidateDTO();
         }
 
-        public void Update(Candidate candidate)
-        {   
+        public void Update(CandidateDTO candidateDTO)
+        {   Candidate candidate = candidateDTO.ConvertToCandidate();
             this.context.candidates.Update(candidate);
             this.context.SaveChanges();
         }

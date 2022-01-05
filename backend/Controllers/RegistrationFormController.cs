@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, RegistrationFormDTO[]> dictionary = new Dictionary<string, RegistrationFormDTO[]>();
+            RegistrationFormDTO[] registrationFormDTOs = this.repository.GetAll().Cast<RegistrationFormDTO>().ToArray();
+            dictionary.Add("data", registrationFormDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -31,9 +35,22 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]RegistrationForm registrationForm)
+        public IActionResult Create([FromBody]RegistrationFormDTO registrationFormDTO)
         {
-            return Ok(this.repository.Create(registrationForm));
+            try
+            {
+                var checkRegFr = this.repository.Create(registrationFormDTO);
+                if(checkRegFr == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(checkRegFr);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpDelete("{id}")]
@@ -51,12 +68,12 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]RegistrationForm registrationForm)
+        public IActionResult Update([FromBody]RegistrationFormDTO registrationFormDTO)
         {
             try
             {
-                this.repository.Update(registrationForm);
-                return Ok(registrationForm);
+                this.repository.Update(registrationFormDTO);
+                return Ok(registrationFormDTO);
             }
             catch(Exception ex)
             {
