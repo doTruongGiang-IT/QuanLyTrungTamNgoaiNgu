@@ -10,7 +10,8 @@ namespace backend.Models.DTOs
             {
                 id = examinationDTO.id,
                 name = examinationDTO.name,
-                date = newdate
+                date = newdate,
+                registration_status = examinationDTO.registration_status
             };
         }
 
@@ -20,7 +21,8 @@ namespace backend.Models.DTOs
             {
                 id = examination.id,
                 name = examination.name,
-                date = examination.date.ToString("yyyy'-'MM'-'dd")
+                date = examination.date.ToString("yyyy'-'MM'-'dd"),
+                registration_status = examination.registration_status
             };
         }
 

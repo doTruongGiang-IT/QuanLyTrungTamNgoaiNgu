@@ -19,7 +19,11 @@ namespace backend.Models.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Candidate>()
-                .HasIndex(c => new {c.identification, c.email, c.phone}).IsUnique();
+                .HasIndex(c => c.identification).IsUnique();
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.email).IsUnique();
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.phone).IsUnique();
         }
     }
 }
