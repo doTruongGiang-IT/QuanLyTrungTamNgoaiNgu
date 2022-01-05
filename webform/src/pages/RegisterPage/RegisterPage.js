@@ -19,10 +19,10 @@ const RegisterPage = () => {
 
     return (
         <div className="register">
-            <h1>Register Form</h1>
+            <h1>Biểu mẫu đăng ký</h1>
             <RegisterForm ref={registerFormRef} />
             <ReactToPrint
-                trigger={() => <Button type="primary">Print</Button>}
+                trigger={() => <Button type="primary">In phiếu</Button>}
                 content={() => registerFormRef.current}
             />
         </div>

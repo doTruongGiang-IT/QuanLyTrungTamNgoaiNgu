@@ -1,28 +1,57 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, {useState} from 'react';
+import '../pages/SearchPage/SearchPage.css';
+import { Table, Space, Button, Modal} from 'antd';
+import { EditOutlined, EyeOutlined, BookOutlined } from '@ant-design/icons';
 
-const TableComponent = ({tab, search}) => {
+const TableComponent = ({tab, search, examination, room}) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [content, setContent] = useState("");
+    const [name, setName] = useState("");
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleClickDetail = (id) => {
+        console.log(id);
+        setIsModalVisible(true);
+        setContent("detail");
+    };
+
+    const handleClickResult = (id) => {
+        const result = {candidate_id: id, examination_id: examination, room_id: room};
+        console.log(result);
+        setIsModalVisible(true);
+        setContent("result");
+    };
+
+    const handleClickCertificate = (name) => {
+        setContent("certificate");
+        setName(name);
+        setIsModalVisible(true);
+    };
+
     const columnsSchedule = [
         {
-            title: 'Candidate Number',
+            title: 'Số báo danh',
             dataIndex: 'candidate_no',
             key: 'candidate_no',
             width: '25%'
         },
         {
-            title: 'Level',
+            title: 'Trình độ',
             dataIndex: 'level',
             key: 'level',
             width: '25%'
         },
         {
-            title: 'Room',
+            title: 'Phòng thi',
             dataIndex: 'room',
             key: 'room',
             width: '25%'
         },
         {
-            title: 'Time',
+            title: 'Ca thi',
             key: 'time',
             dataIndex: 'time',
             width: '25%'
@@ -31,25 +60,25 @@ const TableComponent = ({tab, search}) => {
 
     const columnsScore = [
         {
-            title: 'Listening',
+            title: 'Nghe',
             dataIndex: 'listening',
             key: 'listening',
             width: '25%'
         },
         {
-            title: 'Reading',
+            title: 'Đọc',
             dataIndex: 'reading',
             key: 'reading',
             width: '25%'
         },
         {
-            title: 'Writing',
+            title: 'Viết',
             dataIndex: 'writing',
             key: 'writing',
             width: '25%'
         },
         {
-            title: 'Speaking',
+            title: 'Nói',
             key: 'speaking',
             dataIndex: 'speaking',
             width: '25%'
@@ -61,25 +90,59 @@ const TableComponent = ({tab, search}) => {
             title: 'STT',
             dataIndex: 'stt',
             key: 'stt',
-            width: '25%'
+            width: '20%'
         },
         {
-            title: 'Candidate Number',
+            title: 'Số báo danh',
             dataIndex: 'candidate_no',
             key: 'candidate_no',
-            width: '25%'
+            width: '20%'
         },
         {
-            title: 'Name',
+            title: 'Họ tên',
             dataIndex: 'name',
             key: 'name',
-            width: '25%'
+            width: '20%'
         },
         {
-            title: 'Phone',
+            title: 'Số điện thoại',
             key: 'phone',
             dataIndex: 'phone',
-            width: '25%'
+            width: '20%'
+        },
+        {
+            title: 'Liên kết',
+            width: '20%',
+            render: (_, record) => {
+                return(
+                    <Space>
+                        <Button
+                            onClick={() => handleClickDetail(record.id)}
+                            type="primary"
+                            disabled={(examination === 0 || room === 0) ? true : false}
+                            icon={<EditOutlined />}
+                            size="medium"
+                            style={{ width: 80 }}
+                        />
+                        <Button
+                            onClick={() => handleClickResult(record.id)}
+                            disabled={(examination === 0 || room === 0) ? true : false}
+                            type="primary"
+                            icon={<EyeOutlined />}
+                            size="medium"
+                            style={{ width: 80 }}
+                        />
+                        <Button
+                            onClick={() => handleClickCertificate(record.name)}
+                            disabled={(examination === 0 || room === 0) ? true : false}
+                            type="primary"
+                            icon={<BookOutlined />}
+                            size="medium"
+                            style={{ width: 80 }}
+                        />
+                    </Space>
+                )
+            }
         },
     ];
 
@@ -128,7 +191,21 @@ const TableComponent = ({tab, search}) => {
     ];
 
     return (
-        <Table columns={tab === "schedule" ? columnsSchedule : (tab === "score" ? columnsScore : columnsCandidates)} dataSource={tab === "schedule" ? dataSchedule : (tab === "score" ? dataScore : dataCandidates)} pagination={false} />
+        <>
+            <Table columns={tab === "schedule" ? columnsSchedule : (tab === "score" ? columnsScore : columnsCandidates)} dataSource={tab === "schedule" ? dataSchedule : (tab === "score" ? dataScore : dataCandidates)} pagination={false} />
+            <Modal title="Thông tin chi tiết" visible={isModalVisible} footer={[]} onCancel={handleCancel}>
+            {
+                content === "detail" ? 
+                <p>Detail</p> : (
+                    content === "result" ?
+                    <p>Result</p> :
+                    <div className='certificate' style={{height: "380px"}}>
+                        <h2 style={{textAlign: "center", marginTop: 130}}>{name}</h2>
+                    </div>
+                )
+            }
+            </Modal>
+        </>
     )
 }
 
