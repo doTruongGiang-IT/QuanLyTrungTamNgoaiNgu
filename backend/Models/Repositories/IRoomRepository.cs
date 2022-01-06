@@ -9,5 +9,7 @@ namespace backend.Models.Repositories
          RoomDTO Create(RoomDTO roomDTO);
          void Update(RoomDTO roomDTO);
          void Delete(int id);
+         IEnumerable<RoomDTO> GetByExam(int exmination_id);
+         IEnumerable<RoomDTO> GetByExamLevel(int exmination_id, string level);
     }
 }

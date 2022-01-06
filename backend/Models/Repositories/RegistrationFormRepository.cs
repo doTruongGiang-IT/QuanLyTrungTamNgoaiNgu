@@ -21,11 +21,15 @@ namespace backend.Models.Repositories
         }
         public RegistrationFormDTO Create(RegistrationFormDTO registrationFormDTO)
         {
-            RegistrationForm registrationForm = registrationFormDTO.ConvertToRegistrationForm();
-            var result = this.context.registration_forms.Add(registrationForm);
-            this.context.SaveChanges();
-            RegistrationFormDTO registrationFormDTOResult = result.Entity.ConvertToRegistrationFormDTO();
-            return registrationFormDTOResult;
+            Examination examination = this.context.examinations.Find(registrationFormDTO.examination_id);
+            if(examination.registration_status){
+                RegistrationForm registrationForm = registrationFormDTO.ConvertToRegistrationForm();
+                var result = this.context.registration_forms.Add(registrationForm);
+                this.context.SaveChanges();
+                RegistrationFormDTO registrationFormDTOResult = result.Entity.ConvertToRegistrationFormDTO();
+                return registrationFormDTOResult;
+            }
+            return null;
         }
         public void Update(RegistrationFormDTO registrationFormDTO)
         {

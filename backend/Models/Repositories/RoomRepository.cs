@@ -39,5 +39,11 @@ namespace backend.Models.Repositories
             this.context.rooms.Remove(room);
             this.context.SaveChanges();
         }
+        public IEnumerable<RoomDTO> GetByExam(int exmination_id){
+            return this.context.rooms.Where(r => r.examination_id==exmination_id).ToList().ConvertToRoomDTO();
+        }
+        public IEnumerable<RoomDTO> GetByExamLevel(int exmination_id, string level){
+            return this.context.rooms.Where(r => r.examination_id==exmination_id && r.level==level).ToList().ConvertToRoomDTO();
+        }
     }
 }

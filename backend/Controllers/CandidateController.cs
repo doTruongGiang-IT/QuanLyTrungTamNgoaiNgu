@@ -21,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, CandidateDTO[]> dictionary = new Dictionary<string, CandidateDTO[]>();
+            CandidateDTO[] candidateDTOs = this.repository.GetAll().Cast<CandidateDTO>().ToArray();
+            dictionary.Add("data", candidateDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -71,6 +74,15 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("Room/{room_id}")]
+        public IActionResult GetByRoom(int room_id)
+        {   
+            Dictionary<string, CandidateDTO[]> dictionary = new Dictionary<string, CandidateDTO[]>();
+            CandidateDTO[] candidateDTOs = this.repository.GetByRoom(room_id).Cast<CandidateDTO>().ToArray();
+            dictionary.Add("data", candidateDTOs);
+            return Ok(dictionary);
         }
     }
 }

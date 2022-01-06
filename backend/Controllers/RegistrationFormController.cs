@@ -21,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, RegistrationFormDTO[]> dictionary = new Dictionary<string, RegistrationFormDTO[]>();
+            RegistrationFormDTO[] registrationFormDTOs = this.repository.GetAll().Cast<RegistrationFormDTO>().ToArray();
+            dictionary.Add("data", registrationFormDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +39,11 @@ namespace backend.Controllers
         {
             try
             {
-                RegistrationFormDTO checkRegFr = this.repository.Create(registrationFormDTO);
+                var checkRegFr = this.repository.Create(registrationFormDTO);
+                if(checkRegFr == null)
+                {
+                    return BadRequest();
+                }
                 return Ok(checkRegFr);
             }
             catch(Exception ex)

@@ -9,6 +9,6 @@ namespace backend.Models.Repositories
         CandidateRoomDTO Create(CandidateRoomDTO candidateRoomDTO);
         void Update(CandidateRoomDTO candidateRoomDTO);
         void Delete(int id);
-        WebDTO GetInfor(string sbd);
+        WebDTO GetInfor(string name, string phone);
     }
 }

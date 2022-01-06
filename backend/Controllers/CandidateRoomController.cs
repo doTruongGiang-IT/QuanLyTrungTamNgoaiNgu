@@ -21,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, CandidateRoomDTO[]> dictionary = new Dictionary<string, CandidateRoomDTO[]>();
+            CandidateRoomDTO[] candidateRoomDTOs = this.repository.GetAll().Cast<CandidateRoomDTO>().ToArray();
+            dictionary.Add("data", candidateRoomDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -74,10 +77,17 @@ namespace backend.Controllers
         }
 
         //truyen SBD tra ve phong thi, ket qua, thi sinh.
-        [HttpGet("information/{sbd}")]
-        public IActionResult GetInfor(string sbd)
+        [HttpGet("information")]
+        public IActionResult GetInfor(string name, string phone)
         {
-            return Ok(this.repository.GetInfor(sbd));
+            try{
+                WebDTO webDTO = this.repository.GetInfor(name, phone);
+                return Ok(webDTO);
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
         }
     }
 }

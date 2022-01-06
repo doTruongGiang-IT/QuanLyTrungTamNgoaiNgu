@@ -21,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetAll().Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -72,6 +75,23 @@ namespace backend.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("Examination/{examination_id}")]
+        public IActionResult GetByExam(int examination_id)
+        {   
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetByExam(examination_id).Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
+        }
+        [HttpGet("Examination/Level/{examination_id}/{level}")]
+        public IActionResult GetByExamLevel(int examination_id, string level)
+        {
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetByExamLevel(examination_id, level).Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
         }
     }
 }
