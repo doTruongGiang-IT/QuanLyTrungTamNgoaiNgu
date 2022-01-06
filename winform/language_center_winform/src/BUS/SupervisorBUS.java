@@ -22,7 +22,7 @@ public class SupervisorBUS {
             System.out.println(e);
         };
         for (SupervisorDTO supervisorDTO : supervisors) {
-			System.out.println(supervisorDTO.toJSONObject().toString());
+//			System.out.println(supervisorDTO.toJSONObject().toString());
 		}
         return supervisors;
     };

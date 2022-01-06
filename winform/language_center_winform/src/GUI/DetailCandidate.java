@@ -9,12 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+
+import BUS.CandidateBUS;
+import DTO.CandidateDTO;
 
 public class DetailCandidate extends JDialog {
 
@@ -27,31 +35,33 @@ public class DetailCandidate extends JDialog {
 	private JTextField textFirstName;
 	private JTextField textPlaceofbirth;
 	private JTextField textPhone;
-	private JTextField textCandidateNumber;
+	private JDateChooser dateChooserIssueDate;
+	private JDateChooser dateChooserDateofbirth;
+	public CandidateDTO candidateDTO;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			DetailCandidate dialog = new DetailCandidate();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			DetailCandidate dialog = new DetailCandidate();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public DetailCandidate() {
+	public DetailCandidate( CandidateDTO dto) {
+		this.candidateDTO = new CandidateDTO(dto);
 		setBounds(100, 100, 703, 491);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.rowHeights = new int[] {30, 30, 30, 0, 0, 30, 30, 30, 0, 30, 30};
 		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
@@ -114,25 +124,6 @@ public class DetailCandidate extends JDialog {
 			textIdentification.setColumns(10);
 		}
 		{
-			JLabel lblCandidateNumber = new JLabel("Candidate Number");
-			GridBagConstraints gbc_lblCandidateNumber = new GridBagConstraints();
-			gbc_lblCandidateNumber.anchor = GridBagConstraints.EAST;
-			gbc_lblCandidateNumber.insets = new Insets(0, 0, 5, 5);
-			gbc_lblCandidateNumber.gridx = 0;
-			gbc_lblCandidateNumber.gridy = 3;
-			contentPanel.add(lblCandidateNumber, gbc_lblCandidateNumber);
-		}
-		{
-			textCandidateNumber = new JTextField();
-			GridBagConstraints gbc_textCandidateNumber = new GridBagConstraints();
-			gbc_textCandidateNumber.insets = new Insets(0, 0, 5, 0);
-			gbc_textCandidateNumber.fill = GridBagConstraints.HORIZONTAL;
-			gbc_textCandidateNumber.gridx = 1;
-			gbc_textCandidateNumber.gridy = 3;
-			contentPanel.add(textCandidateNumber, gbc_textCandidateNumber);
-			textCandidateNumber.setColumns(10);
-		}
-		{
 			JLabel lblNewLabel_2 = new JLabel("Issue_date");
 			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 			gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
@@ -142,7 +133,8 @@ public class DetailCandidate extends JDialog {
 			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		}
 		{
-			JDateChooser dateChooserIssueDate = new JDateChooser();
+			dateChooserIssueDate = new JDateChooser();
+			dateChooserIssueDate.setDateFormatString("yyyy-MM-dd");
 			GridBagConstraints gbc_dateChooserIssueDate = new GridBagConstraints();
 			gbc_dateChooserIssueDate.insets = new Insets(0, 0, 5, 0);
 			gbc_dateChooserIssueDate.fill = GridBagConstraints.HORIZONTAL;
@@ -217,7 +209,8 @@ public class DetailCandidate extends JDialog {
 			contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		}
 		{
-			JDateChooser dateChooserDateofbirth = new JDateChooser();
+			dateChooserDateofbirth = new JDateChooser();
+			dateChooserDateofbirth.setDateFormatString("yyyy-MM-dd");
 			GridBagConstraints gbc_dateChooserDateofbirth = new GridBagConstraints();
 			gbc_dateChooserDateofbirth.insets = new Insets(0, 0, 5, 0);
 			gbc_dateChooserDateofbirth.fill = GridBagConstraints.HORIZONTAL;
@@ -291,20 +284,69 @@ public class DetailCandidate extends JDialog {
 				JButton btnChange = new JButton("Change");
 				btnChange.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						changeCloseDialog();
+						if (textEmail.getText().equals("") || textIdentification.getText().equals("") || textFirstName.getText().equals("") || textLastName.getText().equals("")
+								|| textGender.getText().equals("") || textIssuePlace.getText().equals("") || textPhone.getText().equals("") || textPlaceofbirth.getText().equals("")) {
+							JOptionPane.showMessageDialog(getParent(), "All field must not empty");
+						}
+						else {
+							CandidateDTO changeDto = new CandidateDTO();
+							changeDto.setId(candidateDTO.getId());
+							changeDto.setIdentification(textIdentification.getText());
+							changeDto.setIssue_place(textIssuePlace.getText());
+							changeDto.setEmail(textEmail.getText());
+							changeDto.setFirst_name(textFirstName.getText());
+							changeDto.setLast_name(textLastName.getText());
+							changeDto.setGender(textGender.getText());
+							changeDto.setPlace_of_birth(textPlaceofbirth.getText());
+							String dateofbirth;
+							String issuedate;
+							Date dateofbirthUnformat = dateChooserDateofbirth.getDate();
+							Date issuedateUnformat = dateChooserIssueDate.getDate();
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+							dateofbirth = sdf.format(dateofbirthUnformat);
+							issuedate = sdf.format(issuedateUnformat);
+							changeDto.setDay_of_birth(dateofbirth);
+							changeDto.setIssue_date(issuedate);
+							changeDto.setPhone(textPhone.getText());
+							changeCloseDialog(changeDto);
+						}
 					}
 				});
 				buttonPane.add(btnChange);
 			}
 		}
+		onLoad();
 	}
 	
 	public void closeDialog() {
 		this.dispose();
 	}
 	
-	public void changeCloseDialog() {
+	public void changeCloseDialog(CandidateDTO dto) {
+		CandidateBUS bus = new CandidateBUS();
+//		System.out.println(dto.toJSONObject().toString());
+		bus.update(dto);
 		this.dispose();
 	}
+	
+	public void onLoad() {
+//		System.out.println(candidateDTO.toJSONObject().toString());
+		textIdentification.setText(candidateDTO.getIdentification());
+		textFirstName.setText(candidateDTO.getFirst_name());
+		textLastName.setText(candidateDTO.getLast_name());
+		textGender.setText(candidateDTO.getGender());
+		textIssuePlace.setText(candidateDTO.getIssue_place());
+		textEmail.setText(candidateDTO.getEmail());
+		textPlaceofbirth.setText(candidateDTO.getPlace_of_birth());
+		try {
+			dateChooserDateofbirth.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(candidateDTO.getDay_of_birth()));
+			dateChooserIssueDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(candidateDTO.getIssue_date()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		textPhone.setText(candidateDTO.getPhone());
+	}
+	
 
 }

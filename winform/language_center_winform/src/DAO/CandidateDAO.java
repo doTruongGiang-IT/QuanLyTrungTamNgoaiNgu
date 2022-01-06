@@ -51,10 +51,10 @@ public class CandidateDAO {
         return candidateDTO;
     };
     
-    public void insert(CandidateDTO candidate) {
+    public JSONObject insert(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
-    	System.out.println(candidate.toJSONObject().toString());
-    	apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
+    	Response res = apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
+    	return res.data;
     };
     
     public void update(CandidateDTO candidate) {
@@ -69,23 +69,23 @@ public class CandidateDAO {
     
     public static void main(String args[]) {
 		CandidateDAO candidateDAO = new CandidateDAO();
-		List<CandidateDTO> dtos = candidateDAO.getCandidates();
-		if(dtos != null) {
-			for(int i=0; i< dtos.size(); i++) {
-				System.out.println(dtos.get(i).getId());
-				System.out.println(dtos.get(i).getIdentification());
-				System.out.println(dtos.get(i).getFirst_name());
-				System.out.println(dtos.get(i).getLast_name());
-				System.out.println(dtos.get(i).getEmail());
-				System.out.println(dtos.get(i).getGender());
-				System.out.println(dtos.get(i).getDay_of_birth());
-				System.out.println(dtos.get(i).getPlace_of_birth());
-				System.out.println(dtos.get(i).getIssue_date());
-				System.out.println(dtos.get(i).getIssue_place());
-				System.out.println(dtos.get(i).getPhone());
-				System.out.println("=====================");
-			};
-		};
+//		List<CandidateDTO> dtos = candidateDAO.getCandidates();
+//		if(dtos != null) {
+//			for(int i=0; i< dtos.size(); i++) {
+//				System.out.println(dtos.get(i).getId());
+//				System.out.println(dtos.get(i).getIdentification());
+//				System.out.println(dtos.get(i).getFirst_name());
+//				System.out.println(dtos.get(i).getLast_name());
+//				System.out.println(dtos.get(i).getEmail());
+//				System.out.println(dtos.get(i).getGender());
+//				System.out.println(dtos.get(i).getDay_of_birth());
+//				System.out.println(dtos.get(i).getPlace_of_birth());
+//				System.out.println(dtos.get(i).getIssue_date());
+//				System.out.println(dtos.get(i).getIssue_place());
+//				System.out.println(dtos.get(i).getPhone());
+//				System.out.println("=====================");
+//			};
+//		};
 	};
 	
 }

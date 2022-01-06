@@ -19,6 +19,20 @@ public class CandidateDTO {
 	
 	public CandidateDTO() {};
 	
+	public CandidateDTO(CandidateDTO dto) {
+		this.id = dto.getId();
+		this.identification = dto.getIdentification();
+		this.issue_date = dto.getIssue_date();
+		this.issue_place = dto.getIssue_place();
+		this.first_name = dto.getFirst_name();
+		this.last_name = dto.getLast_name();
+		this.email = dto.getEmail();
+		this.gender = dto.getGender();
+		this.day_of_birth = dto.getDay_of_birth();
+		this.place_of_birth = dto.getPlace_of_birth();
+		this.phone = dto.getPhone();
+	};
+	
 	public CandidateDTO(JSONObject data) {
 		try {
 			this.id = data.getInt("id");

@@ -4,18 +4,13 @@ import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import BUS.ExaminationBUS;
 import BUS.SupervisorBUS;
-import DTO.ExaminationDTO;
 import DTO.SupervisorDTO;
 
 import java.awt.GridBagLayout;
@@ -29,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -130,10 +127,31 @@ public class SupervisorPanel extends JPanel {
 		panel_4.add(btnAdd);
 		
 		btnChange = new JButton("Change");
+		btnChange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = Integer.parseInt(textSupervisorId.getText());
+				String name = textSupervisorName.getText();
+				changeSupervisor(id, name);
+				textSupervisorId.setText("");
+				textSupervisorName.setText("");
+				onLoad();
+				loadData();
+			}
+		});
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnChange);
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = Integer.parseInt(textSupervisorId.getText());
+				deleteSupervisor(id);
+				textSupervisorId.setText("");
+				textSupervisorName.setText("");
+				onLoad();
+				loadData();
+			}
+		});
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnDelete);
 		
@@ -211,6 +229,20 @@ public class SupervisorPanel extends JPanel {
                 return false;               
 			};
 		};
+		tableSupervisor.setAutoCreateRowSorter(true);
+		tableSupervisor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked (MouseEvent evt) {
+				int rowIndex = tableSupervisor.getSelectedRow();
+				if (rowIndex > -1) {
+					String id = tableSupervisor.getValueAt(rowIndex, 0).toString();
+					String name = tableSupervisor.getValueAt(rowIndex, 1).toString();
+					textSupervisorId.setText(id);
+					textSupervisorName.setText(name);
+					enableButton();
+				}
+			}
+		});
 		scrollPane.setViewportView(tableSupervisor);
 
 		onLoad();
@@ -237,7 +269,7 @@ public class SupervisorPanel extends JPanel {
 			row.add(Integer.toString(supervisorDTO.getId()));
 			row.add(supervisorDTO.getName());
 			vctData.add(row);
-			System.out.println(supervisorDTO.toJSONObject().toString());
+//			System.out.println(supervisorDTO.toJSONObject().toString());
 		}
 		tableSupervisor.setModel(new DefaultTableModel(vctData, vctHeader));
 	}
@@ -247,5 +279,23 @@ public class SupervisorPanel extends JPanel {
 			this.btnChange.setEnabled(false);
 			this.btnDelete.setEnabled(false);
 		}
+	}
+	
+	public void enableButton() {
+		this.btnChange.setEnabled(true);
+		this.btnDelete.setEnabled(true);
+	}
+	
+	public void deleteSupervisor (int id) {
+		supervisorBus = new SupervisorBUS();
+		supervisorBus.delete(id);
+		onLoad();
+	}
+	
+	public void changeSupervisor (int id, String name) {
+		supervisorBus = new SupervisorBUS();
+		SupervisorDTO dto = new SupervisorDTO(id, name);
+		supervisorBus.update(dto);
+		onLoad();
 	}
 }
