@@ -6,7 +6,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import DTO.ExaminationDTO;
 import DTO.RoomDTO;
 
 public class RoomDAO {
@@ -18,15 +23,19 @@ public class RoomDAO {
 	
 	public List<RoomDTO> getRooms() {
 		rooms = new ArrayList<RoomDTO>();
-//		HttpClient client = HttpClient.newHttpClient();
-//	    HttpRequest request = HttpRequest.newBuilder()
-//	            .uri(new URI(API_URL))
-//	            .headers("Content-Type", "application/json;charset=UTF-8")
-//	            .GET()
-//	            .build();
-//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        JSONObject responseObj = new JSONObject(response.body().toString());
-//        System.out.println(responseObj);
+		ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("Room", "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		try {
+				JSONArray list = res.data.getJSONArray("data");
+				for(int i=0; i<list.length();i++) {
+					JSONObject jsonObj = (JSONObject) list.get(i);
+					rooms.add(new RoomDTO(jsonObj));
+				};
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+    	};
         return rooms;
     };
     
@@ -56,5 +65,20 @@ public class RoomDAO {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("Room/"+String.valueOf(id), "DELETE", null);
     };
+    
+    public static void main(String args[]) {
+		RoomDAO roomDAO = new RoomDAO();
+		List<RoomDTO> dtos = roomDAO.getRooms();
+		if(dtos != null) {
+			for(int i=0; i< dtos.size(); i++) {
+				System.out.println(dtos.get(i).getId());
+				System.out.println(dtos.get(i).getName());
+				System.out.println(dtos.get(i).getExamination_id());
+				System.out.println(dtos.get(i).getLevel());
+				System.out.println(dtos.get(i).getTime());
+				System.out.println("=====================");
+			};
+		};
+	};
 	
 }

@@ -107,5 +107,18 @@ public class ExaminationBUS {
         
         return examinationsSearch;
     };
+    
+    public static void main(String args[]) {
+		ExaminationBUS examBUS = new ExaminationBUS();
+		List<ExaminationDTO> dtos = examBUS.getExaminations();
+		if(dtos != null) {
+			for(int i=0; i< dtos.size(); i++) {
+				System.out.println(dtos.get(i).getId());
+				System.out.println(dtos.get(i).getName());
+				System.out.println(dtos.get(i).getDate());
+				System.out.println("=====================");
+			};
+		};
+	};
 	
 }

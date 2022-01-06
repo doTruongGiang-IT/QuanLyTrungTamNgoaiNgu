@@ -27,7 +27,7 @@ public class CandidateDTO {
 			this.last_name = data.getString("last_name");
 			this.email = data.getString("email");
 			this.gender = data.getString("gender");
-			this.day_of_birth = data.getString("day_of_birth");
+			this.day_of_birth = data.getString("date_of_birth");
 			this.place_of_birth = data.getString("place_of_birth");
 			this.issue_date = data.getString("issue_date");
 			this.issue_place = data.getString("issue_place");

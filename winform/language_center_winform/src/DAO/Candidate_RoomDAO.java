@@ -6,7 +6,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import DTO.CandidateDTO;
 import DTO.Candidate_RoomDTO;
 import DTO.Supervisor_RoomDTO;
 
@@ -19,15 +24,19 @@ public class Candidate_RoomDAO {
 	
 	public List<Candidate_RoomDTO> getCandidate_Rooms() {
 		candidate_rooms = new ArrayList<Candidate_RoomDTO>();
-//		HttpClient client = HttpClient.newHttpClient();
-//	    HttpRequest request = HttpRequest.newBuilder()
-//	            .uri(new URI(API_URL))
-//	            .headers("Content-Type", "application/json;charset=UTF-8")
-//	            .GET()
-//	            .build();
-//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        JSONObject responseObj = new JSONObject(response.body().toString());
-//        System.out.println(responseObj);
+		ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("CandidateRoom", "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		try {
+				JSONArray list = res.data.getJSONArray("data");
+				for(int i=0; i<list.length();i++) {
+					JSONObject jsonObj = (JSONObject) list.get(i);
+					candidate_rooms.add(new Candidate_RoomDTO(jsonObj));
+				};
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+    	};
         return candidate_rooms;
     };
     
@@ -56,7 +65,24 @@ public class Candidate_RoomDAO {
     public void delete(int id) {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("CandidateRoom/"+String.valueOf(id), "DELETE", null);
-
     };
+    
+    public static void main(String args[]) {
+    	Candidate_RoomDAO candidate_roomDAO = new Candidate_RoomDAO();
+		List<Candidate_RoomDTO> dtos = candidate_roomDAO.getCandidate_Rooms();
+		if(dtos != null) {
+			for(int i=0; i< dtos.size(); i++) {
+				System.out.println(dtos.get(i).getId());
+				System.out.println(dtos.get(i).getCandidate_id());
+				System.out.println(dtos.get(i).getCandidate_no());
+				System.out.println(dtos.get(i).getRoom_id());
+				System.out.println(dtos.get(i).getScore_listening());
+				System.out.println(dtos.get(i).getScore_reading());
+				System.out.println(dtos.get(i).getScore_writing());
+				System.out.println(dtos.get(i).getScore_speaking());
+				System.out.println("=====================");
+			};
+		};
+	};
 	
 }

@@ -6,8 +6,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import DTO.Candidate_RoomDTO;
 import DTO.ExaminationDTO;
 import DTO.SupervisorDTO;
 import DTO.Supervisor_RoomDTO;
@@ -21,15 +25,19 @@ public class Supervisor_RoomDAO {
 	
 	public List<Supervisor_RoomDTO> getSupervisor_Rooms() {
 		supervisor_rooms = new ArrayList<Supervisor_RoomDTO>();
-//		HttpClient client = HttpClient.newHttpClient();
-//	    HttpRequest request = HttpRequest.newBuilder()
-//	            .uri(new URI(API_URL))
-//	            .headers("Content-Type", "application/json;charset=UTF-8")
-//	            .GET()
-//	            .build();
-//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        JSONObject responseObj = new JSONObject(response.body().toString());
-//        System.out.println(responseObj);
+		ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("SupervisorRoom", "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		try {
+				JSONArray list = res.data.getJSONArray("data");
+				for(int i=0; i<list.length();i++) {
+					JSONObject jsonObj = (JSONObject) list.get(i);
+					supervisor_rooms.add(new Supervisor_RoomDTO(jsonObj));
+				};
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+    	};
         return supervisor_rooms;
     };
     
@@ -59,6 +67,19 @@ public class Supervisor_RoomDAO {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("SupervisorRoom/"+String.valueOf(id), "DELETE", null);
     };
+    
+    public static void main(String args[]) {
+    	Supervisor_RoomDAO supervisor_RoomDAO = new Supervisor_RoomDAO();
+		List<Supervisor_RoomDTO> dtos = supervisor_RoomDAO.getSupervisor_Rooms();
+		if(dtos != null) {
+			for(int i=0; i< dtos.size(); i++) {
+				System.out.println(dtos.get(i).getId());
+				System.out.println(dtos.get(i).getSupervisor_id());
+				System.out.println(dtos.get(i).getRoom_id());
+				System.out.println("=====================");
+			};
+		};
+	};
     
 	
 }
