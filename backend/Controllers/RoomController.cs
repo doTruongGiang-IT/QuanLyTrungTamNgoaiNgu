@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetAll().Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -31,9 +35,18 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]Room room)
+        public IActionResult Create([FromBody]RoomDTO roomDTO)
         {
-            return Ok(this.repository.Create(room));
+            try
+            {
+                RoomDTO checkRoom = this.repository.Create(roomDTO);
+                return Ok(checkRoom);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpDelete("{id}")]
@@ -51,17 +64,34 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Room room)
+        public IActionResult Update([FromBody]RoomDTO roomDTO)
         {
             try
             {
-                this.repository.Update(room);
-                return Ok(room);
+                this.repository.Update(roomDTO);
+                return Ok(roomDTO);
             }
             catch(Exception ex)
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("Examination/{examination_id}")]
+        public IActionResult GetByExam(int examination_id)
+        {   
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetByExam(examination_id).Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
+        }
+        [HttpGet("Examination/Level/{examination_id}/{level}")]
+        public IActionResult GetByExamLevel(int examination_id, string level)
+        {
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetByExamLevel(examination_id, level).Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
         }
     }
 }

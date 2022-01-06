@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, CandidateRoomDTO[]> dictionary = new Dictionary<string, CandidateRoomDTO[]>();
+            CandidateRoomDTO[] candidateRoomDTOs = this.repository.GetAll().Cast<CandidateRoomDTO>().ToArray();
+            dictionary.Add("data", candidateRoomDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -31,9 +35,17 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]CandidateRoom candidateRoom)
+        public IActionResult Create([FromBody]CandidateRoomDTO candidateRoomDTO)
         {
-            return Ok(this.repository.Create(candidateRoom));
+            try
+            {
+                CandidateRoomDTO checkCaRo = this.repository.Create(candidateRoomDTO);
+                return Ok(checkCaRo);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -51,12 +63,26 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]CandidateRoom candidateRoom)
+        public IActionResult Update([FromBody]CandidateRoomDTO candidateRoomDTO)
         {
             try
             {
-                this.repository.Update(candidateRoom);
-                return Ok(candidateRoom);
+                this.repository.Update(candidateRoomDTO);
+                return Ok(candidateRoomDTO);
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
+        }
+
+        //truyen SBD tra ve phong thi, ket qua, thi sinh.
+        [HttpGet("information")]
+        public IActionResult GetInfor(string name, string phone)
+        {
+            try{
+                WebDTO webDTO = this.repository.GetInfor(name, phone);
+                return Ok(webDTO);
             }
             catch(Exception ex)
             {

@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,10 @@ namespace backend.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(this.repository.GetAll());
+            Dictionary<string, SupervisorDTO[]> dictionary = new Dictionary<string, SupervisorDTO[]>();
+            SupervisorDTO[] supervisorDTOs = this.repository.GetAll().Cast<SupervisorDTO>().ToArray();
+            dictionary.Add("data", supervisorDTOs);
+            return Ok(dictionary);
         }
 
         [HttpGet("{id}")]
@@ -31,9 +35,17 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]Supervisor supervisor)
+        public IActionResult Create([FromBody]SupervisorDTO supervisorDTO)
         {
-            return Ok(this.repository.Create(supervisor));
+            try
+            {
+                SupervisorDTO checkSup = this.repository.Create(supervisorDTO);
+                return Ok(checkSup);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -51,12 +63,12 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Supervisor supervisor)
+        public IActionResult Update([FromBody]SupervisorDTO supervisorDTO)
         {
             try
             {
-                this.repository.Update(supervisor);
-                return Ok(supervisor);
+                this.repository.Update(supervisorDTO);
+                return Ok(supervisorDTO);
             }
             catch(Exception ex)
             {

@@ -18,7 +18,21 @@ namespace backend.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.identification).IsUnique();
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.email).IsUnique();
+            modelBuilder.Entity<Candidate>()
+                .HasIndex(c => c.phone).IsUnique();
+
+            modelBuilder.Entity<CandidateRoom>()
+                .HasIndex(cr => new {cr.candidate_id, cr.room_id}).IsUnique();
+
+            modelBuilder.Entity<RegistrationForm>()
+                .HasIndex(cr => new {cr.candidate_id, cr.examination_id}).IsUnique();
+
+            modelBuilder.Entity<SupervisorRoom>()
+                .HasIndex(cr => new {cr.supervisor_id, cr.room_id}).IsUnique();
         }
     }
 }
