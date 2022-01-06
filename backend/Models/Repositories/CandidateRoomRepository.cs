@@ -41,26 +41,41 @@ namespace backend.Models.Repositories
             this.context.SaveChanges();
         }
 
-        public WebDTO GetInfor(string sbd)
+        public WebDTO GetInfor(string name, string phone)
         {
-            CandidateRoom candidateRoom = this.context.candidate_rooms.Single(cr => cr.candidate_no==sbd);
-            CandidateDTO candidate = this.context.candidates.Find(candidateRoom.candidate_id).ConvertToCandidateDTO();
-            Room room = this.context.rooms.Find(candidateRoom.room_id);
+            Candidate candidate = this.context.candidates.SingleOrDefault(c => (c.first_name+" "+c.last_name)==name && c.phone==phone);
+            List<CandidateRoom> candidateRooms = this.context.candidate_rooms.Where(cr => cr.candidate_id==candidate.id).ToList();
+            CandidateDTO candidateDTO = candidate.ConvertToCandidateDTO();
+            Room room = new Room();
+            Examination examination = new Examination();
+            CandidateRoom candidateRoom = new CandidateRoom();
+            for(int i = (candidateRooms.Count-1); i >= 0; i--)
+            {
+                room = this.context.rooms.Find(candidateRooms[i].room_id);
+                examination = this.context.examinations.Find(room.examination_id);
+                if(!examination.registration_status)
+                {
+                    candidateRoom = candidateRooms[i];
+                    break;
+                }
+            }
+            Console.Write("Kim Bao");
             string time = "Afternoon";
             if(room.time)
             {
                 time = "Morning";
             }
-            ExaminationDTO examination = this.context.examinations.Find(room.examination_id).ConvertToExaminationDTO();
+            ExaminationDTO examinationDTO = examination.ConvertToExaminationDTO();
+            RoomDTO roomDTO = room.ConvertToRoomDTO();
             ScheduleDTO schedule = new ScheduleDTO();
-            schedule.examination = examination.name;
-            schedule.level = room.level;
-            schedule.room = room.name;
-            schedule.date = examination.date;
+            schedule.examination = examinationDTO.name;
+            schedule.level = roomDTO.level;
+            schedule.room = roomDTO.name;
+            schedule.date = examinationDTO.date;
             schedule.time = time;
             
             WebDTO webDTO = new WebDTO();
-            webDTO.candidate = candidate;
+            webDTO.candidate = candidate.ConvertToCandidateDTO();
             webDTO.schedule = schedule;
             webDTO.candidateRoom = candidateRoom.ConvertToCandidateRoomDTO();
             return webDTO;
