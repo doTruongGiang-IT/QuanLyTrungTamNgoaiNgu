@@ -93,7 +93,7 @@ namespace backend.Controllers
             List <RegistrationFormDTO> registrationsCurrentExamsA2 = new List<RegistrationFormDTO>();
             List <RegistrationFormDTO> registrationsCurrentExamsB1 = new List<RegistrationFormDTO>();
 
-            ExaminationDTO currentExamination = examinationRepository.GetCurrent().DeepClone();
+            ExaminationDTO currentExamination = examinationRepository.GetCurrent();
 
             if (!currentExamination.registration_status) {
                 return StatusCode(400);   
@@ -230,8 +230,14 @@ namespace backend.Controllers
                 }
             }
 
-            currentExamination.registration_status = false;
-            examinationRepository.Update(currentExamination);
+            ExaminationDTO newCurrentExamination = new ExaminationDTO(){
+                id = currentExamination.id,
+                name = currentExamination.name,
+                date = currentExamination.date,
+                registration_status = false
+            };
+
+            examinationRepository.Update(newCurrentExamination);
 
             return StatusCode(200);   
         }
