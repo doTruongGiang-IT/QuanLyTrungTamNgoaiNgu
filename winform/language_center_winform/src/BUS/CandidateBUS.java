@@ -3,6 +3,9 @@ package BUS;
 import DTO.CandidateDTO;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONObject;
+
 import DAO.CandidateDAO;
 
 public class CandidateBUS {
@@ -37,9 +40,13 @@ public class CandidateBUS {
     
     public boolean insert(CandidateDTO candidate) {
     	try{
-    		candidateDAO.insert(candidate);
-    		candidates.add(candidate);
-    		return true;
+    		JSONObject result = candidateDAO.insert(candidate);
+    		if(result != null) {
+    			candidates.add(new CandidateDTO(result));
+        		return true;
+    		}else {
+    			return false;
+    		}
 		}catch (Exception e) {
 			System.out.println("Insert candidate error");
 			return false;
@@ -57,9 +64,11 @@ public class CandidateBUS {
         
         if(index != -1) {
         	try{
-        		candidateDAO.update(candidate);
-        		candidates.set(index, candidate);
-        		result = true;
+        		boolean res = candidateDAO.update(candidate);
+        		if(res) {
+        			candidates.set(index, candidate);
+            		result = true;
+        		};
     		}catch (Exception e) {
     			System.out.println("Update candidate error");
     		};
@@ -77,9 +86,11 @@ public class CandidateBUS {
         };
         if(index != -1) {
         	try{
-        		candidateDAO.delete(id);
-        		candidates.remove(index);
-        		result = true;
+        		boolean res = candidateDAO.delete(id);
+        		if(res) {
+        			candidates.remove(index);
+            		result = true;
+        		};
     		}catch (Exception e) {
     			System.out.println("Delete candidate error");
     		};

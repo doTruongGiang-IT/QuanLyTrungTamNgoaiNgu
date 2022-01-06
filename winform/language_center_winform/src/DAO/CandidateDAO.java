@@ -51,41 +51,60 @@ public class CandidateDAO {
         return candidateDTO;
     };
     
-    public void insert(CandidateDTO candidate) {
+    public JSONObject insert(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
-    	System.out.println(candidate.toJSONObject().toString());
-    	apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
+    	Response res = apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		return res.data;
+    	}
+    	return null;
     };
     
-    public void update(CandidateDTO candidate) {
+    public boolean update(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Candidate", "PUT", candidate.toJSONObject().toString());
+    	Response res = apiConn.callAPI("Candidate", "PUT", candidate.toJSONObject().toString());
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		return true;
+    	}
+    	return false;
     };
     
-    public void delete(int id) {
+    public boolean delete(int id) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("Candidate/"+String.valueOf(id), "DELETE", null);
+    	Response res = apiConn.callAPI("Candidate/"+String.valueOf(id), "DELETE", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		return true;
+    	}
+    	return false;
     };
     
     public static void main(String args[]) {
 		CandidateDAO candidateDAO = new CandidateDAO();
-		List<CandidateDTO> dtos = candidateDAO.getCandidates();
-		if(dtos != null) {
-			for(int i=0; i< dtos.size(); i++) {
-				System.out.println(dtos.get(i).getId());
-				System.out.println(dtos.get(i).getIdentification());
-				System.out.println(dtos.get(i).getFirst_name());
-				System.out.println(dtos.get(i).getLast_name());
-				System.out.println(dtos.get(i).getEmail());
-				System.out.println(dtos.get(i).getGender());
-				System.out.println(dtos.get(i).getDay_of_birth());
-				System.out.println(dtos.get(i).getPlace_of_birth());
-				System.out.println(dtos.get(i).getIssue_date());
-				System.out.println(dtos.get(i).getIssue_place());
-				System.out.println(dtos.get(i).getPhone());
-				System.out.println("=====================");
-			};
-		};
+		CandidateDTO candidateDTO = new CandidateDTO("123123172", "2015-09-15", "HCM", "do truong", "giang", "dotruonggiang12345@gmail.com", "Male", "2000-05-07", "HCM",  "0776134879");
+//		List<CandidateDTO> dtos = candidateDAO.getCandidates();
+		JSONObject res = candidateDAO.insert(candidateDTO);
+		try {
+			System.out.println(res.getInt("id"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		if(dtos != null) {
+//			for(int i=0; i< dtos.size(); i++) {
+//				System.out.println(dtos.get(i).getId());
+//				System.out.println(dtos.get(i).getIdentification());
+//				System.out.println(dtos.get(i).getFirst_name());
+//				System.out.println(dtos.get(i).getLast_name());
+//				System.out.println(dtos.get(i).getEmail());
+//				System.out.println(dtos.get(i).getGender());
+//				System.out.println(dtos.get(i).getDay_of_birth());
+//				System.out.println(dtos.get(i).getPlace_of_birth());
+//				System.out.println(dtos.get(i).getIssue_date());
+//				System.out.println(dtos.get(i).getIssue_place());
+//				System.out.println(dtos.get(i).getPhone());
+//				System.out.println("=====================");
+//			};
+//		};
 	};
 	
 }
