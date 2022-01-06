@@ -134,7 +134,7 @@ public class SupervisorPanel extends JPanel {
 				changeSupervisor(id, name);
 				textSupervisorId.setText("");
 				textSupervisorName.setText("");
-				onLoad();
+				disableButton();
 				loadData();
 			}
 		});
@@ -148,7 +148,7 @@ public class SupervisorPanel extends JPanel {
 				deleteSupervisor(id);
 				textSupervisorId.setText("");
 				textSupervisorName.setText("");
-				onLoad();
+				disableButton();
 				loadData();
 			}
 		});
@@ -245,7 +245,7 @@ public class SupervisorPanel extends JPanel {
 		});
 		scrollPane.setViewportView(tableSupervisor);
 
-		onLoad();
+		disableButton();
 	}
 	
 	public void addSupervisor(String name) {
@@ -274,7 +274,7 @@ public class SupervisorPanel extends JPanel {
 		tableSupervisor.setModel(new DefaultTableModel(vctData, vctHeader));
 	}
 	
-	public void onLoad() {
+	public void disableButton() {
 		if (textSupervisorName.getText().equals("") || textSupervisorName.getText() == null) {
 			this.btnChange.setEnabled(false);
 			this.btnDelete.setEnabled(false);
@@ -289,13 +289,13 @@ public class SupervisorPanel extends JPanel {
 	public void deleteSupervisor (int id) {
 		supervisorBus = new SupervisorBUS();
 		supervisorBus.delete(id);
-		onLoad();
+		disableButton();
 	}
 	
 	public void changeSupervisor (int id, String name) {
 		supervisorBus = new SupervisorBUS();
 		SupervisorDTO dto = new SupervisorDTO(id, name);
 		supervisorBus.update(dto);
-		onLoad();
+		disableButton();
 	}
 }

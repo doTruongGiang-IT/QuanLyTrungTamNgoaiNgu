@@ -150,8 +150,7 @@ public class FindCandidateDialog extends JDialog {
 			}
 		}
 		if (result.getIdentification() != null) {
-			FindResultDialog findresultDialog = new FindResultDialog();
-			findresultDialog.setFinderDto(result);
+			FindResultDialog findresultDialog = new FindResultDialog(result);
 			findresultDialog.setVisible(true);
 		}
 		else {

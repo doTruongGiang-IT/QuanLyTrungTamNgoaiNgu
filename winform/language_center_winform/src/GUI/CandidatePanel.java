@@ -175,7 +175,7 @@ public class CandidatePanel extends JPanel {
 				textCandidateId.setText("");
 				textCandidateIdent.setText("");
 				textCandidateLastName.setText("");
-				onLoad();
+				disablebutton();
 			}
 		});
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -202,7 +202,7 @@ public class CandidatePanel extends JPanel {
 		btnViewDetail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				openDetailCandidateDialog();
-				onLoad();
+				disablebutton();
 			}
 		});
 		btnViewDetail.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -317,7 +317,7 @@ public class CandidatePanel extends JPanel {
 		});
 		scrollPane.setViewportView(tableCandidate);
 		
-		onLoad();
+		disablebutton();
 	}
 	
 	public void openRegistrationDialog() {
@@ -332,7 +332,7 @@ public class CandidatePanel extends JPanel {
 		textCandidateId.setText("");
 		textCandidateIdent.setText("");
 		textCandidateLastName.setText("");
-		onLoad();
+		disablebutton();
 		loadData();
 		detailDialog.setVisible(true);
 	}
@@ -342,7 +342,7 @@ public class CandidatePanel extends JPanel {
 		findcandidateDialog.setVisible(true);
 	}
 	
-	public void onLoad() {
+	public void disablebutton() {
 		if (textCandidateId.getText().equals("") || textCandidateId.getText() == null) {
 			this.btnCreateRegistration.setEnabled(false);
 			this.btnDelete.setEnabled(false);
