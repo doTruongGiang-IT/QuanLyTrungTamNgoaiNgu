@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +32,20 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]Examination examination)
+        public IActionResult Create([FromBody]ExaminationDTO examinationDTO)
         {
-            return Ok(this.repository.Create(examination));
+            try{
+                var checkExam = this.repository.Create(examinationDTO);
+                if(checkExam == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(checkExam);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -51,17 +63,30 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Examination examination)
+        public IActionResult Update([FromBody]ExaminationDTO examinationDTO)
         {
             try
             {
-                this.repository.Update(examination);
-                return Ok(examination);
+                this.repository.Update(examinationDTO);
+                return Ok(examinationDTO);
             }
             catch(Exception ex)
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet("current")]
+        public IActionResult GetCurrent()
+        {
+            try{
+                var examination =  this.repository.GetCurrent();
+                return Ok(examination);
+            }catch(Exception ex)
+            {
+                return StatusCode(500);
+            }
+                
         }
     }
 }

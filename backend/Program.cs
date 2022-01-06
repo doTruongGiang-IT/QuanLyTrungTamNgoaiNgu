@@ -21,6 +21,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+// var context = serviceScope.ServiceProvider.GetRequiredService<QLTTNNContext>();
+// context.Database.Migrate();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<QLTTNNContext>();
+    db.Database.EnsureCreated();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

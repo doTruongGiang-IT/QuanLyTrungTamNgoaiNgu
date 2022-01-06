@@ -1,4 +1,5 @@
 using backend.Models.Data;
+using backend.Models.DTOs;
 
 namespace backend.Models.Repositories
 {
@@ -10,11 +11,28 @@ namespace backend.Models.Repositories
             this.context = context;
         }
 
-        public Examination Create(Examination examination)
+        public ExaminationDTO Create(ExaminationDTO examinationDTO)
         {
+            Examination examination = examinationDTO.ConvertToExamination();
+            DateTime now = DateTime.Now;
+            // var firstDayOfMonth = DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc);
+            // var lastDayOfMonth = DateTime.SpecifyKind(firstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            if(DateTime.Compare(examination.date, now) < 0)
+            {
+                return null;
+            }
+            var examfirstDayOfMonth = DateTime.SpecifyKind(new DateTime(examination.date.Year, examination.date.Month, 1), DateTimeKind.Utc);
+            var examlastDayOfMonth = DateTime.SpecifyKind(examfirstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            var checkExam = this.context.examinations.Where(e => e.date >= examfirstDayOfMonth && e.date <= examlastDayOfMonth).FirstOrDefault();
+            if(checkExam != null)
+            {
+
+                return null;
+            }
             var result = this.context.examinations.Add(examination);
             this.context.SaveChanges();
-            return examination;
+            ExaminationDTO examinationDTOResult = result.Entity.ConvertToExaminationDTO();
+            return examinationDTOResult;
 ;
         }
 
@@ -25,20 +43,32 @@ namespace backend.Models.Repositories
             this.context.SaveChanges();
         }
 
-        public Examination Get(int id)
+        public ExaminationDTO Get(int id)
         {
-            return this.context.examinations.Find(id);
+            ExaminationDTO examinationDTO = this.context.examinations.Find(id).ConvertToExaminationDTO();
+            return examinationDTO;
         }
 
-        public IEnumerable<Examination> GetAll()
+        public IEnumerable<ExaminationDTO> GetAll()
         {
-            return this.context.examinations.ToList();
+            return this.context.examinations.ToList().ConvertToExaminationDTO();
         }
 
-        public void Update(Examination examination)
+        public void Update(ExaminationDTO examinationDTO)
         {   
+            Examination examination = examinationDTO.ConvertToExamination();
             this.context.examinations.Update(examination);
             this.context.SaveChanges();
+        }
+
+        public ExaminationDTO GetCurrent()
+        {
+            DateTime now = DateTime.Now;
+            var firstDayOfMonth = DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc);
+            var lastDayOfMonth = DateTime.SpecifyKind(firstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
+            Examination examination = this.context.examinations.SingleOrDefault(e => e.date >= firstDayOfMonth && e.date <= lastDayOfMonth);
+            
+            return examination.ConvertToExaminationDTO();
         }
     }
 }

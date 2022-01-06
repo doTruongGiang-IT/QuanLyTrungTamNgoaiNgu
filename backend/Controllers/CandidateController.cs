@@ -1,4 +1,5 @@
 using backend.Models;
+using backend.Models.DTOs;
 using backend.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,9 +32,17 @@ namespace backend.Controllers
         }   
 
         [HttpPost]
-        public IActionResult Create([FromBody]Candidate candidate)
+        public IActionResult Create([FromBody]CandidateDTO candidateDTO)
         {
-            return Ok(this.repository.Create(candidate));
+            try
+            {
+                CandidateDTO candidate = this.repository.Create(candidateDTO);
+                return Ok(candidate);
+            }catch(Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpDelete("{id}")]
@@ -51,12 +60,12 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody]Candidate candidate)
+        public IActionResult Update([FromBody]CandidateDTO candidateDTO)
         {
             try
             {
-                this.repository.Update(candidate);
-                return Ok(candidate);
+                this.repository.Update(candidateDTO);
+                return Ok(candidateDTO);
             }
             catch(Exception ex)
             {
