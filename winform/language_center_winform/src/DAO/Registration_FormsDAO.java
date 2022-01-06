@@ -86,6 +86,16 @@ public class Registration_FormsDAO {
         }
         return false;
     }
+    
+    public boolean arrange() {
+        ApiConnection apiConn = new ApiConnection();
+        Response res = apiConn.callAPI("RegistrationForm/arrange", "GET", null);
+        
+        if (200 <= res.status_code && res.status_code <= 299) {
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String args[]) {
         Registration_FormsDAO registration_FormsDAO = new Registration_FormsDAO();

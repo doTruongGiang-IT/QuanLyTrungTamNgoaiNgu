@@ -98,4 +98,7 @@ public class Registration_FormsBUS {
         return result;
     }
 
+    public boolean arrange() {
+        return registration_formDAO.arrange();
+    }
 }
