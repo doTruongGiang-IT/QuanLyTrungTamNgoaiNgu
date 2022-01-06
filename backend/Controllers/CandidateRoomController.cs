@@ -77,17 +77,10 @@ namespace backend.Controllers
         }
 
         //truyen SBD tra ve phong thi, ket qua, thi sinh.
-        [HttpGet("information")]
-        public IActionResult GetInfor(string name, string phone)
+        [HttpGet("information/{sbd}")]
+        public IActionResult GetInfor(string sbd)
         {
-            try{
-                WebDTO webDTO = this.repository.GetInfor(name, phone);
-                return Ok(webDTO);
-            }
-            catch(Exception ex)
-            {
-                return NotFound();
-            }
+            return Ok(this.repository.GetInfor(sbd));
         }
     }
 }

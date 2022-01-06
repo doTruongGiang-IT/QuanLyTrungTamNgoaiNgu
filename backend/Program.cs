@@ -15,13 +15,6 @@ builder.Services.AddScoped<IExaminationRepository, ExaminationRepository>();
 builder.Services.AddScoped<ICandidateRoomRepository, CandidateRoomRepository>();
 builder.Services.AddScoped<ISupervisorRoomRepository, SupervisorRoomRepository>();
 builder.Services.AddScoped<IRegistrationFormRepository, RegistrationFormRepository>();
-builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
-                });
-            });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -48,8 +41,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
