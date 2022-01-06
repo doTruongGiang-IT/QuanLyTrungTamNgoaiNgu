@@ -12,22 +12,21 @@ const { Search } = Input;
 
 const SearchPage = () => {
     const dispatch = useDispatch();
-    const search = useSelector(state => state.search);
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
-
+    const search = useSelector(state => state.search);
+    
     const callback = (key) => {
         if(key === "schedule") {
-            dispatch(actions.searchScheduleRequest(1));
+            // dispatch(actions.searchScheduleRequest(1));
         };
         if(key === "score") {
-            dispatch(actions.searchScoreRequest(1));
+            // dispatch(actions.searchScoreRequest(1));
         };
     };
 
     const handleSearch = () => {
-        const search = {name, phone};
-        console.log(search);
+        dispatch(actions.searchResultRequest(name.trim(), phone.trim()));
     };
 
     return (
@@ -45,17 +44,20 @@ const SearchPage = () => {
                     <p><strong>Full name:</strong> Đỗ Trường Giang</p>
                     <p><strong>Day of Birth:</strong> 2000/07/05</p>
                     <p><strong>E-mail:</strong> dotruonggiang290@gmail.com</p> */}
-                    <div className='certificate'>
-                        <h2>Đỗ Trường Giang</h2>
-                    </div>
+                    {
+                        (search.message !== undefined || search.candidate === undefined) ?
+                        "" : <div className='certificate'>
+                                <h2>{`${search?.candidate?.first_name} ${search?.candidate?.last_name}`}</h2>
+                            </div>
+                    }
                 </div>
                 <div className='search_result'>
                     <Tabs defaultActiveKey="schedule" onChange={callback} size='large' style={{width: "100%"}}>
                         <TabPane tab="Lịch thi" key="schedule">
-                            <TableComponent tab="schedule" search={search} />
+                            <TableComponent tab="schedule"  />
                         </TabPane>
                         <TabPane tab="Kết quả thi" key="score">
-                            <TableComponent tab="score" search={search} />
+                            <TableComponent tab="score" />
                         </TabPane>
                     </Tabs>
                 </div>

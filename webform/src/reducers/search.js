@@ -1,17 +1,17 @@
 import * as types from "../constants/ActionTypes";
 
-const initialState = [];
+const initialState = {};
 
 const search = (state = initialState, action) => {
     switch(action.type) {
-        case types.SEARCH_SCORE:
+        case types.SEARCH_RESULT:
             state = action.payload;
-            return [...state];
-        case types.SEARCH_SCHEDULE:
-            state = action.payload;
-            return [...state];
+            if(state.message === undefined) {
+                localStorage.setItem("search_result", JSON.stringify(state));
+            };
+            return {...state};
         default:
-            return [...state];
+            return {...state};
     };
 };
 
