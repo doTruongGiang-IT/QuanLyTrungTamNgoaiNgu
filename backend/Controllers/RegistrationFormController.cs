@@ -13,8 +13,8 @@ namespace backend.Controllers
         private readonly IRegistrationFormRepository repository;
         private readonly ICandidateRoomRepository candidateRoomRepository;
         private readonly IRoomRepository roomRepository;
-        private readonly ExaminationRepository examinationRepository;
-        public RegistrationFormController(ILogger<RegistrationFormController> logger, IRegistrationFormRepository repository, ICandidateRoomRepository candidateRoomRepository, IRoomRepository roomRepository, ExaminationRepository examinationRepository)
+        private readonly IExaminationRepository examinationRepository;
+        public RegistrationFormController(ILogger<RegistrationFormController> logger, IRegistrationFormRepository repository, ICandidateRoomRepository candidateRoomRepository, IRoomRepository roomRepository, IExaminationRepository examinationRepository)
         {
             this._logger = logger;
             this.repository = repository;
@@ -93,11 +93,8 @@ namespace backend.Controllers
             List <RegistrationFormDTO> registrationsCurrentExamsA2 = new List<RegistrationFormDTO>();
             List <RegistrationFormDTO> registrationsCurrentExamsB1 = new List<RegistrationFormDTO>();
 
-            DateTime now = DateTime.Now;
-            var firstDayOfMonth = DateTime.SpecifyKind(new DateTime(now.Year, now.Month, 1), DateTimeKind.Utc);
-            var lastDayOfMonth = DateTime.SpecifyKind(firstDayOfMonth.AddMonths(1).AddDays(-1), DateTimeKind.Utc);
-            Examination currentExamination = examinationRepository.context.examinations.SingleOrDefault(e => e.date >= firstDayOfMonth && e.date <= lastDayOfMonth);
-            
+            ExaminationDTO currentExamination = examinationRepository.GetCurrent();
+
             if (!currentExamination.registration_status) {
                 return StatusCode(400);   
             }
@@ -240,9 +237,7 @@ namespace backend.Controllers
             //     registration_status = false
             // };
 
-            currentExamination.registration_status = false;
-
-            examinationRepository.context.SaveChanges();
+            examinationRepository.UpdateArrange();
 
             return StatusCode(200);   
         }
