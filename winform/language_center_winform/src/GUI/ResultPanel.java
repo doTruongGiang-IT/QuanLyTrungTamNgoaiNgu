@@ -8,6 +8,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import BUS.Candidate_RoomBUS;
+import BUS.RoomBUS;
+import DTO.Candidate_RoomDTO;
+import DTO.RoomDTO;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,10 +33,14 @@ import javax.swing.JDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Vector;
 import java.awt.event.ItemEvent;
 
 public class ResultPanel extends JPanel {
-	private JTable table;
+	private JTable tableResult;
 	private JTextField textId;
 	private JTextField textField_1;
 	private JTextField textSpeaking;
@@ -39,13 +50,18 @@ public class ResultPanel extends JPanel {
 	private JTextField textCandidateId;
 	private JTextField textCandidateno;
 	private JTextField textRoomId;
-	public JComboBox<String> comboBoxExamination;
 	public JComboBox<String> comboBoxRoom;
+	private JButton btnApply;
+	public Candidate_RoomBUS crBus;
+	public List<Candidate_RoomDTO> crList;
+	private int GlobalId;
+	private Vector<String> rStringList;
 
 	/**
 	 * Create the panel.
 	 */
 	public ResultPanel() {
+		onLoad();
 		setMaximumSize(new Dimension(1039, 763));
 		setLayout(new CardLayout(0, 0));
 		
@@ -233,7 +249,13 @@ public class ResultPanel extends JPanel {
 		panel_5.add(panel_8);
 		panel_8.setLayout(new GridLayout(0, 10, 0, 0));
 		
-		JButton btnApply = new JButton("Apply");
+		btnApply = new JButton("Apply");
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeResult();
+				loadData();
+			}
+		});
 		btnApply.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_8.add(btnApply);
 		
@@ -275,14 +297,14 @@ public class ResultPanel extends JPanel {
 		JButton btnLoad = new JButton("Load data");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int examinationIndex = comboBoxExamination.getSelectedIndex();
-				String examinationString =  comboBoxExamination.getItemAt(examinationIndex);
+//				int examinationIndex = comboBoxExamination.getSelectedIndex();
+//				String examinationString =  comboBoxExamination.getItemAt(examinationIndex);
 				int roomIndex = comboBoxRoom.getSelectedIndex();
 				String roomString =  comboBoxRoom.getItemAt(roomIndex);
-				if( examinationString == null || examinationString.equals("")) {
-					JOptionPane.showMessageDialog(getParent(),"Must select examination" );
-				}
-				else if(roomString == null || roomString.equals("")) {
+//				if( examinationString == null || examinationString.equals("")) {
+//					JOptionPane.showMessageDialog(getParent(),"Must select examination" );
+//				}
+				if(roomString == null || roomString.equals("")) {
 					JOptionPane.showMessageDialog(getParent(),"Must select room" );
 				}
 				else loadData();
@@ -297,27 +319,13 @@ public class ResultPanel extends JPanel {
 		
 		JPanel panel_9 = new JPanel();
 		panel_7.add(panel_9);
-		panel_9.setLayout(new GridLayout(0, 4, 30, 0));
-		
-		JLabel lblNewLabel_4 = new JLabel("Examination");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_9.add(lblNewLabel_4);
-		
-		comboBoxExamination = new JComboBox<String>();
-		comboBoxExamination.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				if(e.getStateChange() == ItemEvent.SELECTED) {
-					
-				}
-			}
-		});
-		panel_9.add(comboBoxExamination);
+		panel_9.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNewLabel_5 = new JLabel("Room");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_9.add(lblNewLabel_5);
 		
-		comboBoxRoom = new JComboBox<String>();
+		comboBoxRoom = new JComboBox<String>(rStringList);
 		panel_9.add(comboBoxRoom);
 		
 		JPanel panel_1 = new JPanel();
@@ -327,7 +335,7 @@ public class ResultPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
 		
-		table = new JTable() {
+		tableResult = new JTable() {
 			/**
 			 * 
 			 */
@@ -337,12 +345,99 @@ public class ResultPanel extends JPanel {
                 return false;               
 			};
 		};
-		scrollPane.setViewportView(table);
+		tableResult.setAutoCreateRowSorter(true);
+		tableResult.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked (MouseEvent evt) {
+				int rowIndex = tableResult.getSelectedRow();
+				if (rowIndex > -1) {
+					textId.setText(tableResult.getValueAt(rowIndex, 0).toString());
+					textCandidateId.setText(tableResult.getValueAt(rowIndex, 1).toString());
+					textRoomId.setText(tableResult.getValueAt(rowIndex, 2).toString());
+					textCandidateno.setText(tableResult.getValueAt(rowIndex, 3).toString());
+					textListening.setText(tableResult.getValueAt(rowIndex, 4).toString());
+					textWriting.setText(tableResult.getValueAt(rowIndex, 5).toString());
+					textSpeaking.setText(tableResult.getValueAt(rowIndex, 6).toString());
+					textReading.setText(tableResult.getValueAt(rowIndex, 7).toString());
+					
+				}
+			}
+		});
+		scrollPane.setViewportView(tableResult);
 
 	}
 	
 	public void loadData() {
-		
+		Vector<String> vctHeader = new Vector<String>();
+		vctHeader.add("Id");
+		vctHeader.add("Candidate Id");
+		vctHeader.add("Room Id");
+		vctHeader.add("Candidate Number");
+		vctHeader.add("Listening");
+		vctHeader.add("Writing");
+		vctHeader.add("Speaking");
+		vctHeader.add("Reading");
+		Vector vctData = new Vector<>();
+		crBus = new Candidate_RoomBUS();
+		crList = crBus.getCandidate_Rooms();
+		if (crList.size() == 0) {
+			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
+		}
+		else {
+			for (Candidate_RoomDTO candidate_roomDTO : crList) {
+				Vector<String> row = new Vector<String>();
+				row.add(Integer.toString(candidate_roomDTO.getId()));
+				row.add(Integer.toString(candidate_roomDTO.getCandidate_id()));
+				row.add(Integer.toString(candidate_roomDTO.getRoom_id()));
+				row.add(candidate_roomDTO.getCandidate_no());
+				row.add(Double.toString(candidate_roomDTO.getScore_listening()));
+				row.add(Double.toString(candidate_roomDTO.getScore_writing()));
+				row.add(Double.toString(candidate_roomDTO.getScore_speaking()));
+				row.add(Double.toString(candidate_roomDTO.getScore_reading()));
+				vctData.add(row);
+			}
+		}
+		tableResult.setModel(new DefaultTableModel(vctData,vctHeader));
+	}
+	
+	public void onLoad() {
+		RoomBUS rBus = new RoomBUS();
+		List<RoomDTO> rList = rBus.getRooms();
+		rStringList = new Vector<String>(); 
+		for (RoomDTO roomDTO : rList) {
+			rStringList.add(Integer.toString(roomDTO.getId()) + "-" + roomDTO.getName());
+		}
+	}
+	
+	public void disableButton() {
+		if (textCandidateId.getText() == null || textCandidateId.getText().equals("")) {
+			btnApply.setEnabled(false);
+		}
+	}
+	
+	public void enableButton() {
+		btnApply.setEnabled(true);
+	}
+	
+	public void changeResult() {
+		crBus = new Candidate_RoomBUS();
+		Candidate_RoomDTO dto = new Candidate_RoomDTO();
+		dto.setId(Integer.parseInt(textId.getText()));
+		dto.setCandidate_id(Integer.parseInt(textCandidateId.getText()));
+		dto.setCandidate_no(textCandidateno.getText());
+		dto.setRoom_id(Integer.parseInt(textRoomId.getText()));
+		dto.setScore_listening(Float.parseFloat(textListening.getText()));
+		dto.setScore_writing(Float.parseFloat(textWriting.getText()));
+		dto.setScore_reading(Float.parseFloat(textReading.getText()));
+		dto.setScore_speaking(Float.parseFloat(textSpeaking.getText()));
+		System.out.println(dto.toJSONObject().toString());
+		boolean result = crBus.update(dto);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Update Result Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Update Result Successful");
+		}
 	}
 
 }

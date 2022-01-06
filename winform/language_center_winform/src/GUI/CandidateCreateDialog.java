@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
@@ -300,7 +302,13 @@ public class CandidateCreateDialog extends JDialog {
 
     public void addCandidate(CandidateDTO dto) {
         CandidateBUS bus = new CandidateBUS();
-        bus.insert(dto);
+        boolean result = bus.insert(dto);
+        if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Insert Candidate Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Insert Candidate Successful");
+		}
         this.dispose();
     }
 

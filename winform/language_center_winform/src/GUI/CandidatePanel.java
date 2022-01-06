@@ -11,9 +11,12 @@ import BUS.CandidateBUS;
 import BUS.ExaminationBUS;
 import DTO.CandidateDTO;
 import DTO.ExaminationDTO;
+import DTO.Registration_FormsDTO;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
@@ -44,7 +47,7 @@ public class CandidatePanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnCreateRegistration;
 	public CandidateBUS candidateBus;
-	public List<CandidateDTO> candidateList = new ArrayList<CandidateDTO>();
+	public List<CandidateDTO> candidateList;
 	private JTextField textCandidateLastName;
 	private CandidateDTO singleCandidateDTO;
 
@@ -321,7 +324,11 @@ public class CandidatePanel extends JPanel {
 	}
 	
 	public void openRegistrationDialog() {
-		JDialog registrationDialog = new RegisterFormDialog();
+		Registration_FormsDTO dto = new Registration_FormsDTO();
+		dto.setId(0);
+		dto.setCandidate_id(Integer.parseInt(textCandidateId.getText()));
+		dto.setStatus(true);
+		JDialog registrationDialog = new RegisterFormDialog(dto);
 		registrationDialog.setVisible(true);;
 	}
 	
@@ -363,7 +370,14 @@ public class CandidatePanel extends JPanel {
 	
 	public  void deleteCandidate(int id) {
 		candidateBus = new CandidateBUS();
-		candidateBus.delete(id);
+		boolean result = candidateBus.delete(id);
+		if (result) {
+			JOptionPane.showMessageDialog(getParent(), "Delete Candidate Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Delete Candidate Successful");
+		}
+		
 		loadData();
 	}
 	
@@ -384,20 +398,25 @@ public class CandidatePanel extends JPanel {
 		Vector vctData = new Vector<>();
 		candidateBus = new CandidateBUS();
 		candidateList = candidateBus.getCandidates();
-		for (CandidateDTO candidateDTO : candidateList) {
-			Vector<String> row = new Vector<String>();
-			row.add(Integer.toString(candidateDTO.getId()));
-			row.add(candidateDTO.getIdentification());
-			row.add(candidateDTO.getFirst_name());
-			row.add(candidateDTO.getLast_name());
-			row.add(candidateDTO.getEmail());
-			row.add(candidateDTO.getGender());
-			row.add(candidateDTO.getDay_of_birth());
-			row.add(candidateDTO.getPlace_of_birth());
-			row.add(candidateDTO.getIssue_date());
-			row.add(candidateDTO.getIssue_place());
-			row.add(candidateDTO.getPhone());
-			vctData.add(row);
+		if (candidateList.size()==0) {
+			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
+		}
+		else {
+			for (CandidateDTO candidateDTO : candidateList) {
+				Vector<String> row = new Vector<String>();
+				row.add(Integer.toString(candidateDTO.getId()));
+				row.add(candidateDTO.getIdentification());
+				row.add(candidateDTO.getFirst_name());
+				row.add(candidateDTO.getLast_name());
+				row.add(candidateDTO.getEmail());
+				row.add(candidateDTO.getGender());
+				row.add(candidateDTO.getDay_of_birth());
+				row.add(candidateDTO.getPlace_of_birth());
+				row.add(candidateDTO.getIssue_date());
+				row.add(candidateDTO.getIssue_place());
+				row.add(candidateDTO.getPhone());
+				vctData.add(row);
+			}
 		}
 		
 		tableCandidate.setModel(new DefaultTableModel(vctData, vctHeader));

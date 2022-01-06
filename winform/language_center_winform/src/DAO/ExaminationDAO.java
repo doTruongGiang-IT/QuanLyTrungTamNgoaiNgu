@@ -51,6 +51,7 @@ public class ExaminationDAO {
         };
         return examinationDTO;
     }
+    
 
     public ExaminationDTO getCurrentExamination() {
         ExaminationDTO examinationDTO = null;

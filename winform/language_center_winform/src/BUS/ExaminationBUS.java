@@ -37,6 +37,17 @@ public class ExaminationBUS {
             return null;
         }
     }
+    
+    public ExaminationDTO getCurrentExamination() {
+        ExaminationDTO examination = new ExaminationDTO();
+        try {
+            examination = examinationDAO.getCurrentExamination();
+            return examination;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
     public boolean insert(ExaminationDTO examination) {
         try {

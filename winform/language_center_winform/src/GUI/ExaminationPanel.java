@@ -349,12 +349,17 @@ public class ExaminationPanel extends JPanel {
 		Vector vctData = new Vector<>();
 		examBus = new ExaminationBUS();
 		examList = examBus.getExaminations();
-		for (ExaminationDTO examinationDTO : examList) {
-			Vector<String> row = new Vector<String>();
-			row.add(Integer.toString(examinationDTO.getId()));
-			row.add(examinationDTO.getName());
-			row.add(examinationDTO.getDate());
-			vctData.add(row);
+		if (examList.size() == 0) {
+			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
+		}
+		else {
+			for (ExaminationDTO examinationDTO : examList) {
+				Vector<String> row = new Vector<String>();
+				row.add(Integer.toString(examinationDTO.getId()));
+				row.add(examinationDTO.getName());
+				row.add(examinationDTO.getDate());
+				vctData.add(row);
+			}
 		}
 //		ExaminationDTO examinationDTO = examBus.getExamination(1);
 //		Vector<String> row = new Vector<String>();
@@ -373,12 +378,26 @@ public class ExaminationPanel extends JPanel {
 		examDto.setName(name);
 		System.out.println(date);
 		System.out.println(name);
-		examBus.insert(examDto);
+		boolean result = examBus.insert(examDto);
+		System.out.println(result);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Insert Examination Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Insert Examination Successful");
+		}
 	}
 	
 	public void deleteExamination(int id) {
 		examBus = new ExaminationBUS();
-		examBus.delete(id);
+		boolean result = examBus.delete(id);
+		System.out.println(result);
+		if (result) {
+			JOptionPane.showMessageDialog(getParent(), "Delete Examination Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Delete Examination Successful");
+		}
 	}
 	
 	public void changeExamination(int id, String name,String date) {
@@ -389,7 +408,14 @@ public class ExaminationPanel extends JPanel {
 		examDto.setName(name);
 		System.out.println(date);
 		System.out.println(name);
-		examBus.update(examDto);
+		boolean result = examBus.update(examDto);
+		System.out.println(result);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Update Examination Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Update Examination Successful");
+		}
 	}
 	
 	public void disableButton() {

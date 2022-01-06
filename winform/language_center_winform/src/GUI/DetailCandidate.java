@@ -325,7 +325,13 @@ public class DetailCandidate extends JDialog {
 	public void changeCloseDialog(CandidateDTO dto) {
 		CandidateBUS bus = new CandidateBUS();
 //		System.out.println(dto.toJSONObject().toString());
-		bus.update(dto);
+		boolean result = bus.update(dto);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Update Candidate Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Update Candidate Successful");
+		}
 		this.dispose();
 	}
 	

@@ -253,7 +253,14 @@ public class SupervisorPanel extends JPanel {
 		SupervisorDTO sDto = new SupervisorDTO();
 		sDto.setName(name);
 		sDto.setId(0);
-		supervisorBus.insert(sDto);
+		boolean result = supervisorBus.insert(sDto);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Insert Supervisor Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Insert Supervisor Successful");
+		}
+		loadData();
 	}
 	
 	public void loadData() {
@@ -264,12 +271,16 @@ public class SupervisorPanel extends JPanel {
 		Vector vctData = new Vector<>();
 		supervisorBus = new SupervisorBUS();
 		supervisorList = supervisorBus.getSupervisors();
-		for (SupervisorDTO supervisorDTO : supervisorList) {
-			Vector<String> row = new Vector<String>();
-			row.add(Integer.toString(supervisorDTO.getId()));
-			row.add(supervisorDTO.getName());
-			vctData.add(row);
-//			System.out.println(supervisorDTO.toJSONObject().toString());
+		if (supervisorList.size() == 0) {
+			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
+		}
+		else {
+			for (SupervisorDTO supervisorDTO : supervisorList) {
+				Vector<String> row = new Vector<String>();
+				row.add(Integer.toString(supervisorDTO.getId()));
+				row.add(supervisorDTO.getName());
+				vctData.add(row);
+			}
 		}
 		tableSupervisor.setModel(new DefaultTableModel(vctData, vctHeader));
 	}
@@ -288,14 +299,26 @@ public class SupervisorPanel extends JPanel {
 	
 	public void deleteSupervisor (int id) {
 		supervisorBus = new SupervisorBUS();
-		supervisorBus.delete(id);
+		boolean result = supervisorBus.delete(id);
 		disableButton();
+		if (result) {
+			JOptionPane.showMessageDialog(getParent(), "Delete Supervisor Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Delete Supervisor Successful");
+		}
 	}
 	
 	public void changeSupervisor (int id, String name) {
 		supervisorBus = new SupervisorBUS();
 		SupervisorDTO dto = new SupervisorDTO(id, name);
-		supervisorBus.update(dto);
+		boolean result = supervisorBus.update(dto);
 		disableButton();
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Update Supervisor Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Update Supervisor Successful");
+		}
 	}
 }

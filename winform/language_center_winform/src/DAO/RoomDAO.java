@@ -55,6 +55,18 @@ public class RoomDAO {
         };
         return roomDTO;
     }
+    
+    public RoomDTO getRoomByExamination(int id) {
+        RoomDTO roomDTO = null;
+        ApiConnection apiConn = new ApiConnection();
+        Response res = apiConn.callAPI("Room/" + String.valueOf(id), "GET", null);
+        if (200 <= res.status_code && res.status_code <= 299) {
+            roomDTO = new RoomDTO(res.data);
+        } else {
+            roomDTO = null;
+        };
+        return roomDTO;
+    }
 
     public RoomDTO insert(RoomDTO room) {
         ApiConnection apiConn = new ApiConnection();

@@ -7,8 +7,12 @@ import java.awt.GridLayout;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
@@ -54,7 +58,6 @@ public class RoomPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public RoomPanel() {
-		onLoad();
 		setMaximumSize(new Dimension(1039, 763));
 		setLayout(new CardLayout(0, 0));
 		
@@ -276,13 +279,15 @@ public class RoomPanel extends JPanel {
 		panel_7.setLayout(gbl_panel_7);
 		
 		JLabel lblNewLabel = new JLabel("Examination");
+		lblNewLabel.setVisible(false);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_7.add(lblNewLabel, gbc_lblNewLabel);
 		
-		comboBoxExamination = new JComboBox(examStringList);
+		comboBoxExamination = new JComboBox();
+		comboBoxExamination.setVisible(false);
 		GridBagConstraints gbc_comboBoxExamination = new GridBagConstraints();
 		gbc_comboBoxExamination.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxExamination.gridx = 1;
@@ -328,15 +333,17 @@ public class RoomPanel extends JPanel {
 						comboBoxRoomTime.setSelectedIndex(1);
 					}
 				}
+				enableButton();
 			}
 		});
+		onLoad();
 		scrollPane.setViewportView(tableRoom);
 
 	}
 	
 	public void loadData() {
-		String examString = comboBoxExamination.getSelectedItem().toString();
-		String[] examStringlsit = examString.split("-");
+//		String examString = comboBoxExamination.getSelectedItem().toString();
+//		String[] examStringlsit = examString.split("-");
 		roomBus = new RoomBUS();
 		roomList = roomBus.getRooms();
 		Vector<String> vctHeader = new Vector<String>();
@@ -346,25 +353,38 @@ public class RoomPanel extends JPanel {
 		vctHeader.add("Level");
 		vctHeader.add("Time");
 		Vector vctData = new Vector<>();
-		for (RoomDTO roomDTO : roomList) {
-			Vector<String> row = new Vector<String>();
-			row.add(Integer.toString(roomDTO.getId()));
-			row.add(roomDTO.getName());
-			row.add(Integer.toString(roomDTO.getExamination_id()));
-			boolean time = roomDTO.getTime();
-			row.add(time ? "morning" : "noon");
-			vctData.add(row);
+		if (roomList.size() == 0) {
+			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
 		}
-//		tableRoom
+		else {
+			for (RoomDTO roomDTO : roomList) {
+				Vector<String> row = new Vector<String>();
+				row.add(Integer.toString(roomDTO.getId()));
+				row.add(roomDTO.getName());
+				row.add(Integer.toString(roomDTO.getExamination_id()));
+				row.add(roomDTO.getLevel());
+				boolean time = roomDTO.getTime();
+				row.add(time ? "morning" : "noon");
+				vctData.add(row);
+			}
+		}
+		tableRoom.setModel(new DefaultTableModel(vctData,vctHeader));
 		
 	}
 	public void changeRoom(RoomDTO dto) {
 		RoomBUS rBus = new RoomBUS();
-		rBus.update(dto);
+		boolean result = rBus.update(dto);
+		if (!result) {
+			JOptionPane.showMessageDialog(getParent(), "Update Room Error");
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Update Room Successful");
+		}
+		loadData();
 	}
 	
 	public void disableButton() {
-		if (textRoomId.getText().equals("")) {
+		if (textRoomId.getText() == null || textRoomId.getText().equals("") ) {
 			btnChange.setEnabled(false);
 		}
 	}
@@ -374,12 +394,13 @@ public class RoomPanel extends JPanel {
 	}
 	
 	public void onLoad() {
-		ExaminationBUS examBus = new ExaminationBUS();
-		List<ExaminationDTO> listExam = examBus.getExaminations();
-		examStringList = new Vector<>();
-		for (ExaminationDTO examDTO : listExam) {
-			examStringList.add(examDTO.getId() + "-" + examDTO.getName());
-		}
+//		ExaminationBUS examBus = new ExaminationBUS();
+//		List<ExaminationDTO> listExam = examBus.getExaminations();
+//		examStringList = new Vector<>();
+//		for (ExaminationDTO examDTO : listExam) {
+//			examStringList.add(examDTO.getId() + "-" + examDTO.getName());
+//		}
+		disableButton();
 	}
 
 }

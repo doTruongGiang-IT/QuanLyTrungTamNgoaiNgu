@@ -13,6 +13,15 @@ public class Registration_FormsDTO {
 	
 	public Registration_FormsDTO() {};
 	
+	public Registration_FormsDTO(Registration_FormsDTO dto) {
+		this.id = dto.getId();
+		this.candidate_id = dto.getCandidate_id();
+		this.examination_id = dto.getExamination_id();
+		this.level = dto.getLevel();
+		this.status = dto.isStatus();
+		
+	};
+	
 	public Registration_FormsDTO(JSONObject data) {
 		try {
 			this.id = data.getInt("id");

@@ -124,7 +124,7 @@ public class Candidate_RoomDTO {
 		JSONObject obj = new JSONObject();
 		try {
 			obj.put("id", this.id);
-			obj.put("canidadate_id",candidate_id);
+			obj.put("candidate_id",candidate_id);
 			obj.put("room_id",room_id);
 			obj.put("candidate_no",candidate_no);
 			obj.put("score_listening",score_listening);
