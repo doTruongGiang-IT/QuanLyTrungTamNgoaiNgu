@@ -52,19 +52,34 @@ public class Candidate_RoomDAO {
         return candidate_roomDTO;
     };
     
-    public void insert(Candidate_RoomDTO candidate_room) {
+    public boolean insert(Candidate_RoomDTO candidate_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("CandidateRoom", "POST", candidate_room.toJSONObject().toString());
+    	Response res = apiConn.callAPI("CandidateRoom", "POST", candidate_room.toJSONObject().toString());
+    	
+    	if (200 <= res.status_code && res.status_code <= 299) {
+    		return true;
+    	}
+    	return false;
     };
     
-    public void update(Candidate_RoomDTO candidate_room) {
+    public boolean update(Candidate_RoomDTO candidate_room) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("CandidateRoom", "PUT", candidate_room.toJSONObject().toString());
+    	Response res = apiConn.callAPI("CandidateRoom", "PUT", candidate_room.toJSONObject().toString());
+    	
+    	if (200 <= res.status_code && res.status_code <= 299) {
+    		return true;
+    	}
+    	return false;
     };
     
-    public void delete(int id) {
+    public boolean delete(int id) {
     	ApiConnection apiConn = new ApiConnection();
-    	apiConn.callAPI("CandidateRoom/"+String.valueOf(id), "DELETE", null);
+    	Response res = apiConn.callAPI("CandidateRoom/"+String.valueOf(id), "DELETE", null);
+    	
+    	if (200 <= res.status_code && res.status_code <= 299) {
+    		return true;
+    	}
+    	return false;
     };
     
     public static void main(String args[]) {
