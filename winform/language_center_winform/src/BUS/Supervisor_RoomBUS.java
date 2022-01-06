@@ -9,7 +9,7 @@ import DAO.SupervisorDAO;
 
 public class Supervisor_RoomBUS {
 
-	public static List<Supervisor_RoomDTO> supervisor_rooms;
+	public static List<Supervisor_RoomDTO> supervisor_rooms = new ArrayList<Supervisor_RoomDTO>();
     private Supervisor_RoomDAO supervisor_roomDAO = new Supervisor_RoomDAO();
     private SupervisorDAO supervisorDAO = new SupervisorDAO();
     

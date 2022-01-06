@@ -30,7 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class RoomPanel extends JPanel {
-	private JTable table;
+	private JTable tableRoom;
 	private JTextField textRoomName;
 	private JTextField textExaminationId;
 	private JTextField textRoomLevel;
@@ -281,8 +281,17 @@ public class RoomPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		tableRoom = new JTable() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
+		scrollPane.setViewportView(tableRoom);
 
 	}
 	

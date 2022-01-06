@@ -7,7 +7,7 @@ import DAO.CandidateDAO;
 
 public class CandidateBUS {
 
-	public static List<CandidateDTO> candidates;
+	public static List<CandidateDTO> candidates = new ArrayList<CandidateDTO>();
     private CandidateDAO candidateDAO = new CandidateDAO();
     
     public List<CandidateDTO> getCandidates() {

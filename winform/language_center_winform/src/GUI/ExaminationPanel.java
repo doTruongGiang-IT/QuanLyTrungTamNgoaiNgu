@@ -282,7 +282,16 @@ public class ExaminationPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane);
 		
-		tableExamination = new JTable();
+		tableExamination = new JTable() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
 //		tableExamination.setEnabled(false);
 //		tableExamination.setModel(new DefaultTableModel(
 //			new Object[][] {

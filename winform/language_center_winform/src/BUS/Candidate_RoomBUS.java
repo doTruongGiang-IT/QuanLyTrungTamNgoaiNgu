@@ -7,7 +7,7 @@ import DAO.Candidate_RoomDAO;
 
 public class Candidate_RoomBUS {
 
-	public static List<Candidate_RoomDTO> candidate_rooms;
+	public static List<Candidate_RoomDTO> candidate_rooms = new ArrayList<Candidate_RoomDTO>();
     private Candidate_RoomDAO candidate_roomDAO = new Candidate_RoomDAO();
     
     public List<Candidate_RoomDTO> getCandidate_Rooms() {

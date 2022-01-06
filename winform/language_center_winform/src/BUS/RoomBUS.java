@@ -7,7 +7,7 @@ import DAO.RoomDAO;
 
 public class RoomBUS {
 
-	public static List<RoomDTO> rooms;
+	public static List<RoomDTO> rooms = new ArrayList<RoomDTO>();
     private RoomDAO roomDAO = new RoomDAO();
     
     public List<RoomDTO> getRooms() {

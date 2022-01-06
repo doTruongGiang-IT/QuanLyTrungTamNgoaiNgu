@@ -7,7 +7,7 @@ import DAO.Registration_FormsDAO;
 
 public class Registration_FormsBUS {
 
-	public static List<Registration_FormsDTO> registration_forms;
+	public static List<Registration_FormsDTO> registration_forms = new ArrayList<Registration_FormsDTO>();
     private Registration_FormsDAO registration_formDAO = new Registration_FormsDAO();
     
     public List<Registration_FormsDTO> getRegistration_Forms() {

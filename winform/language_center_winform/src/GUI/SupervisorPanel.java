@@ -201,7 +201,16 @@ public class SupervisorPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane);
 		
-		tableSupervisor = new JTable();
+		tableSupervisor = new JTable() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
 		scrollPane.setViewportView(tableSupervisor);
 
 		onLoad();
@@ -212,7 +221,7 @@ public class SupervisorPanel extends JPanel {
 		SupervisorDTO sDto = new SupervisorDTO();
 		sDto.setName(name);
 		sDto.setId(0);
-		supervisorBus.insert(sDto)
+		supervisorBus.insert(sDto);
 	}
 	
 	public void loadData() {

@@ -222,7 +222,16 @@ public class CandidatePanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
 		
-		tableCandidate = new JTable();
+		tableCandidate = new JTable() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
 		scrollPane.setViewportView(tableCandidate);
 		
 		onLoad();

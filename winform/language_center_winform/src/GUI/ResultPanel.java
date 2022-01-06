@@ -327,7 +327,16 @@ public class ResultPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
 		
-		table = new JTable();
+		table = new JTable() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {                
+                return false;               
+			};
+		};
 		scrollPane.setViewportView(table);
 
 	}

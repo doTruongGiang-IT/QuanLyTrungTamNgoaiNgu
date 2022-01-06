@@ -8,7 +8,7 @@ import DAO.SupervisorDAO;
 
 public class SupervisorBUS {
 
-	public static List<SupervisorDTO> supervisors;
+	public static List<SupervisorDTO> supervisors = new ArrayList<SupervisorDTO>();
     private SupervisorDAO supervisorDAO = new SupervisorDAO();
     
     public List<SupervisorDTO> getSupervisors() {
