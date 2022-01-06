@@ -76,5 +76,14 @@ namespace backend.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("Examination/{examination_id}")]
+        public IActionResult GetByRoom(int examination_id)
+        {   
+            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
+            RoomDTO[] roomDTOs = this.repository.GetByExam(examination_id).Cast<RoomDTO>().ToArray();
+            dictionary.Add("data", roomDTOs);
+            return Ok(dictionary);
+        }
     }
 }
