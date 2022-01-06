@@ -5,7 +5,7 @@ namespace backend.Models.Repositories
 {
     public class ExaminationRepository : IExaminationRepository
     {
-        private QLTTNNContext context;
+        public QLTTNNContext context;
         public ExaminationRepository(QLTTNNContext context)
         {
             this.context = context;
