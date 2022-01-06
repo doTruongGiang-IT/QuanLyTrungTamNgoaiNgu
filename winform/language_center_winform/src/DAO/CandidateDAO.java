@@ -6,9 +6,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import DTO.CandidateDTO;
 import DTO.RoomDTO;
+import DTO.SupervisorDTO;
 
 public class CandidateDAO {
 
@@ -19,15 +23,19 @@ public class CandidateDAO {
 	
 	public List<CandidateDTO> getCandidates() {
 		candidates = new ArrayList<CandidateDTO>();
-//		HttpClient client = HttpClient.newHttpClient();
-//	    HttpRequest request = HttpRequest.newBuilder()
-//	            .uri(new URI(API_URL))
-//	            .headers("Content-Type", "application/json;charset=UTF-8")
-//	            .GET()
-//	            .build();
-//	    HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        JSONObject responseObj = new JSONObject(response.body().toString());
-//        System.out.println(responseObj);
+		ApiConnection apiConn = new ApiConnection();
+    	Response res = apiConn.callAPI("Candidate", "GET", null);
+    	if(200 <= res.status_code && res.status_code <= 299) {
+    		try {
+				JSONArray list = res.data.getJSONArray("data");
+				for(int i=0; i<list.length();i++) {
+					JSONObject jsonObj = (JSONObject) list.get(i);
+					candidates.add(new CandidateDTO(jsonObj));
+				};
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+    	};
         return candidates;
     };
     
@@ -58,5 +66,26 @@ public class CandidateDAO {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("Candidate/"+String.valueOf(id), "DELETE", null);
     };
+    
+    public static void main(String args[]) {
+		CandidateDAO candidateDAO = new CandidateDAO();
+		List<CandidateDTO> dtos = candidateDAO.getCandidates();
+		if(dtos != null) {
+			for(int i=0; i< dtos.size(); i++) {
+				System.out.println(dtos.get(i).getId());
+				System.out.println(dtos.get(i).getIdentification());
+				System.out.println(dtos.get(i).getFirst_name());
+				System.out.println(dtos.get(i).getLast_name());
+				System.out.println(dtos.get(i).getEmail());
+				System.out.println(dtos.get(i).getGender());
+				System.out.println(dtos.get(i).getDay_of_birth());
+				System.out.println(dtos.get(i).getPlace_of_birth());
+				System.out.println(dtos.get(i).getIssue_date());
+				System.out.println(dtos.get(i).getIssue_place());
+				System.out.println(dtos.get(i).getPhone());
+				System.out.println("=====================");
+			};
+		};
+	};
 	
 }

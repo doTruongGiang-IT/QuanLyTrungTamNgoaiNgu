@@ -180,7 +180,7 @@ public class RoomPanel extends JPanel {
 				rDto.setName(textRoomName.getText());
 				boolean time = false;
 				int index = comboBoxRoomTime.getSelectedIndex();
-				if (comboBoxRoomTime.getItemAt(index) == morning) {
+				if (comboBoxRoomTime.getItemAt(index).equals("morning")) {
 					time = true;
 				}
 				rDto.setTime(time);
