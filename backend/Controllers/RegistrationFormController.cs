@@ -93,7 +93,7 @@ namespace backend.Controllers
             List <RegistrationFormDTO> registrationsCurrentExamsA2 = new List<RegistrationFormDTO>();
             List <RegistrationFormDTO> registrationsCurrentExamsB1 = new List<RegistrationFormDTO>();
 
-            ExaminationDTO currentExamination = examinationRepository.GetCurrent();
+            ExaminationDTO currentExamination = examinationRepository.GetCurrent().DeepClone();
 
             if (!currentExamination.registration_status) {
                 return StatusCode(400);   
