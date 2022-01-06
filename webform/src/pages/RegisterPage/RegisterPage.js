@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Button
 } from 'antd';
@@ -10,7 +10,12 @@ import RegisterForm from '../../components/RegisterForm';
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const registerState = useSelector(state => state.register);
+    const currentExamination = useSelector(state => state.examination);
     const registerFormRef = useRef();
+
+    useEffect(() => {
+        dispatch(actions.getCurrentExaminationRequest());
+    }, [dispatch]);
     // const [disabled, setDisabled] = useState(true);
 
     // const checkForm = (formValue) => {
@@ -20,7 +25,7 @@ const RegisterPage = () => {
     return (
         <div className="register">
             <h1>Biểu mẫu đăng ký</h1>
-            <RegisterForm ref={registerFormRef} />
+            <RegisterForm ref={registerFormRef} currentExamination={currentExamination.name} />
             <ReactToPrint
                 trigger={() => <Button type="primary">In phiếu</Button>}
                 content={() => registerFormRef.current}

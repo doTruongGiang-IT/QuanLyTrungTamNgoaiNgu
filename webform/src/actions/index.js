@@ -20,40 +20,116 @@ export const registerRequest = (registerForm) => {
     }
 };
 
-export const searchScore = (response) => {
+export const searchResult = (response) => {
     return {
-        type: types.SEARCH_SCORE,
+        type: types.SEARCH_RESULT,
         payload: response
     };
 };
 
-export const searchScoreRequest = (id) => {
+export const searchResultRequest = (name, phone) => {
     return (dispatch) => {
-        return callApi(`stats/score/${id}`, "GET", null)
+        return callApi(`CandidateRoom/information?name=${name}&phone=${phone}`, "GET", null)
                     .then(res => {
-                        dispatch(register(res.data));
+                        dispatch(searchResult(res.data));
                     })
                     .catch(error => {
-                        dispatch(register(error));
+                        dispatch(searchResult({"message": error.message}));
                     });
     }
 };
 
-export const searchSchedule = (response) => {
+export const getCurrentExamination = (examination) => {
     return {
-        type: types.SEARCH_SCHEDULE,
-        payload: response
+        type: types.GET_CURRENT_EXAMINATION,
+        payload: examination
     };
 };
 
-export const searchScheduleRequest = (id) => {
+export const getCurrentExaminationRequest = () => {
     return (dispatch) => {
-        return callApi(`stats/schedule/${id}`, "GET", null)
+        return callApi("Examination/current", "GET", null)
                     .then(res => {
-                        dispatch(register(res.data));
+                        dispatch(getCurrentExamination(res.data));
                     })
                     .catch(error => {
-                        dispatch(register(error));
+                        console.log("get current examination error");
+                    });
+    }
+};
+
+export const getAllExamination = (examinations) => {
+    return {
+        type: types.GET_ALL_EXAMINATION,
+        payload: examinations
+    };
+};
+
+export const getAllExaminationRequest = () => {
+    return (dispatch) => {
+        return callApi("Examination", "GET", null)
+                    .then(res => {
+                        dispatch(getAllExamination(res.data));
+                    })
+                    .catch(error => {
+                        console.log("get all examination error");
+                    });
+    }
+};
+
+export const getAllRoomOfExamination = (rooms) => {
+    return {
+        type: types.GET_ALL_ROOM_OF_EXAMINATION,
+        payload: rooms
+    };
+};
+
+export const getAllRoomOfExaminationRequest = (id) => {
+    return (dispatch) => {
+        return callApi(`Room/Examination/${id}`, "GET", null)
+                    .then(res => {
+                        dispatch(getAllRoomOfExamination(res.data));
+                    })
+                    .catch(error => {
+                        console.log("get all room of examination error");
+                    });
+    }
+};
+
+export const getAllCandidateOfRoomOfExamination = (candidates) => {
+    return {
+        type: types.GET_ALL_CANDIDATE_OF_ROOM_OF_EXAMINATION,
+        payload: candidates
+    };
+};
+
+export const getAllCandidateOfRoomOfExaminationRequest = (id) => {
+    return (dispatch) => {
+        return callApi(`Candidate/Room/${id}`, "GET", null)
+                    .then(res => {
+                        dispatch(getAllCandidateOfRoomOfExamination(res.data));
+                    })
+                    .catch(error => {
+                        console.log("get all candidate of room of examination error");
+                    });
+    }
+};
+
+export const getAllRoomOfExaminationAndLevel = (candidates) => {
+    return {
+        type: types.GET_ALL_ROOM_OF_EXAMINATION_AND_LEVEL,
+        payload: candidates
+    };
+};
+
+export const getAllRoomOfExaminationAndLevelRequest = (id, level) => {
+    return (dispatch) => {
+        return callApi(`Room/Examination/Level/${id}/${level}`, "GET", null)
+                    .then(res => {
+                        dispatch(getAllRoomOfExaminationAndLevel(res.data));
+                    })
+                    .catch(error => {
+                        console.log("get all room of examination and level error");
                     });
     }
 };
