@@ -7,7 +7,7 @@ namespace backend.Models.Repositories
          IEnumerable<ExaminationDTO> GetAll();
          ExaminationDTO Get(int id);
          ExaminationDTO Create(ExaminationDTO examinationDTO);
-         void Update(ExaminationDTO examinationDTO);
+         ExaminationDTO Update(ExaminationDTO examinationDTO);
          void Delete(int id);
          ExaminationDTO GetCurrent();
     }

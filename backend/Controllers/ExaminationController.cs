@@ -70,7 +70,11 @@ namespace backend.Controllers
         {
             try
             {
-                this.repository.Update(examinationDTO);
+                var checkExam = this.repository.Update(examinationDTO);
+                if(checkExam == null)
+                {
+                    return BadRequest();
+                }
                 return Ok(examinationDTO);
             }
             catch(Exception ex)
