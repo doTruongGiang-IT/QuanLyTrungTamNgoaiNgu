@@ -124,7 +124,7 @@ export const getAllRoomOfExaminationAndLevel = (candidates) => {
 
 export const getAllRoomOfExaminationAndLevelRequest = (id, level) => {
     return (dispatch) => {
-        return callApi(`Room/examination/level?examination_id=${id}&level=${level}`, "GET", null)
+        return callApi(`Room/Examination/Level/${id}/${level}`, "GET", null)
                     .then(res => {
                         dispatch(getAllRoomOfExaminationAndLevel(res.data));
                     })
