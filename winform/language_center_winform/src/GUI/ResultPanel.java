@@ -304,10 +304,11 @@ public class ResultPanel extends JPanel {
 //				if( examinationString == null || examinationString.equals("")) {
 //					JOptionPane.showMessageDialog(getParent(),"Must select examination" );
 //				}
-				if(roomString == null || roomString.equals("")) {
-					JOptionPane.showMessageDialog(getParent(),"Must select room" );
-				}
-				else loadData();
+//				if(roomString == null || roomString.equals("")) {
+//					JOptionPane.showMessageDialog(getParent(),"Must select room" );
+//				}
+//				else 
+				loadData();
 			}
 		});
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -380,7 +381,7 @@ public class ResultPanel extends JPanel {
 		Vector vctData = new Vector<>();
 		crBus = new Candidate_RoomBUS();
 		crList = crBus.getCandidate_Rooms();
-		if (crList.size() == 0) {
+		if (crList == null) {
 			JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
 		}
 		else {
@@ -404,8 +405,10 @@ public class ResultPanel extends JPanel {
 		RoomBUS rBus = new RoomBUS();
 		List<RoomDTO> rList = rBus.getRooms();
 		rStringList = new Vector<String>(); 
-		for (RoomDTO roomDTO : rList) {
-			rStringList.add(Integer.toString(roomDTO.getId()) + "-" + roomDTO.getName());
+		if (rList != null) {
+			for (RoomDTO roomDTO : rList) {
+				rStringList.add(Integer.toString(roomDTO.getId()) + "-" + roomDTO.getName());
+			}
 		}
 	}
 	
