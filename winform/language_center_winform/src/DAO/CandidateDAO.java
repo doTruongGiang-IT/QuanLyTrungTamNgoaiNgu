@@ -45,6 +45,7 @@ public class CandidateDAO {
     
     public void insert(CandidateDTO candidate) {
     	ApiConnection apiConn = new ApiConnection();
+    	System.out.println(candidate.toJSONObject().toString());
     	apiConn.callAPI("Candidate", "POST", candidate.toJSONObject().toString());
     };
     

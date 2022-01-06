@@ -13,8 +13,13 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+
+import BUS.CandidateBUS;
+import DTO.CandidateDTO;
 
 public class CandidateCreateDialog extends JDialog {
 
@@ -27,6 +32,9 @@ public class CandidateCreateDialog extends JDialog {
 	private JTextField textFirstName;
 	private JTextField textPlaceofbirth;
 	private JTextField textPhone;
+	private JDateChooser dateChooserDateofbirth;
+	private JDateChooser dateChooserIssueDate;
+	
 
 	/**
 	 * Launch the application.
@@ -122,7 +130,7 @@ public class CandidateCreateDialog extends JDialog {
 			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		}
 		{
-			JDateChooser dateChooserIssueDate = new JDateChooser();
+			dateChooserIssueDate = new JDateChooser();
 			GridBagConstraints gbc_dateChooserIssueDate = new GridBagConstraints();
 			gbc_dateChooserIssueDate.insets = new Insets(0, 0, 5, 0);
 			gbc_dateChooserIssueDate.fill = GridBagConstraints.HORIZONTAL;
@@ -197,7 +205,7 @@ public class CandidateCreateDialog extends JDialog {
 			contentPanel.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		}
 		{
-			JDateChooser dateChooserDateofbirth = new JDateChooser();
+			dateChooserDateofbirth = new JDateChooser();
 			GridBagConstraints gbc_dateChooserDateofbirth = new GridBagConstraints();
 			gbc_dateChooserDateofbirth.insets = new Insets(0, 0, 5, 0);
 			gbc_dateChooserDateofbirth.fill = GridBagConstraints.HORIZONTAL;
@@ -248,6 +256,28 @@ public class CandidateCreateDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						CandidateDTO dto = new CandidateDTO();
+						dto.setId(0);
+						dto.setFirst_name(textFirstName.getText());
+						dto.setLast_name(textLastName.getText());
+						dto.setEmail(textEmail.getText());
+						dto.setGender(textGender.getText());
+						dto.setIdentification(textIdentification.getText());
+						dto.setIssue_place(textIssuePlace.getText());
+						dto.setPlace_of_birth(textPlaceofbirth.getText());
+						dto.setPhone(textPhone.getText()); 
+						Date issue_dateUnformat = dateChooserIssueDate.getDate();
+						Date dateofbirthUnformat = dateChooserDateofbirth.getDate();
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+						String issue_date = sdf.format(issue_dateUnformat);
+						String dateofbirth = sdf.format(dateofbirthUnformat);
+						dto.setDay_of_birth(dateofbirth);
+						dto.setIssue_date(issue_date);
+						addCandidate(dto);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -266,6 +296,12 @@ public class CandidateCreateDialog extends JDialog {
 	}
 	
 	public void closeDialog() {
+		this.dispose();
+	}
+	
+	public void addCandidate(CandidateDTO dto) {
+		CandidateBUS bus = new CandidateBUS();
+		bus.insert(dto);
 		this.dispose();
 	}
 

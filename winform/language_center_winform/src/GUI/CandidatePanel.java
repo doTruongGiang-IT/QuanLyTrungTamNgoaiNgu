@@ -27,7 +27,10 @@ public class CandidatePanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textCandidateName;
 	private JTextField textCandidateIdent;
-	private JTextField textField;
+	private JTextField textCandidateId;
+	private JButton btnViewDetail;
+	private JButton btnDelete;
+	private JButton btnCreateRegistration;
 
 	/**
 	 * Create the panel.
@@ -63,15 +66,15 @@ public class CandidatePanel extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		panel_3.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textCandidateId = new JTextField();
+		textCandidateId.setEditable(false);
+		GridBagConstraints gbc_textCandidateId = new GridBagConstraints();
+		gbc_textCandidateId.insets = new Insets(0, 0, 5, 5);
+		gbc_textCandidateId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textCandidateId.gridx = 1;
+		gbc_textCandidateId.gridy = 0;
+		panel_3.add(textCandidateId, gbc_textCandidateId);
+		textCandidateId.setColumns(10);
 		
 		JLabel lblCandidateName = new JLabel("Candidate Name");
 		lblCandidateName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -120,14 +123,19 @@ public class CandidatePanel extends JPanel {
 		panel_4.setLayout(new GridLayout(0, 8, 0, 0));
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addCandidate();
+			}
+		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnAdd);
 		
-		JButton btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Delete");
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnDelete);
 		
-		JButton btnCreateRegistration = new JButton("Registration");
+		btnCreateRegistration = new JButton("Registration");
 		btnCreateRegistration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				openRegistrationDialog();
@@ -139,11 +147,12 @@ public class CandidatePanel extends JPanel {
 		JButton btnViewResult = new JButton("View Result");
 		btnViewResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				addCandidate();
 			}
 		});
 		btnViewResult.setVisible(false);
 		
-		JButton btnViewDetail = new JButton("Detail");
+		btnViewDetail = new JButton("Detail");
 		btnViewDetail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				openDetailCandidateDialog();
@@ -215,7 +224,8 @@ public class CandidatePanel extends JPanel {
 		
 		tableCandidate = new JTable();
 		scrollPane.setViewportView(tableCandidate);
-
+		
+		onLoad();
 	}
 	
 	public void openRegistrationDialog() {
@@ -231,6 +241,19 @@ public class CandidatePanel extends JPanel {
 	public void openFindCandidateDialog() {
 		JDialog findcandidateDialog = new FindCandidateDialog();
 		findcandidateDialog.setVisible(true);
+	}
+	
+	public void onLoad() {
+		if (textCandidateId.getText().equals("") || textCandidateId.getText() == null) {
+			this.btnCreateRegistration.setEnabled(false);
+			this.btnDelete.setEnabled(false);
+			this.btnViewDetail.setEnabled(false);
+		}
+	}
+	
+	public void addCandidate() {
+		CandidateCreateDialog dialog = new CandidateCreateDialog();
+		dialog.setVisible(true);
 	}
 
 }

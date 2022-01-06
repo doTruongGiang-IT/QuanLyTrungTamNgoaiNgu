@@ -2,6 +2,7 @@ package BUS;
 
 import DTO.SupervisorDTO;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import DAO.SupervisorDAO;
 
@@ -20,7 +21,9 @@ public class SupervisorBUS {
         }catch (Exception e) {
             System.out.println(e);
         };
-        
+        for (SupervisorDTO supervisorDTO : supervisors) {
+			System.out.println(supervisorDTO.toJSONObject().toString());
+		}
         return supervisors;
     };
     
@@ -103,5 +106,7 @@ public class SupervisorBUS {
         
         return supervisorsSearch;
     };
+    
+    
 	
 }

@@ -21,8 +21,13 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import com.toedter.components.JSpinField;
+
+import BUS.RoomBUS;
+import DTO.RoomDTO;
+
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class RoomPanel extends JPanel {
 	private JTable table;
@@ -125,6 +130,7 @@ public class RoomPanel extends JPanel {
 		panel_3.add(lblCandidateIdentification, gbc_lblCandidateIdentification);
 		
 		textRoomLevel = new JTextField();
+		textRoomLevel.setEditable(false);
 		textRoomLevel.setColumns(10);
 		GridBagConstraints gbc_textRoomLevel = new GridBagConstraints();
 		gbc_textRoomLevel.fill = GridBagConstraints.HORIZONTAL;
@@ -137,20 +143,19 @@ public class RoomPanel extends JPanel {
 		lblRoomTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblRoomTime = new GridBagConstraints();
 		gbc_lblRoomTime.anchor = GridBagConstraints.WEST;
-		gbc_lblRoomTime.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRoomTime.insets = new Insets(0, 0, 0, 5);
 		gbc_lblRoomTime.gridx = 0;
 		gbc_lblRoomTime.gridy = 4;
 		panel_3.add(lblRoomTime, gbc_lblRoomTime);
 		
-		JSpinner timeSpinner = new JSpinner( new SpinnerDateModel());
-		JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm:ss");
-		timeSpinner.setEditor(timeEditor);
-		GridBagConstraints gbc_timeSpinner = new GridBagConstraints();
-		gbc_timeSpinner.fill = GridBagConstraints.HORIZONTAL;
-		gbc_timeSpinner.insets = new Insets(0, 0, 5, 5);
-		gbc_timeSpinner.gridx = 1;
-		gbc_timeSpinner.gridy = 4;
-		panel_3.add(timeSpinner, gbc_timeSpinner);
+		JComboBox comboBoxRoomTime = new JComboBox();
+		comboBoxRoomTime.setModel(new DefaultComboBoxModel(new String[] {"Morning", "Noon"}));
+		GridBagConstraints gbc_comboBoxRoomTime = new GridBagConstraints();
+		gbc_comboBoxRoomTime.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxRoomTime.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxRoomTime.gridx = 1;
+		gbc_comboBoxRoomTime.gridy = 4;
+		panel_3.add(comboBoxRoomTime, gbc_comboBoxRoomTime);
 		
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4);
@@ -168,6 +173,18 @@ public class RoomPanel extends JPanel {
 		JButton btnChange = new JButton("Change");
 		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RoomDTO rDto = new RoomDTO();
+				rDto.setExamination_id(Integer.parseInt(textExaminationId.getText()));
+				rDto.setId(Integer.parseInt(textRoomId.getText()));
+				rDto.setLevel(textRoomLevel.getText());
+				rDto.setName(textRoomName.getText());
+				boolean time = false;
+				int index = comboBoxRoomTime.getSelectedIndex();
+				if (comboBoxRoomTime.getItemAt(index) == morning) {
+					time = true;
+				}
+				rDto.setTime(time);
+				changeRoom(rDto);
 			}
 		});
 		
@@ -223,6 +240,10 @@ public class RoomPanel extends JPanel {
 		panel_6_1.add(btnSearch, gbc_btnSearch);
 		
 		JButton btnLoad = new JButton("Load data");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.anchor = GridBagConstraints.EAST;
@@ -263,6 +284,11 @@ public class RoomPanel extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
+	}
+	
+	public void changeRoom(RoomDTO dto) {
+		RoomBUS rBus = new RoomBUS();
+		rBus.update(dto);
 	}
 
 }

@@ -48,7 +48,12 @@ public class ExaminationPanel extends JPanel {
 	private JTextField textExaminationName;
 	private JTable tableExamination;
 	private JTextField textField;
+	private JButton btnDelete;
+	private JButton btnChange;
 	public List<ExaminationDTO> examList;
+	public ExaminationBUS examBus;
+	public ExaminationDTO examDto;
+	private JTextField textExaminationId;
 
 	/**
 	 * Create the panel.
@@ -74,10 +79,29 @@ public class ExaminationPanel extends JPanel {
 		panel_1.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[] {80, 0, 130};
-		gbl_panel_3.rowHeights = new int[] {50, 50};
+		gbl_panel_3.rowHeights = new int[] {0, 50, 50};
 		gbl_panel_3.columnWeights = new double[]{0.0, 1.0};
-		gbl_panel_3.rowWeights = new double[]{0.0, 1.0};
+		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 1.0};
 		panel_3.setLayout(gbl_panel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("Examination Id");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2.gridx = 0;
+		gbc_lblNewLabel_2.gridy = 0;
+		panel_3.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		
+		textExaminationId = new JTextField();
+		textExaminationId.setEditable(false);
+		GridBagConstraints gbc_textExaminationId = new GridBagConstraints();
+		gbc_textExaminationId.insets = new Insets(0, 0, 5, 5);
+		gbc_textExaminationId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textExaminationId.gridx = 1;
+		gbc_textExaminationId.gridy = 0;
+		panel_3.add(textExaminationId, gbc_textExaminationId);
+		textExaminationId.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Examination Name");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -86,7 +110,7 @@ public class ExaminationPanel extends JPanel {
 		gbc_lblNewLabel.weightx = 0.3;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
+		gbc_lblNewLabel.gridy = 1;
 		panel_3.add(lblNewLabel, gbc_lblNewLabel);
 		
 		textExaminationName = new JTextField();
@@ -94,7 +118,7 @@ public class ExaminationPanel extends JPanel {
 		gbc_textExaminationName.insets = new Insets(0, 0, 5, 5);
 		gbc_textExaminationName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textExaminationName.gridx = 1;
-		gbc_textExaminationName.gridy = 0;
+		gbc_textExaminationName.gridy = 1;
 		panel_3.add(textExaminationName, gbc_textExaminationName);
 		textExaminationName.setColumns(10);
 		
@@ -104,7 +128,7 @@ public class ExaminationPanel extends JPanel {
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 1;
+		gbc_lblNewLabel_1.gridy = 2;
 		panel_3.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		JDateChooser dateChooser = new JDateChooser();
@@ -116,7 +140,7 @@ public class ExaminationPanel extends JPanel {
 		gbc_dateChooser.insets = new Insets(0, 0, 0, 5);
 		gbc_dateChooser.fill = GridBagConstraints.HORIZONTAL;
 		gbc_dateChooser.gridx = 1;
-		gbc_dateChooser.gridy = 1;
+		gbc_dateChooser.gridy = 2;
 		panel_3.add(dateChooser, gbc_dateChooser);
 		
 		JPanel panel_2 = new JPanel();
@@ -136,20 +160,20 @@ public class ExaminationPanel extends JPanel {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = textExaminationName.getText();
+				String date = null;
 				Date dateUnformat = dateChooser.getDate();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				String date = sdf.format(dateUnformat);
 //				System.out.print(date);
-//				if(name == null || name.equals("")) {
-//					JOptionPane.showMessageDialog(getParent(), "Name must not be null")
-//				}
-//				else if() {
-//					
-//				}
-//				else {
-//					
-//				}
-				addExamination(name, date);
+				if(name == null || name.equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "Name must not be null");
+				}
+				else if(dateUnformat == null) {
+					JOptionPane.showMessageDialog(getParent(), "Date must be chosen");
+				}
+				else {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					date = sdf.format(dateUnformat);
+					addExamination(name, date);
+				}
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -160,7 +184,17 @@ public class ExaminationPanel extends JPanel {
 		gbc_btnAdd.gridy = 0;
 		panel_4.add(btnAdd, gbc_btnAdd);
 		
-		JButton btnChange = new JButton("Change");
+		btnChange = new JButton("Change");
+		btnChange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = Integer.parseInt(textExaminationId.getText());
+				String newName = textExaminationName.getName();
+				Date dateUnformat = dateChooser.getDate(); 
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String newDate = sdf.format(dateUnformat);
+				changeExamination(id, newName, newDate);
+			}
+		});
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnChange = new GridBagConstraints();
 		gbc_btnChange.fill = GridBagConstraints.BOTH;
@@ -169,7 +203,12 @@ public class ExaminationPanel extends JPanel {
 		gbc_btnChange.gridy = 0;
 		panel_4.add(btnChange, gbc_btnChange);
 		
-		JButton btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteExamination(0);
+			}
+		});
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnDelete = new GridBagConstraints();
 		gbc_btnDelete.fill = GridBagConstraints.BOTH;
@@ -253,6 +292,7 @@ public class ExaminationPanel extends JPanel {
 //		));
 		scrollPane.setViewportView(tableExamination);
 		
+		onLoad();
 	}
 	
 	public void loadData() {
@@ -260,7 +300,7 @@ public class ExaminationPanel extends JPanel {
 		vctHeader.add("Name");
 		vctHeader.add("Date");
 		Vector vctData = new Vector<>();
-		ExaminationBUS examBus = new ExaminationBUS();
+		examBus = new ExaminationBUS();
 		examList = examBus.getExaminations();
 		for (ExaminationDTO examinationDTO : examList) {
 			Vector<String> row = new Vector<String>();
@@ -273,13 +313,36 @@ public class ExaminationPanel extends JPanel {
 	}
 	
 	public void addExamination(String name,String date) {
-		ExaminationBUS bus = new ExaminationBUS();
-		ExaminationDTO dto = new ExaminationDTO();
-		dto.setId(0);
-		dto.setDate(date);
-		dto.setName(name);
+		examBus = new ExaminationBUS();
+		examDto = new ExaminationDTO();
+		examDto.setId(0);
+		examDto.setDate(date);
+		examDto.setName(name);
 		System.out.println(date);
 		System.out.println(name);
-		bus.insert(dto);
+		examBus.insert(examDto);
+	}
+	
+	public void deleteExamination(int id) {
+		examBus = new ExaminationBUS();
+		examBus.delete(id);
+	}
+	
+	public void changeExamination(int id, String name,String date) {
+		examBus = new ExaminationBUS();
+		examDto = new ExaminationDTO();
+		examDto.setId(id);
+		examDto.setDate(date);
+		examDto.setName(name);
+		System.out.println(date);
+		System.out.println(name);
+		examBus.update(examDto);
+	}
+	
+	public void onLoad() {
+		if (textExaminationId.getText().equals("") || textExaminationId.getText() == null) {
+			this.btnChange.setEnabled(false);
+			this.btnDelete.setEnabled(false);
+		}
 	}
 }

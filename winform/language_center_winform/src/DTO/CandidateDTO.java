@@ -167,7 +167,7 @@ public class CandidateDTO {
 			obj.put("last_name", this.last_name);
 			obj.put("email", this.email);
 			obj.put("gender", this.gender);
-			obj.put("day_of_birth", this.day_of_birth);
+			obj.put("date_of_birth", this.day_of_birth);
 			obj.put("place_of_birth", this.place_of_birth);
 			obj.put("phone", this.phone);
 		} catch (JSONException e) {

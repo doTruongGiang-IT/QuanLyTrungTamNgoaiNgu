@@ -11,20 +11,37 @@ import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import BUS.ExaminationBUS;
+import BUS.SupervisorBUS;
+import DTO.ExaminationDTO;
+import DTO.SupervisorDTO;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import java.awt.event.ActionEvent;
 
 public class SupervisorPanel extends JPanel {
 	private JTable tableSupervisor;
 	private JTextField textSupervisorName;
 	private JTextField textSearch;
 	private JTextField textSupervisorId;
+	private JButton btnChange;
+	private JButton btnDelete;
+	public SupervisorBUS supervisorBus;
 
 	/**
 	 * Create the panel.
@@ -98,19 +115,34 @@ public class SupervisorPanel extends JPanel {
 		panel_4.setLayout(new GridLayout(0, 10, 0, 0));
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = textSupervisorName.getText();
+				if ( name == null || name.equals("")) {
+					JOptionPane.showMessageDialog(getParent(), "New Supervisor name must not be null");
+				}
+				else {
+					addSupervisor(name);
+				}
+			}
+		});
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnAdd);
 		
-		JButton btnChange = new JButton("Change");
+		btnChange = new JButton("Change");
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnChange);
 		
-		JButton btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Delete");
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnDelete);
 		
 		JButton btnViewRoom = new JButton("View Room");
 		btnViewRoom.setVisible(false);
+		btnViewRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnViewRoom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnViewRoom);
 		
@@ -150,6 +182,11 @@ public class SupervisorPanel extends JPanel {
 		panel_6.add(btnSearch, gbc_btnSearch);
 		
 		JButton btnLoad = new JButton("Load data");
+		btnLoad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loadData();
+			}
+		});
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnLoad = new GridBagConstraints();
 		gbc_btnLoad.anchor = GridBagConstraints.EAST;
@@ -167,6 +204,39 @@ public class SupervisorPanel extends JPanel {
 		tableSupervisor = new JTable();
 		scrollPane.setViewportView(tableSupervisor);
 
+		onLoad();
 	}
-
+	
+	public void addSupervisor(String name) {
+		supervisorBus = new SupervisorBUS();
+		SupervisorDTO sDto = new SupervisorDTO();
+		sDto.setName(name);
+		sDto.setId(0);
+		supervisorBus.insert(sDto)
+	}
+	
+	public void loadData() {
+		List<SupervisorDTO> supervisorList = new ArrayList<SupervisorDTO>();
+		Vector<String> vctHeader = new Vector<String>();
+		vctHeader.add("Id");
+		vctHeader.add("Name");
+		Vector vctData = new Vector<>();
+		supervisorBus = new SupervisorBUS();
+		supervisorList = supervisorBus.getSupervisors();
+		for (SupervisorDTO supervisorDTO : supervisorList) {
+			Vector<String> row = new Vector<String>();
+			row.add(Integer.toString(supervisorDTO.getId()));
+			row.add(supervisorDTO.getName());
+			vctData.add(row);
+			System.out.println(supervisorDTO.toJSONObject().toString());
+		}
+		tableSupervisor.setModel(new DefaultTableModel(vctData, vctHeader));
+	}
+	
+	public void onLoad() {
+		if (textSupervisorName.getText().equals("") || textSupervisorName.getText() == null) {
+			this.btnChange.setEnabled(false);
+			this.btnDelete.setEnabled(false);
+		}
+	}
 }

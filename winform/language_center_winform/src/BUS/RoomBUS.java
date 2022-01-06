@@ -24,7 +24,7 @@ public class RoomBUS {
         return rooms;
     };
     
-    public RoomDTO getExamination(int id) {
+    public RoomDTO getRoom(int id) {
     	RoomDTO room = new RoomDTO();
         try{
         	room = roomDAO.getRoom(id);

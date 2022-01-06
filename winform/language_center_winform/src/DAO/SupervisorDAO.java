@@ -58,5 +58,20 @@ public class SupervisorDAO {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("Supervisor/"+String.valueOf(id), "DELETE", null);
     };
-	
+    
+    public static void main(String args[]) {
+		SupervisorDAO dao = new SupervisorDAO();
+		List<SupervisorDTO> dtoList = new ArrayList<SupervisorDTO>();
+		dtoList = dao.getSupervisors();
+		for (SupervisorDTO supervisorDTO : dtoList) {
+			if(supervisorDTO != null) {
+				System.out.println(supervisorDTO.getId());
+				System.out.println(supervisorDTO.getName());
+			}
+			else {
+				System.out.println("Nothing here");
+			}
+		}
+		System.out.println("Nothing here");
+	};
 }

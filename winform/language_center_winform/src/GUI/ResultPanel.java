@@ -78,6 +78,7 @@ public class ResultPanel extends JPanel {
 		panel_3.add(lblSupervisorName, gbc_lblSupervisorName);
 		
 		textId = new JTextField();
+		textId.setEditable(false);
 		textId.setColumns(10);
 		GridBagConstraints gbc_textId = new GridBagConstraints();
 		gbc_textId.fill = GridBagConstraints.HORIZONTAL;
@@ -96,6 +97,7 @@ public class ResultPanel extends JPanel {
 		panel_3.add(lblSupervisorName_1, gbc_lblSupervisorName_1);
 		
 		textCandidateId = new JTextField();
+		textCandidateId.setEditable(false);
 		textCandidateId.setColumns(10);
 		GridBagConstraints gbc_textCandidateId = new GridBagConstraints();
 		gbc_textCandidateId.insets = new Insets(0, 0, 5, 5);
@@ -114,6 +116,7 @@ public class ResultPanel extends JPanel {
 		panel_3.add(lblSupervisorName_2, gbc_lblSupervisorName_2);
 		
 		textCandidateno = new JTextField();
+		textCandidateno.setEditable(false);
 		textCandidateno.setColumns(10);
 		GridBagConstraints gbc_textCandidateno = new GridBagConstraints();
 		gbc_textCandidateno.insets = new Insets(0, 0, 5, 5);
@@ -132,6 +135,7 @@ public class ResultPanel extends JPanel {
 		panel_3.add(lblSupervisorName_3, gbc_lblSupervisorName_3);
 		
 		textRoomId = new JTextField();
+		textRoomId.setEditable(false);
 		textRoomId.setColumns(10);
 		GridBagConstraints gbc_textRoomId = new GridBagConstraints();
 		gbc_textRoomId.insets = new Insets(0, 0, 0, 5);

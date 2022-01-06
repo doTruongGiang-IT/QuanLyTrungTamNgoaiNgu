@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONObject;
 
+import DTO.ExaminationDTO;
 import DTO.SupervisorDTO;
 import DTO.Supervisor_RoomDTO;
 
@@ -58,5 +59,6 @@ public class Supervisor_RoomDAO {
     	ApiConnection apiConn = new ApiConnection();
     	apiConn.callAPI("SupervisorRoom/"+String.valueOf(id), "DELETE", null);
     };
+    
 	
 }

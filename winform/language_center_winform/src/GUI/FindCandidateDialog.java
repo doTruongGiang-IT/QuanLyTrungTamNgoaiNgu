@@ -7,14 +7,22 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.CandidateBUS;
+import DTO.CandidateDTO;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FindCandidateDialog extends JDialog {
@@ -22,7 +30,7 @@ public class FindCandidateDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFirstName;
 	private JTextField textPhone;
-	private JTextField textLastName;
+	public List<CandidateDTO> candidateList;
 
 	/**
 	 * Launch the application.
@@ -71,25 +79,6 @@ public class FindCandidateDialog extends JDialog {
 			textFirstName.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_2 = new JLabel("Last Name");
-			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-			gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
-			gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-			gbc_lblNewLabel_2.gridx = 0;
-			gbc_lblNewLabel_2.gridy = 2;
-			contentPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		}
-		{
-			textLastName = new JTextField();
-			GridBagConstraints gbc_textLastName = new GridBagConstraints();
-			gbc_textLastName.insets = new Insets(0, 0, 5, 0);
-			gbc_textLastName.fill = GridBagConstraints.HORIZONTAL;
-			gbc_textLastName.gridx = 1;
-			gbc_textLastName.gridy = 2;
-			contentPanel.add(textLastName, gbc_textLastName);
-			textLastName.setColumns(10);
-		}
-		{
 			JLabel lblNewLabel_1 = new JLabel("Phone");
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
 			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -116,7 +105,14 @@ public class FindCandidateDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						openFindResultDialog();
+						String firstName = textFirstName.getText();
+						String phone = textPhone.getText();
+						if(firstName == null || firstName.equals("") || phone == null || phone.equals("")) {
+							JOptionPane.showMessageDialog(getParent(), "All field must be filled");
+						}
+						else {
+							openFindResultDialog(firstName, phone);
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -140,10 +136,28 @@ public class FindCandidateDialog extends JDialog {
 		this.dispose();
 	}
 	
-	public void openFindResultDialog() {
-		JDialog findresultDialog = new FindResultDialog();
+	public void openFindResultDialog(String firstName, String phone) {
+		CandidateBUS bus = new CandidateBUS();
+		CandidateDTO result = new CandidateDTO();
+		candidateList = new ArrayList<CandidateDTO>();
+		candidateList = bus.search(firstName);
+		if (candidateList.size() > 0) {
+			for (CandidateDTO candidateDTO : candidateList) {
+				if(candidateDTO.getPhone().equals(phone)) {
+	            	result = candidateDTO;
+	            	break;
+	            };
+			}
+		}
+		if (result.getIdentification() != null) {
+			FindResultDialog findresultDialog = new FindResultDialog();
+			findresultDialog.setFinderDto(result);
+			findresultDialog.setVisible(true);
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "Cannot find candidate");
+		}
 		this.dispose();
-		findresultDialog.setVisible(true);
 	}
 
 }

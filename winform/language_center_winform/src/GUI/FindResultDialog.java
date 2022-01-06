@@ -7,9 +7,19 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import BUS.Candidate_RoomBUS;
+import BUS.RoomBUS;
+import DTO.CandidateDTO;
+import DTO.Candidate_RoomDTO;
+import DTO.RoomDTO;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -27,6 +37,7 @@ public class FindResultDialog extends JDialog {
 	private JTextField textReading;
 	private JTextField textWriting;
 	private JTextField textListening;
+	public CandidateDTO finderDto;
 
 	/**
 	 * Launch the application.
@@ -259,11 +270,50 @@ public class FindResultDialog extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+			this.onCreate();
 		}
+	}
+	
+	public void setFinderDto(CandidateDTO dto) {
+		this.finderDto = dto;
 	}
 	
 	public void closeDialog() {
 		this.dispose();
+	}
+	
+	public void onCreate() {
+		this.textFirstName.setText(finderDto.getFirst_name());
+		this.textLastName.setText(finderDto.getLast_name());;
+		this.textPhone.setText(finderDto.getPhone());
+		Candidate_RoomBUS crBus = new Candidate_RoomBUS();
+		List<Candidate_RoomDTO> crDtoList = crBus.getCandidate_Rooms();
+		Candidate_RoomDTO crDto = new Candidate_RoomDTO();
+		RoomDTO rDto = new RoomDTO();
+		for (Candidate_RoomDTO candidate_RoomDTO : crDtoList) {
+			if (finderDto.getId() == candidate_RoomDTO.getCandidate_id()) {
+				crDto = candidate_RoomDTO;
+				break;
+			}
+		}
+		if (crDto.getCandidate_no() != null) {
+			
+			RoomBUS rBus = new RoomBUS();
+			rDto = rBus.getRoom(crDto.getRoom_id());
+			if (rDto.getName() != null) {
+				this.textRoom.setText(rDto.getName());
+				this.textCandidateNumber.setText(crDto.getCandidate_no());
+				this.textListening.setText(Float.toString(crDto.getScore_listening()));
+				this.textSpeaking.setText(Float.toString(crDto.getScore_speaking()));
+				this.textWriting.setText(Float.toString(crDto.getScore_writing()));
+				this.textReading.setText(Float.toString(crDto.getScore_reading()));
+			}
+			
+		}
+		else {
+			JOptionPane.showMessageDialog(getParent(), "This candidate have no result");
+		}
+		
 	}
 
 }
