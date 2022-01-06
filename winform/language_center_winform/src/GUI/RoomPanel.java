@@ -48,6 +48,7 @@ public class RoomPanel extends JPanel {
 	private JButton btnChange;
 	public List<RoomDTO> roomList;
 	private Vector<String> examStringList;
+	private RoomBUS roomBus;
 
 	/**
 	 * Create the panel.
@@ -309,7 +310,24 @@ public class RoomPanel extends JPanel {
 		tableRoom.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked (MouseEvent evt) {
-				
+				int rowIndex = tableRoom.getSelectedRow();
+				if (rowIndex > -1) {
+					String roomId = tableRoom.getValueAt(rowIndex, 0).toString();
+					String roomName = tableRoom.getValueAt(rowIndex, 1).toString();
+					String examinationId = tableRoom.getValueAt(rowIndex, 2).toString();
+					String level = tableRoom.getValueAt(rowIndex, 3).toString();
+					String timeString = tableRoom.getValueAt(rowIndex, 4).toString();
+					textRoomId.setText(roomId);
+					textRoomName.setText(roomName);
+					textRoomLevel.setText(level);
+					textExaminationId.setText(examinationId);
+					if (timeString == "morning") {
+						comboBoxRoomTime.setSelectedIndex(0);
+					}
+					else {
+						comboBoxRoomTime.setSelectedIndex(1);
+					}
+				}
 			}
 		});
 		scrollPane.setViewportView(tableRoom);
@@ -317,8 +335,27 @@ public class RoomPanel extends JPanel {
 	}
 	
 	public void loadData() {
-		String examId = comboBoxExamination.getSelectedItem().toString();
-		
+		String examString = comboBoxExamination.getSelectedItem().toString();
+		String[] examStringlsit = examString.split("-");
+		roomBus = new RoomBUS();
+		roomList = roomBus.getRooms();
+		Vector<String> vctHeader = new Vector<String>();
+		vctHeader.add("Id");
+		vctHeader.add("Name");
+		vctHeader.add("Examination Id");
+		vctHeader.add("Level");
+		vctHeader.add("Time");
+		Vector vctData = new Vector<>();
+		for (RoomDTO roomDTO : roomList) {
+			Vector<String> row = new Vector<String>();
+			row.add(Integer.toString(roomDTO.getId()));
+			row.add(roomDTO.getName());
+			row.add(Integer.toString(roomDTO.getExamination_id()));
+			boolean time = roomDTO.getTime();
+			row.add(time ? "morning" : "noon");
+			vctData.add(row);
+		}
+//		tableRoom
 		
 	}
 	public void changeRoom(RoomDTO dto) {
