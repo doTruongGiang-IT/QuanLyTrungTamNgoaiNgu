@@ -31,6 +31,7 @@ const formItemLayout = {
 
 const RegisterForm = React.forwardRef((props, ref) => {
     const [form] = Form.useForm();
+    let current_examination = JSON.parse(localStorage.getItem("current_examination"));
     let formValue = {
         identityCard: "",
         firstName: "",
@@ -104,7 +105,7 @@ const RegisterForm = React.forwardRef((props, ref) => {
                     name="examination"
                     label="Kỳ thi"
                 >
-                    <Input defaultValue={"Giang đẹp trai"} disabled={true} />
+                    <Input defaultValue={props.currentExamination ? props.currentExamination : current_examination.name} disabled={true} />
                 </Form.Item>
 
                 <Form.Item

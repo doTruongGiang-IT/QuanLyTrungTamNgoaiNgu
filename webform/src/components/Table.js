@@ -2,11 +2,18 @@ import React, {useState} from 'react';
 import '../pages/SearchPage/SearchPage.css';
 import { Table, Space, Button, Modal} from 'antd';
 import { EditOutlined, EyeOutlined, BookOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
 
-const TableComponent = ({tab, search, examination, room}) => {
+const TableComponent = ({tab, examination, room}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [content, setContent] = useState("");
     const [name, setName] = useState("");
+    const search = useSelector(state => state.search);
+    let searchResult = JSON.parse(localStorage.getItem("search_result"));
+    let candidates = JSON.parse(localStorage.getItem("all_candidate_of_room_of_examination"));
+    let dataSchedule = [];
+    let dataScore = [];
+    let dataCandidates = [];
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -146,49 +153,58 @@ const TableComponent = ({tab, search, examination, room}) => {
         },
     ];
 
-    const dataSchedule = [
-        {
-            "key": 1,
-            "candidate_no": "A2001",
-            "level": "A2",
-            "room": "A2P06",
-            "time": "morning"
-        }
-    ];
+    if(search.message === undefined) {
+        dataSchedule = [
+            {
+                "key": 1,
+                "candidate_no": search !== undefined ? search.candidateRoom?.candidate_no : "",
+                "level": search !== undefined ? search.schedule?.level : "",
+                "room": search !== undefined ? search.schedule?.room : "",
+                "time": search !== undefined ? search.schedule?.time : ""
+            }
+        ];
+    
+        dataScore = [
+            {
+                "key": 1,
+                "listening": search !== undefined ? search.candidateRoom?.score_listening : -1,
+                "reading": search !== undefined ? search.candidateRoom?.score_reading : -1,
+                "writing": search !== undefined ? search.candidateRoom?.score_writing : -1,
+                "speaking": search !== undefined ? search.candidateRoom?.score_speaking : -1,
+            }
+        ];
+    }else {
+        dataSchedule = [
+            {
+                "key": 1,
+                "candidate_no": "Not found",
+                "level": "Not found",
+                "room": "Not found",
+                "time": "Not found"
+            }
+        ];
+    
+        dataScore = [
+            {
+                "key": 1,
+                "listening": "Not found",
+                "reading": "Not found",
+                "writing": "Not found",
+                "speaking": "Not found",
+            }
+        ];
+    };
 
-    const dataScore = [
-        {
-            "key": 1,
-            "listening": 8,
-            "reading": 7.5,
-            "writing": 6,
-            "speaking": 5.5,
-        }
-    ];
-
-    const dataCandidates = [
-        {
-            "key": 1,
-            "stt": 1,
-            "candidate_no": "A2001",
-            "name": "Do Truong Giang",
-            "phone": "0776134908",
-        },
-        {
-            "key": 2,
-            "stt": 2,
-            "candidate_no": "A2002",
-            "name": "Luu Thanh Dat",
-            "phone": "0907236436",
-        },
-        {
-            "key": 3,
-            "stt": 3,
-            "candidate_no": "A2003",
-            "name": "Le Dang Khanh Dung",
-            "phone": "0802436845",
-        },
-    ];
+    
+    dataCandidates = candidates.data.map((candidate, index) => {
+        return {
+            "key": index,
+            "stt": index+1,
+            "email": candidate.email,
+            "name": candidate.first_name + candidate.last_name,
+            "phone": candidate.phone,
+        };
+    });
 
     return (
         <>
