@@ -146,10 +146,18 @@ namespace backend.Controllers
                 int roomMinCount;
 
                 if (canArange) {
-                    roomMinValue = candidateSize / roomCount;
-                    roomMaxValue = roomMinValue + 1;
-                    roomMaxCount = candidateSize % roomCount;
-                    roomMinCount = roomCount - roomMaxCount;
+                    if (roomCount == 0){
+                        roomMinValue = 0;
+                        roomMaxValue = candidateSize;
+                        roomMaxCount = 1;
+                        roomMinCount = 0;
+                    }
+                    else{
+                        roomMinValue = candidateSize / roomCount;
+                        roomMaxValue = roomMinValue + 1;
+                        roomMaxCount = candidateSize % roomCount;
+                        roomMinCount = roomCount - roomMaxCount;
+                    }
                 }
                 else {
                     roomMinValue = candidateLefts;
