@@ -77,7 +77,7 @@ namespace backend.Controllers
         }
 
         //truyen SBD tra ve phong thi, ket qua, thi sinh.
-        [HttpGet("information/{name}/{phone}")]
+        [HttpGet("information")]
         public IActionResult GetInfor(string name, string phone)
         {
             try{
