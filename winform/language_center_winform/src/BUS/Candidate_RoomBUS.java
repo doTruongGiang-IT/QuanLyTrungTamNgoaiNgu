@@ -84,7 +84,7 @@ public class Candidate_RoomBUS {
         if (index != -1) {
             try {
                 boolean res = candidate_roomDAO.delete(id);
-                if (res){
+                if (res) {
                     candidate_rooms.remove(index);
                     result = true;
                 }
@@ -93,6 +93,27 @@ public class Candidate_RoomBUS {
             };
         };
         return result;
+    }
+
+    public List<Candidate_RoomDTO> getByRoomID(int room_id) {
+        List<Candidate_RoomDTO> candidate_rooms = new ArrayList<>();
+        List<Candidate_RoomDTO> candidate_rooms_by_room_id = new ArrayList<>();
+        try {
+            candidate_rooms = candidate_roomDAO.getCandidate_Rooms();
+        } catch (Exception e) {
+            System.out.println(e);
+        };
+        
+        if (candidate_rooms != null){
+            for (Candidate_RoomDTO candidate_room : candidate_rooms) {
+                if (candidate_room.getRoom_id() == room_id) {
+                    candidate_rooms_by_room_id.add(candidate_room);
+                };
+            };
+            return candidate_rooms_by_room_id;
+        }
+
+        return null;
     }
 
     public Candidate_RoomDTO search(int identification) {
