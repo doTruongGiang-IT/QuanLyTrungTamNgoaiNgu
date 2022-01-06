@@ -64,5 +64,19 @@ namespace backend.Models.Repositories
             this.context.candidates.Update(candidate);
             this.context.SaveChanges();
         }
+
+        public IEnumerable<CandidateDTO> GetByRoom(int room_id)
+        {
+            List<CandidateDTO> candidateDTOs = new List<CandidateDTO>();
+            bool flag = true;
+            IEnumerable<CandidateRoom> candidateRooms = this.context.candidate_rooms.Where(cr => cr.room_id==room_id).ToList();
+            foreach(CandidateRoom candidateRoom in candidateRooms)
+            {
+                CandidateDTO candidateDTO = this.Get(candidateRoom.candidate_id);
+                candidateDTOs.Add(candidateDTO);
+            }
+            IEnumerable<CandidateDTO> eCandidateDTOs = candidateDTOs as IEnumerable<CandidateDTO>;
+            return eCandidateDTOs;
+        }
     }
 }

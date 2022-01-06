@@ -36,6 +36,8 @@ public class RoomPanel extends JPanel {
 	private JTextField textRoomLevel;
 	private JTextField textField_3;
 	private JTextField textRoomId;
+	private JComboBox comboBoxRoomTime;
+	private JButton btnChange;
 
 	/**
 	 * Create the panel.
@@ -148,7 +150,7 @@ public class RoomPanel extends JPanel {
 		gbc_lblRoomTime.gridy = 4;
 		panel_3.add(lblRoomTime, gbc_lblRoomTime);
 		
-		JComboBox comboBoxRoomTime = new JComboBox();
+		comboBoxRoomTime = new JComboBox();
 		comboBoxRoomTime.setModel(new DefaultComboBoxModel(new String[] {"Morning", "Noon"}));
 		GridBagConstraints gbc_comboBoxRoomTime = new GridBagConstraints();
 		gbc_comboBoxRoomTime.insets = new Insets(0, 0, 0, 5);
@@ -170,7 +172,7 @@ public class RoomPanel extends JPanel {
 		gbl_panel_5.rowWeights = new double[]{0.0};
 		panel_5.setLayout(gbl_panel_5);
 		
-		JButton btnChange = new JButton("Change");
+		btnChange = new JButton("Change");
 		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RoomDTO rDto = new RoomDTO();
@@ -291,6 +293,7 @@ public class RoomPanel extends JPanel {
                 return false;               
 			};
 		};
+		tableRoom.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(tableRoom);
 
 	}
@@ -298,6 +301,12 @@ public class RoomPanel extends JPanel {
 	public void changeRoom(RoomDTO dto) {
 		RoomBUS rBus = new RoomBUS();
 		rBus.update(dto);
+	}
+	
+	public void onLoad() {
+		if (textRoomId.getText().equals("")) {
+			btn
+		}
 	}
 
 }

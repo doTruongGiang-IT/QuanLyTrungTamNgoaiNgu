@@ -15,16 +15,16 @@ const MenuComponent = () => {
     return (
         <Menu onClick={handleClick} selectedKeys={[currentKey]} mode="horizontal" style={{backgroundColor: "whitesmoke", padding: "0 30px"}}>
             <Menu.Item key="" icon={<UserOutlined />}>
-                HOME
+                TRANG CHỦ
             </Menu.Item>
             <Menu.Item key="search" icon={<SearchOutlined />}>
-                SEARCH
+                TÌM KIẾM
             </Menu.Item>
             <Menu.Item key="candidates" icon={<UsergroupAddOutlined />}>
-                CANDIDATES
+                DANH SÁCH THÍ SINH
             </Menu.Item>
             <Menu.Item key="stats" icon={<LineChartOutlined />}>
-                STATS
+                THỐNG KÊ
             </Menu.Item>
         </Menu>
     )

@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import java.awt.ComponentOrientation;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -173,6 +174,7 @@ public class ExaminationPanel extends JPanel {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					date = sdf.format(dateUnformat);
 					addExamination(name, date);
+					loadData();
 				}
 			}
 		});
@@ -188,11 +190,16 @@ public class ExaminationPanel extends JPanel {
 		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(textExaminationId.getText());
-				String newName = textExaminationName.getName();
+				String newName = textExaminationName.getText();
 				Date dateUnformat = dateChooser.getDate(); 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String newDate = sdf.format(dateUnformat);
 				changeExamination(id, newName, newDate);
+				textExaminationId.setText("");
+				textExaminationName.setText("");
+				dateChooser.setCalendar(null);
+				onLoad();
+				loadData();
 			}
 		});
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -206,7 +213,13 @@ public class ExaminationPanel extends JPanel {
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				deleteExamination(0);
+				int id = Integer.parseInt(textExaminationId.getText());
+				deleteExamination(id);
+				textExaminationId.setText("");
+				textExaminationName.setText("");
+				dateChooser.setCalendar(null);
+				onLoad();
+				loadData();
 			}
 		});
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -299,6 +312,30 @@ public class ExaminationPanel extends JPanel {
 //			new String[] {
 //			}
 //		));
+		tableExamination.setAutoCreateRowSorter(true);
+		tableExamination.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent evt) {
+				int rowIndex = tableExamination.getSelectedRow();
+				if (rowIndex > -1) {
+					int id = Integer.parseInt(tableExamination.getValueAt(rowIndex, 0).toString());
+					String ExaminationName = tableExamination.getValueAt(rowIndex, 1).toString();
+					String ExaminationDate = tableExamination.getValueAt(rowIndex, 2).toString();
+//					System.out.println(ExaminationName);
+//					System.out.println(ExaminationDate);
+					textExaminationId.setText(Integer.toString(id));
+					textExaminationName.setText(ExaminationName);
+					try {
+						dateChooser.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(ExaminationDate));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//					System.out.println(tableExamination.getValueAt(rowIndex, 0));
+				}
+				enableButton();
+			}
+		});
 		scrollPane.setViewportView(tableExamination);
 		
 		onLoad();
@@ -306,6 +343,7 @@ public class ExaminationPanel extends JPanel {
 	
 	public void loadData() {
 		Vector<String> vctHeader = new Vector<String>();
+		vctHeader.add("Id");
 		vctHeader.add("Name");
 		vctHeader.add("Date");
 		Vector vctData = new Vector<>();
@@ -318,6 +356,12 @@ public class ExaminationPanel extends JPanel {
 			row.add(examinationDTO.getDate());
 			vctData.add(row);
 		}
+//		ExaminationDTO examinationDTO = examBus.getExamination(1);
+//		Vector<String> row = new Vector<String>();
+//		row.add(Integer.toString(examinationDTO.getId()));
+//		row.add(examinationDTO.getName());
+//		row.add(examinationDTO.getDate());
+//		vctData.add(row);
 		tableExamination.setModel(new DefaultTableModel(vctData, vctHeader));
 	}
 	
@@ -353,5 +397,10 @@ public class ExaminationPanel extends JPanel {
 			this.btnChange.setEnabled(false);
 			this.btnDelete.setEnabled(false);
 		}
+	}
+	
+	public void enableButton() {
+		this.btnChange.setEnabled(true);
+		this.btnDelete.setEnabled(true);
 	}
 }
