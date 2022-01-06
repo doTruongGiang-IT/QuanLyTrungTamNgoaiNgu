@@ -42,20 +42,20 @@ public class FindResultDialog extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			FindResultDialog dialog = new FindResultDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			FindResultDialog dialog = new FindResultDialog();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public FindResultDialog() {
+	public FindResultDialog(CandidateDTO inputDto) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -270,19 +270,17 @@ public class FindResultDialog extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
-			this.onCreate();
+			this.onCreate(inputDto);
 		}
 	}
 	
-	public void setFinderDto(CandidateDTO dto) {
-		this.finderDto = dto;
-	}
 	
 	public void closeDialog() {
 		this.dispose();
 	}
 	
-	public void onCreate() {
+	public void onCreate(CandidateDTO dto) {
+		finderDto = new CandidateDTO(dto);
 		this.textFirstName.setText(finderDto.getFirst_name());
 		this.textLastName.setText(finderDto.getLast_name());;
 		this.textPhone.setText(finderDto.getPhone());

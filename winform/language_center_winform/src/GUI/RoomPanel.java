@@ -18,11 +18,18 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import com.toedter.components.JSpinField;
 
+import BUS.ExaminationBUS;
 import BUS.RoomBUS;
+import DTO.ExaminationDTO;
 import DTO.RoomDTO;
 
 import javax.swing.JSpinner;
@@ -37,12 +44,16 @@ public class RoomPanel extends JPanel {
 	private JTextField textField_3;
 	private JTextField textRoomId;
 	private JComboBox comboBoxRoomTime;
+	private JComboBox comboBoxExamination;
 	private JButton btnChange;
+	public List<RoomDTO> roomList;
+	private Vector<String> examStringList;
 
 	/**
 	 * Create the panel.
 	 */
 	public RoomPanel() {
+		onLoad();
 		setMaximumSize(new Dimension(1039, 763));
 		setLayout(new CardLayout(0, 0));
 		
@@ -244,6 +255,7 @@ public class RoomPanel extends JPanel {
 		JButton btnLoad = new JButton("Load data");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loadData();
 			}
 		});
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -269,7 +281,7 @@ public class RoomPanel extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		panel_7.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JComboBox comboBoxExamination = new JComboBox();
+		comboBoxExamination = new JComboBox(examStringList);
 		GridBagConstraints gbc_comboBoxExamination = new GridBagConstraints();
 		gbc_comboBoxExamination.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxExamination.gridx = 1;
@@ -294,18 +306,42 @@ public class RoomPanel extends JPanel {
 			};
 		};
 		tableRoom.setAutoCreateRowSorter(true);
+		tableRoom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked (MouseEvent evt) {
+				
+			}
+		});
 		scrollPane.setViewportView(tableRoom);
 
 	}
 	
+	public void loadData() {
+		String examId = comboBoxExamination.getSelectedItem().toString();
+		
+		
+	}
 	public void changeRoom(RoomDTO dto) {
 		RoomBUS rBus = new RoomBUS();
 		rBus.update(dto);
 	}
 	
-	public void onLoad() {
+	public void disableButton() {
 		if (textRoomId.getText().equals("")) {
-			btn
+			btnChange.setEnabled(false);
+		}
+	}
+	
+	public void enableButton() {
+		btnChange.setEnabled(true);
+	}
+	
+	public void onLoad() {
+		ExaminationBUS examBus = new ExaminationBUS();
+		List<ExaminationDTO> listExam = examBus.getExaminations();
+		examStringList = new Vector<>();
+		for (ExaminationDTO examDTO : listExam) {
+			examStringList.add(examDTO.getId() + "-" + examDTO.getName());
 		}
 	}
 

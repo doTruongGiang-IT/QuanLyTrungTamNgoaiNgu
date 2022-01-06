@@ -198,7 +198,7 @@ public class ExaminationPanel extends JPanel {
 				textExaminationId.setText("");
 				textExaminationName.setText("");
 				dateChooser.setCalendar(null);
-				onLoad();
+				disableButton();
 				loadData();
 			}
 		});
@@ -218,7 +218,7 @@ public class ExaminationPanel extends JPanel {
 				textExaminationId.setText("");
 				textExaminationName.setText("");
 				dateChooser.setCalendar(null);
-				onLoad();
+				disableButton();
 				loadData();
 			}
 		});
@@ -338,7 +338,7 @@ public class ExaminationPanel extends JPanel {
 		});
 		scrollPane.setViewportView(tableExamination);
 		
-		onLoad();
+		disableButton();
 	}
 	
 	public void loadData() {
@@ -392,7 +392,7 @@ public class ExaminationPanel extends JPanel {
 		examBus.update(examDto);
 	}
 	
-	public void onLoad() {
+	public void disableButton() {
 		if (textExaminationId.getText().equals("") || textExaminationId.getText() == null) {
 			this.btnChange.setEnabled(false);
 			this.btnDelete.setEnabled(false);
