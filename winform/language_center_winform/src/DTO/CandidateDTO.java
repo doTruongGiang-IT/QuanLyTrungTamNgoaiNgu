@@ -132,7 +132,7 @@ public class CandidateDTO {
     }
     
     public String getName(){
-        return this.last_name + " " + this.last_name;
+        return this.first_name + " " + this.last_name;
     }
 
     public String getEmail() {

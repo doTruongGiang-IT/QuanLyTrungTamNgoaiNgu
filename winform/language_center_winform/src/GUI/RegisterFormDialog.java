@@ -187,8 +187,11 @@ public class RegisterFormDialog extends JDialog {
         textCandidateId.setText(Integer.toString(newDto.getCandidate_id()));
         ExaminationBUS examBus = new ExaminationBUS();
         this.examDto = examBus.getCurrentExamination();
-        int id = examDto.getId();
-        textExaminationId.setText(newDto.getExamination(id));
+        
+        if (examDto != null){
+            int id = examDto.getId();
+            textExaminationId.setText(newDto.getExamination(id));
+        }
     }
 
     public void createRegistrationForm() {
@@ -196,7 +199,7 @@ public class RegisterFormDialog extends JDialog {
         String raw_exam = textExaminationId.getText();
         
         if (raw_exam.split(" | ").length > 0){
-            raw_exam = raw_exam.split(" | ")[raw_exam.split(" | ").length - 1];
+            raw_exam = raw_exam.split(" | ")[0];
         }
         
         rfDto.setId(0);
