@@ -46,7 +46,7 @@ const CandidatePage = () => {
                         rooms.data ?
                         rooms.data.map((room, index) => {
                             return <Option key={index} value={room.id}>{room.name}</Option>
-                        }) : <Option value={1}>blabla</Option>
+                        }) : ""
                     }
                 </Select>
             </div>
