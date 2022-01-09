@@ -64,7 +64,6 @@ namespace backend.Models.Repositories
             examination.date.AddHours(now.Hour);
             examination.date.AddMinutes(now.Minute);
             examination.date.AddSeconds(now.Second);
-            Console.WriteLine(examination.date + " | Kim Bao");
             if(DateTime.Compare(examination.date, now) < 0)
             {
                 return null;
