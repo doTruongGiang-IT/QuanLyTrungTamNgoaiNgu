@@ -115,6 +115,25 @@ export const getAllCandidateOfRoomOfExaminationRequest = (id) => {
     }
 };
 
+export const getDetailOfCandidate = (candidate) => {
+    return {
+        type: types.GET_DETAIL_OF_CANDIDATE,
+        payload: candidate
+    };
+};
+
+export const getDetailOfCandidateRequest = (id) => {
+    return (dispatch) => {
+        return callApi(`Candidate/${id}`, "GET", null)
+                    .then(res => {
+                        dispatch(getDetailOfCandidate(res.data));
+                    })
+                    .catch(error => {
+                        console.log("get detail of candidate error");
+                    });
+    }
+};
+
 export const getAllRoomOfExaminationAndLevel = (candidates) => {
     return {
         type: types.GET_ALL_ROOM_OF_EXAMINATION_AND_LEVEL,
@@ -132,4 +151,11 @@ export const getAllRoomOfExaminationAndLevelRequest = (id, level) => {
                         console.log("get all room of examination and level error");
                     });
     }
+};
+
+export const numberOfCandidate = (data) => {
+    return {
+        type: types.GET_NUMBER_OF_CANDIDATES,
+        payload: data
+    };
 };
