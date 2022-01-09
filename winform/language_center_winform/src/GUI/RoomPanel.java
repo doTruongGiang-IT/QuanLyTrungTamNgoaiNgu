@@ -197,15 +197,15 @@ public class RoomPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 RoomDTO rDto = new RoomDTO();
                 String exam = textExaminationId.getText();
-                if (exam.split(" | ").length > 0){
+                if (exam.split(" | ").length > 0) {
                     exam = exam.split(" | ")[0];
                 }
-                
+
                 String room = textRoomId.getText();
-                if (room.split(" | ").length > 0){
+                if (room.split(" | ").length > 0) {
                     room = room.split(" | ")[0];
                 }
-                
+
                 rDto.setExamination_id(Integer.parseInt(exam));
                 rDto.setId(Integer.parseInt(room));
                 rDto.setLevel(textRoomLevel.getText());
@@ -274,7 +274,7 @@ public class RoomPanel extends JPanel {
         JButton btnLoad = new JButton("Load dữ liệu");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+
                 int examIndex = comboBoxExam.getSelectedIndex();
                 String examString = comboBoxExam.getItemAt(examIndex);
 
@@ -283,7 +283,7 @@ public class RoomPanel extends JPanel {
                 } else {
                     exam_search = Integer.parseInt(examString.split(" | ")[0]);
                 }
-                
+
                 loadData();
             }
         });
@@ -325,7 +325,7 @@ public class RoomPanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane();
         panel_1.add(scrollPane);
-        
+
         onLoad();
         JPanel panel_9 = new JPanel();
         panel_7.add(panel_9);
@@ -385,17 +385,17 @@ public class RoomPanel extends JPanel {
         vctHeader.add("Trình độ");
         vctHeader.add("Ca thi");
         Vector vctData = new Vector<>();
-        
+
         List<RoomDTO> crListSearch = new ArrayList<>();
-        if (exam_search != 0){
-            for (RoomDTO room : roomList){
-                if (room.getExamination_id() == exam_search){
+        if (exam_search != 0) {
+            for (RoomDTO room : roomList) {
+                if (room.getExamination_id() == exam_search) {
                     crListSearch.add(room);
                 }
             }
             roomList = crListSearch;
         }
-        
+
         for (RoomDTO roomDTO : roomList) {
             Vector<String> row = new Vector<String>();
             row.add(Integer.toString(roomDTO.getId()));
@@ -441,7 +441,7 @@ public class RoomPanel extends JPanel {
 
         ExaminationBUS eBus = new ExaminationBUS();
         List<ExaminationDTO> eList = eBus.getExaminations();
-        
+
         eStringList = new Vector<String>();
         eStringList.add("Tất cả kì thi");
         if (eList != null) {
@@ -449,7 +449,12 @@ public class RoomPanel extends JPanel {
                 eStringList.add(Integer.toString(examDTO.getId()) + " | " + examDTO.getName());
             }
         }
-        
+
+        comboBoxExam.removeAllItems();
+
+        for (String selection : eStringList) {
+            comboBoxExam.addItem(selection);
+        }
         disableButton();
     }
 

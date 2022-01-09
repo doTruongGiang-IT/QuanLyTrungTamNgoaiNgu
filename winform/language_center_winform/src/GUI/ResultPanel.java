@@ -352,31 +352,30 @@ public class ResultPanel extends JPanel {
 
         comboBoxRoom = new JComboBox<String>(rStringList);
         panel_9.add(comboBoxRoom);
-        
-        comboBoxExam.addActionListener (new ActionListener () {
+
+        comboBoxExam.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 RoomBUS rBus = new RoomBUS();
                 List<RoomDTO> rList = rBus.getRooms();
                 rStringList = new Vector<String>();
                 rStringList.add("Tất cả phòng thi");
-                
+
                 boolean is_selection = false;
-                
+
                 int examIndex = comboBoxExam.getSelectedIndex();
                 String examString = comboBoxExam.getItemAt(examIndex);
                 int exam_id = 0;
-                if (examString.equals("Tất cả kì thi")){
+                if (examString.equals("Tất cả kì thi")) {
                     is_selection = true;
-                }
-                else {
+                } else {
                     exam_id = Integer.parseInt(examString.split(" | ")[0]);
                 }
-                   
+
                 System.out.println(exam_id);
                 room_ids.clear();
                 if (rList != null) {
                     for (RoomDTO roomDTO : rList) {
-                        if (is_selection || roomDTO.getExamination_id() == exam_id){
+                        if (is_selection || roomDTO.getExamination_id() == exam_id) {
                             rStringList.add(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             System.out.println(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             room_ids.add(roomDTO.getId());
@@ -384,8 +383,8 @@ public class ResultPanel extends JPanel {
                     }
                 }
                 comboBoxRoom.removeAllItems();
-                
-                for (String selection : rStringList){
+
+                for (String selection : rStringList) {
                     comboBoxRoom.addItem(selection);
                 }
             }
@@ -444,29 +443,27 @@ public class ResultPanel extends JPanel {
         Vector vctData = new Vector<>();
         crBus = new Candidate_RoomBUS();
         crList = crBus.getCandidate_Rooms();
-        
+
         List<Candidate_RoomDTO> crListSearch = new ArrayList<>();
         boolean invalid = false;
-        if (exam_search == 0 && room_search != 0){
+        if (exam_search == 0 && room_search != 0) {
             invalid = true;
-        }
-        else if (exam_search != 0 && room_search != 0){
-            for (Candidate_RoomDTO candidate_room : crList){
-                if (candidate_room.getRoom_id() == room_search){
+        } else if (exam_search != 0 && room_search != 0) {
+            for (Candidate_RoomDTO candidate_room : crList) {
+                if (candidate_room.getRoom_id() == room_search) {
+                    crListSearch.add(candidate_room);
+                }
+            }
+            crList = crListSearch;
+        } else if (exam_search != 0 && room_search == 0) {
+            for (Candidate_RoomDTO candidate_room : crList) {
+                if (room_ids.contains(candidate_room.getRoom_id())) {
                     crListSearch.add(candidate_room);
                 }
             }
             crList = crListSearch;
         }
-        else if (exam_search != 0 && room_search == 0){
-            for (Candidate_RoomDTO candidate_room : crList){
-                if (room_ids.contains(candidate_room.getRoom_id())){
-                    crListSearch.add(candidate_room);
-                }
-            }
-            crList = crListSearch;
-        }
-        
+
         if (invalid || crList == null) {
             JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
         } else {
@@ -491,7 +488,7 @@ public class ResultPanel extends JPanel {
         ExaminationBUS eBus = new ExaminationBUS();
         List<RoomDTO> rList = rBus.getRooms();
         List<ExaminationDTO> eList = eBus.getExaminations();
-        
+
         eStringList = new Vector<String>();
         eStringList.add("Tất cả kì thi");
         if (eList != null) {
@@ -499,7 +496,13 @@ public class ResultPanel extends JPanel {
                 eStringList.add(Integer.toString(examDTO.getId()) + " | " + examDTO.getName());
             }
         }
-        
+
+        comboBoxExam.removeAllItems();
+
+        for (String selection : eStringList) {
+            comboBoxExam.addItem(selection);
+        }
+
         rStringList = new Vector<String>();
         rStringList.add("Tất cả phòng thi");
     }
@@ -517,17 +520,17 @@ public class ResultPanel extends JPanel {
     public void changeResult() {
         crBus = new Candidate_RoomBUS();
         Candidate_RoomDTO dto = new Candidate_RoomDTO();
-        
+
         String candidate = textCandidateId.getText();
-        if (candidate.split(" | ").length > 0){
+        if (candidate.split(" | ").length > 0) {
             candidate = candidate.split(" | ")[0];
         }
-        
+
         String room = textRoomId.getText();
-        if (room.split(" | ").length > 0){
+        if (room.split(" | ").length > 0) {
             room = room.split(" | ")[0];
         }
-        
+
         dto.setId(Integer.parseInt(textId.getText()));
         dto.setCandidate_id(Integer.parseInt(candidate));
         dto.setCandidate_no(textCandidateno.getText());
