@@ -6,9 +6,11 @@ namespace backend.Models.Repositories
     public class RoomRepository : IRoomRepository
     {
         private QLTTNNContext context;
-        public RoomRepository(QLTTNNContext context)
+        private ICandidateRepository candidateRepository;
+        public RoomRepository(QLTTNNContext context, ICandidateRepository candidateRepository)
         {
             this.context = context;
+            this.candidateRepository = candidateRepository;
         }
 
         public IEnumerable<RoomDTO> GetAll()
@@ -42,8 +44,24 @@ namespace backend.Models.Repositories
         public IEnumerable<RoomDTO> GetByExam(int exmination_id){
             return this.context.rooms.Where(r => r.examination_id==exmination_id).ToList().ConvertToRoomDTO();
         }
-        public IEnumerable<RoomDTO> GetByExamLevel(int exmination_id, string level){
-            return this.context.rooms.Where(r => r.examination_id==exmination_id && r.level==level).ToList().ConvertToRoomDTO();
+
+        public StatisticDTO ConvertRoomToStatisticDTO(Room room)
+        {
+            IEnumerable<CandidateDTO> candidates = this.candidateRepository.GetByRoom(room.id);
+            return new StatisticDTO()
+            {
+                name = room.name,
+                count = candidates.Count()
+            };
+        }
+        public IEnumerable<StatisticDTO> GetByExamLevel(int exmination_id, string level){
+            IEnumerable<Room> rooms =  this.context.rooms.Where(r => r.examination_id==exmination_id && r.level==level).ToList();
+            List<StatisticDTO> statisticDTOs = new List<StatisticDTO>();
+            foreach(Room room in rooms)
+            {
+                statisticDTOs.Add(this.ConvertRoomToStatisticDTO(room));
+            }
+            return statisticDTOs;
         }
     }
 }
