@@ -1,9 +1,11 @@
 package BUS;
 
+import static BUS.ExaminationBUS.examinations;
 import DTO.RoomDTO;
 import java.util.ArrayList;
 import java.util.List;
 import DAO.RoomDAO;
+import DTO.ExaminationDTO;
 
 public class RoomBUS {
 
@@ -94,6 +96,17 @@ public class RoomBUS {
             };
         };
         return result;
+    }
+
+    public static String getNameById(int id) {
+        if (rooms != null) {
+            for (RoomDTO room : rooms) {
+                if (room.getId() == id) {
+                    return room.getName();
+                }
+            }
+        }
+        return "";
     }
 
     public List<RoomDTO> search(String name) {

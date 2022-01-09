@@ -1,100 +1,107 @@
 package DTO;
 
+import BUS.ExaminationBUS;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RoomDTO {
-	private int id;
-	private int examination_id;
-	private String name;
-	private String level;
-	private boolean time;
-	
-	public RoomDTO() {};
-	
-	public RoomDTO(JSONObject data) {
-		try {
-			this.id = data.getInt("id");
-			this.examination_id = data.getInt("examination_id");
-			this.name = data.getString("name");
-			this.level = data.getString("level");
-			this.time = data.getBoolean("time");
-		} catch (JSONException e) {
-			System.out.println("Room error convert json -> dto");
-		}
-	};
 
-	public RoomDTO(int id, int examination_id, String name, String level, boolean time) {
-		super();
-		this.id = id;
-		this.examination_id = examination_id;
-		this.name = name;
-		this.level = level;
-		this.time = time;
-	};
+    private int id;
+    private int examination_id;
+    private String name;
+    private String level;
+    private boolean time;
 
-	public RoomDTO(int examination_id, String name, String level, boolean time) {
-		super();
-		this.examination_id = examination_id;
-		this.name = name;
-		this.level = level;
-		this.time = time;
-	}
+    public RoomDTO() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public RoomDTO(JSONObject data) {
+        try {
+            this.id = data.getInt("id");
+            this.examination_id = data.getInt("examination_id");
+            this.name = data.getString("name");
+            this.level = data.getString("level");
+            this.time = data.getBoolean("time");
+        } catch (JSONException e) {
+            System.out.println("Room error convert json -> dto");
+        }
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public RoomDTO(int id, int examination_id, String name, String level, boolean time) {
+        super();
+        this.id = id;
+        this.examination_id = examination_id;
+        this.name = name;
+        this.level = level;
+        this.time = time;
+    }
 
-	public int getExamination_id() {
-		return examination_id;
-	}
+    public RoomDTO(int examination_id, String name, String level, boolean time) {
+        super();
+        this.examination_id = examination_id;
+        this.name = name;
+        this.level = level;
+        this.time = time;
+    }
 
-	public void setExamination_id(int examination_id) {
-		this.examination_id = examination_id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public int getExamination_id() {
+        return examination_id;
+    }
+    
+    public String getExamination() {
+        return examination_id + " | " + ExaminationBUS.getNameById(examination_id);
+    }
 
-	public String getLevel() {
-		return level;
-	}
+    public void setExamination_id(int examination_id) {
+        this.examination_id = examination_id;
+    }
 
-	public void setLevel(String level) {
-		this.level = level;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public boolean getTime() {
-		return time;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setTime(boolean time) {
-		this.time = time;
-	};
-	
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		try {
-			obj.put("id", this.id);
-			obj.put("examination_id", this.examination_id);
-			obj.put("name", this.name);
-			obj.put("level", this.level);
-			obj.put("time", this.time);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public boolean getTime() {
+        return time;
+    }
+
+    public void setTime(boolean time) {
+        this.time = time;
+    }
+
+    public JSONObject toJSONObject() {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("id", this.id);
+            obj.put("examination_id", this.examination_id);
+            obj.put("name", this.name);
+            obj.put("level", this.level);
+            obj.put("time", this.time);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
 //			e.printStackTrace();
-			System.out.println("Convert to JSON error" + e);
-		}
-		return obj;
-	}
-	
+            System.out.println("Convert to JSON error" + e);
+        }
+        return obj;
+    }
+
 }

@@ -127,6 +127,17 @@ public class ExaminationBUS {
 
         return examinationsSearch;
     }
+    
+    public static String getNameById(int id){
+        if (examinations != null){
+            for (ExaminationDTO exam : examinations){
+                if (exam.getId() == id){
+                    return exam.getName();
+                }
+            }
+        }
+        return "";
+    }
 
     public static void main(String args[]) {
         ExaminationBUS examBUS = new ExaminationBUS();

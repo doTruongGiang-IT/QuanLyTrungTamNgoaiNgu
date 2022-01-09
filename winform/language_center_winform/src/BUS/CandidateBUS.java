@@ -1,5 +1,6 @@
 package BUS;
 
+import static BUS.ExaminationBUS.examinations;
 import DTO.CandidateDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import DAO.CandidateDAO;
+import DTO.ExaminationDTO;
 
 public class CandidateBUS {
 
@@ -37,7 +39,7 @@ public class CandidateBUS {
             return null;
         }
     }
-    
+
     public boolean insert(CandidateDTO candidate) {
         try {
             CandidateDTO result = candidateDAO.insert(candidate);
@@ -52,7 +54,7 @@ public class CandidateBUS {
             return false;
         }
     }
-    
+
     public boolean update(CandidateDTO candidate) {
         int index = -1;
         boolean result = false;
@@ -96,6 +98,17 @@ public class CandidateBUS {
             }
         }
         return result;
+    }
+
+    public static String getNameById(int id) {
+        if (candidates != null) {
+            for (CandidateDTO candidate : candidates) {
+                if (candidate.getId() == id) {
+                    return candidate.getName();
+                }
+            }
+        }
+        return "";
     }
 
     public List<CandidateDTO> search(String name) {

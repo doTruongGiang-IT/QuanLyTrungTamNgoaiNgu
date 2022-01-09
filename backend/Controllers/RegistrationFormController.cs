@@ -130,7 +130,10 @@ namespace backend.Controllers
                     candidateSize = registrationsCurrentExamsB1.Count;
                     registrationsCurrentExams = registrationsCurrentExamsB1;
                 }
-                
+
+                if (candidateSize == 0){
+                    break;
+                }
 
                 int roomCount = candidateSize / minSize;
                 int candidateLefts = candidateSize % minSize;
