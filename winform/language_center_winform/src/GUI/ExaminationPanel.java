@@ -79,7 +79,7 @@ public class ExaminationPanel extends JPanel {
         panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_3.setBorder(new TitledBorder(null, "Xem chi tiết", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panel_1.add(panel_3);
         GridBagLayout gbl_panel_3 = new GridBagLayout();
         gbl_panel_3.columnWidths = new int[]{80, 0, 130};
@@ -88,7 +88,7 @@ public class ExaminationPanel extends JPanel {
         gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 1.0};
         panel_3.setLayout(gbl_panel_3);
 
-        JLabel lblNewLabel_2 = new JLabel("Examination Id");
+        JLabel lblNewLabel_2 = new JLabel("Mã kì thi");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
         gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
@@ -107,7 +107,7 @@ public class ExaminationPanel extends JPanel {
         panel_3.add(textExaminationId, gbc_textExaminationId);
         textExaminationId.setColumns(10);
 
-        JLabel lblNewLabel = new JLabel("Examination Name");
+        JLabel lblNewLabel = new JLabel("Tên kì thi");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
@@ -126,7 +126,7 @@ public class ExaminationPanel extends JPanel {
         panel_3.add(textExaminationName, gbc_textExaminationName);
         textExaminationName.setColumns(10);
 
-        JLabel lblNewLabel_1 = new JLabel("Examination Date");
+        JLabel lblNewLabel_1 = new JLabel("Ngày tổ chức thi");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
@@ -147,7 +147,7 @@ public class ExaminationPanel extends JPanel {
         gbc_dateChooser.gridy = 2;
         panel_3.add(dateChooser, gbc_dateChooser);
 
-        JLabel lblNewLabel_3 = new JLabel("Examination Status");
+        JLabel lblNewLabel_3 = new JLabel("Trạng thái");
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
         gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
@@ -177,7 +177,7 @@ public class ExaminationPanel extends JPanel {
         gbl_panel_4.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         panel_4.setLayout(gbl_panel_4);
 
-        JButton btnAdd = new JButton("Add");
+        JButton btnAdd = new JButton("Thêm");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = textExaminationName.getText();
@@ -204,7 +204,7 @@ public class ExaminationPanel extends JPanel {
         gbc_btnAdd.gridy = 0;
         panel_4.add(btnAdd, gbc_btnAdd);
 
-        btnChange = new JButton("Change");
+        btnChange = new JButton("Sửa");
         btnChange.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(textExaminationId.getText());
@@ -229,7 +229,7 @@ public class ExaminationPanel extends JPanel {
         gbc_btnChange.gridy = 0;
         panel_4.add(btnChange, gbc_btnChange);
 
-        btnDelete = new JButton("Delete");
+        btnDelete = new JButton("Xóa");
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(textExaminationId.getText());
@@ -307,7 +307,7 @@ public class ExaminationPanel extends JPanel {
         gbc_btnSearch.gridy = 0;
         panel_6.add(btnSearch, gbc_btnSearch);
 
-        JButton btnLoad = new JButton("Load data");
+        JButton btnLoad = new JButton("Load dữ liệu");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 loadData();
@@ -380,9 +380,9 @@ public class ExaminationPanel extends JPanel {
     public void loadData() {
         Vector<String> vctHeader = new Vector<String>();
         vctHeader.add("Id");
-        vctHeader.add("Name");
-        vctHeader.add("Date");
-        vctHeader.add("Status");
+        vctHeader.add("Tên kì thi");
+        vctHeader.add("Ngày thi");
+        vctHeader.add("Trạng thái");
 
         Vector vctData = new Vector<>();
         examBus = new ExaminationBUS();

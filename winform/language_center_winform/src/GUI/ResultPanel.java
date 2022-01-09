@@ -83,7 +83,7 @@ public class ResultPanel extends JPanel {
         panel_2.setLayout(new GridLayout(2, 0, 0, 0));
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_3.setBorder(new TitledBorder(null, "Xem chi tiết", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panel_2.add(panel_3);
         GridBagLayout gbl_panel_3 = new GridBagLayout();
         gbl_panel_3.columnWidths = new int[]{80, 0, 130, 0};
@@ -92,7 +92,7 @@ public class ResultPanel extends JPanel {
         gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
         panel_3.setLayout(gbl_panel_3);
 
-        JLabel lblSupervisorName = new JLabel("Result Id");
+        JLabel lblSupervisorName = new JLabel("Mã kết quả thi");
         lblSupervisorName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblSupervisorName = new GridBagConstraints();
         gbc_lblSupervisorName.weightx = 0.3;
@@ -112,7 +112,7 @@ public class ResultPanel extends JPanel {
         gbc_textId.gridy = 0;
         panel_3.add(textId, gbc_textId);
 
-        JLabel lblSupervisorName_1 = new JLabel("Candidate Id");
+        JLabel lblSupervisorName_1 = new JLabel("Mã thí sinh");
         lblSupervisorName_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblSupervisorName_1 = new GridBagConstraints();
         gbc_lblSupervisorName_1.anchor = GridBagConstraints.WEST;
@@ -131,7 +131,7 @@ public class ResultPanel extends JPanel {
         gbc_textCandidateId.gridy = 1;
         panel_3.add(textCandidateId, gbc_textCandidateId);
 
-        JLabel lblSupervisorName_2 = new JLabel("Candidate Code");
+        JLabel lblSupervisorName_2 = new JLabel("Số báo danh");
         lblSupervisorName_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblSupervisorName_2 = new GridBagConstraints();
         gbc_lblSupervisorName_2.anchor = GridBagConstraints.WEST;
@@ -150,7 +150,7 @@ public class ResultPanel extends JPanel {
         gbc_textCandidateno.gridy = 2;
         panel_3.add(textCandidateno, gbc_textCandidateno);
 
-        JLabel lblSupervisorName_3 = new JLabel("Room Id");
+        JLabel lblSupervisorName_3 = new JLabel("Phòng thi");
         lblSupervisorName_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblSupervisorName_3 = new GridBagConstraints();
         gbc_lblSupervisorName_3.anchor = GridBagConstraints.WEST;
@@ -182,7 +182,7 @@ public class ResultPanel extends JPanel {
         gbl_panel_6.rowWeights = new double[]{0.0, 0.0, 0.0};
         panel_6.setLayout(gbl_panel_6);
 
-        JLabel lblNewLabel = new JLabel("Speaking");
+        JLabel lblNewLabel = new JLabel("Điểm Speaking");
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -199,7 +199,7 @@ public class ResultPanel extends JPanel {
         panel_6.add(textSpeaking, gbc_textSpeaking);
         textSpeaking.setColumns(10);
 
-        JLabel lblNewLabel_2 = new JLabel("Reading");
+        JLabel lblNewLabel_2 = new JLabel("Điểm Reading");
         GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
         gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -216,7 +216,7 @@ public class ResultPanel extends JPanel {
         gbc_textReading.gridy = 0;
         panel_6.add(textReading, gbc_textReading);
 
-        JLabel lblNewLabel_1 = new JLabel("Listening");
+        JLabel lblNewLabel_1 = new JLabel("Điểm Listening");
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
@@ -233,7 +233,7 @@ public class ResultPanel extends JPanel {
         gbc_textListening.gridy = 2;
         panel_6.add(textListening, gbc_textListening);
 
-        JLabel lblNewLabel_3 = new JLabel("Writing");
+        JLabel lblNewLabel_3 = new JLabel("Điểm Writing");
         GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
         gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_3.insets = new Insets(0, 0, 0, 5);
@@ -303,7 +303,7 @@ public class ResultPanel extends JPanel {
         gbc_btnSearch.gridy = 0;
         panel_6_1.add(btnSearch, gbc_btnSearch);
 
-        JButton btnLoad = new JButton("Load data");
+        JButton btnLoad = new JButton("Load dữ liệu");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 //				int examinationIndex = comboBoxExamination.getSelectedIndex();
@@ -372,10 +372,11 @@ public class ResultPanel extends JPanel {
                     exam_id = Integer.parseInt(examString.split(" | ")[0]);
                 }
                    
+                System.out.println(exam_id);
                 room_ids.clear();
                 if (rList != null) {
                     for (RoomDTO roomDTO : rList) {
-                        if (!is_selection || roomDTO.getExamination_id() == exam_id){
+                        if (is_selection || roomDTO.getExamination_id() == exam_id){
                             rStringList.add(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             System.out.println(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             room_ids.add(roomDTO.getId());
@@ -433,13 +434,13 @@ public class ResultPanel extends JPanel {
     public void loadData() {
         Vector<String> vctHeader = new Vector<String>();
         vctHeader.add("Id");
-        vctHeader.add("Candidate Id");
-        vctHeader.add("Room Id");
-        vctHeader.add("Candidate Number");
-        vctHeader.add("Listening");
-        vctHeader.add("Writing");
-        vctHeader.add("Speaking");
-        vctHeader.add("Reading");
+        vctHeader.add("Mã thí sinh");
+        vctHeader.add("Phòng thi");
+        vctHeader.add("Số báo danh");
+        vctHeader.add("Điểm Listening");
+        vctHeader.add("Điểm Writing");
+        vctHeader.add("Điểm Speaking");
+        vctHeader.add("Điểm Reading");
         Vector vctData = new Vector<>();
         crBus = new Candidate_RoomBUS();
         crList = crBus.getCandidate_Rooms();
@@ -516,10 +517,21 @@ public class ResultPanel extends JPanel {
     public void changeResult() {
         crBus = new Candidate_RoomBUS();
         Candidate_RoomDTO dto = new Candidate_RoomDTO();
+        
+        String candidate = textCandidateId.getText();
+        if (candidate.split(" | ").length > 0){
+            candidate = candidate.split(" | ")[0];
+        }
+        
+        String room = textRoomId.getText();
+        if (room.split(" | ").length > 0){
+            room = room.split(" | ")[0];
+        }
+        
         dto.setId(Integer.parseInt(textId.getText()));
-        dto.setCandidate_id(Integer.parseInt(textCandidateId.getText()));
+        dto.setCandidate_id(Integer.parseInt(candidate));
         dto.setCandidate_no(textCandidateno.getText());
-        dto.setRoom_id(Integer.parseInt(textRoomId.getText()));
+        dto.setRoom_id(Integer.parseInt(room));
         dto.setScore_listening(Float.parseFloat(textListening.getText()));
         dto.setScore_writing(Float.parseFloat(textWriting.getText()));
         dto.setScore_reading(Float.parseFloat(textReading.getText()));

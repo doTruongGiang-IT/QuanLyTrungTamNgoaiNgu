@@ -75,7 +75,7 @@ public class RoomPanel extends JPanel {
         panel_2.setLayout(new GridLayout(2, 1, 0, 0));
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_3.setBorder(new TitledBorder(null, "Xem chi tiết", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panel_2.add(panel_3);
         GridBagLayout gbl_panel_3 = new GridBagLayout();
         gbl_panel_3.columnWidths = new int[]{80, 0, 130, 0};
@@ -84,7 +84,7 @@ public class RoomPanel extends JPanel {
         gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0};
         panel_3.setLayout(gbl_panel_3);
 
-        JLabel lblCandidateIdentification_1_1 = new JLabel("Room Id");
+        JLabel lblCandidateIdentification_1_1 = new JLabel("Mã phòng thi");
         lblCandidateIdentification_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblCandidateIdentification_1_1 = new GridBagConstraints();
         gbc_lblCandidateIdentification_1_1.anchor = GridBagConstraints.WEST;
@@ -103,7 +103,7 @@ public class RoomPanel extends JPanel {
         gbc_textRoomId.gridy = 0;
         panel_3.add(textRoomId, gbc_textRoomId);
 
-        JLabel lblSupervisorName = new JLabel("Room Name");
+        JLabel lblSupervisorName = new JLabel("Tên phòng");
         lblSupervisorName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblSupervisorName = new GridBagConstraints();
         gbc_lblSupervisorName.weightx = 0.3;
@@ -123,7 +123,7 @@ public class RoomPanel extends JPanel {
         gbc_textRoomName.gridy = 1;
         panel_3.add(textRoomName, gbc_textRoomName);
 
-        JLabel lblCandidateName = new JLabel("Examination Id");
+        JLabel lblCandidateName = new JLabel("Kì thi");
         lblCandidateName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblCandidateName = new GridBagConstraints();
         gbc_lblCandidateName.anchor = GridBagConstraints.WEST;
@@ -142,7 +142,7 @@ public class RoomPanel extends JPanel {
         gbc_textExaminationId.gridy = 2;
         panel_3.add(textExaminationId, gbc_textExaminationId);
 
-        JLabel lblCandidateIdentification = new JLabel("Room Level");
+        JLabel lblCandidateIdentification = new JLabel("Trình độ phòng");
         lblCandidateIdentification.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblCandidateIdentification = new GridBagConstraints();
         gbc_lblCandidateIdentification.anchor = GridBagConstraints.WEST;
@@ -161,7 +161,7 @@ public class RoomPanel extends JPanel {
         gbc_textRoomLevel.gridy = 3;
         panel_3.add(textRoomLevel, gbc_textRoomLevel);
 
-        JLabel lblRoomTime = new JLabel("Room Time");
+        JLabel lblRoomTime = new JLabel("Ca thi");
         lblRoomTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblRoomTime = new GridBagConstraints();
         gbc_lblRoomTime.anchor = GridBagConstraints.WEST;
@@ -171,7 +171,7 @@ public class RoomPanel extends JPanel {
         panel_3.add(lblRoomTime, gbc_lblRoomTime);
 
         comboBoxRoomTime = new JComboBox();
-        comboBoxRoomTime.setModel(new DefaultComboBoxModel(new String[]{"Morning", "Noon"}));
+        comboBoxRoomTime.setModel(new DefaultComboBoxModel(new String[]{"Sáng", "Chiều"}));
         GridBagConstraints gbc_comboBoxRoomTime = new GridBagConstraints();
         gbc_comboBoxRoomTime.insets = new Insets(0, 0, 0, 5);
         gbc_comboBoxRoomTime.fill = GridBagConstraints.HORIZONTAL;
@@ -192,17 +192,27 @@ public class RoomPanel extends JPanel {
         gbl_panel_5.rowWeights = new double[]{0.0};
         panel_5.setLayout(gbl_panel_5);
 
-        btnChange = new JButton("Change");
+        btnChange = new JButton("Sửa");
         btnChange.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 RoomDTO rDto = new RoomDTO();
-                rDto.setExamination_id(Integer.parseInt(textExaminationId.getText()));
-                rDto.setId(Integer.parseInt(textRoomId.getText()));
+                String exam = textExaminationId.getText();
+                if (exam.split(" | ").length > 0){
+                    exam = exam.split(" | ")[0];
+                }
+                
+                String room = textRoomId.getText();
+                if (room.split(" | ").length > 0){
+                    room = room.split(" | ")[0];
+                }
+                
+                rDto.setExamination_id(Integer.parseInt(exam));
+                rDto.setId(Integer.parseInt(room));
                 rDto.setLevel(textRoomLevel.getText());
                 rDto.setName(textRoomName.getText());
                 boolean time = false;
                 int index = comboBoxRoomTime.getSelectedIndex();
-                if (comboBoxRoomTime.getItemAt(index).equals("morning")) {
+                if (comboBoxRoomTime.getItemAt(index).equals("sáng")) {
                     time = true;
                 }
                 rDto.setTime(time);
@@ -210,7 +220,7 @@ public class RoomPanel extends JPanel {
             }
         });
 
-        JButton btnAddSupervisor = new JButton("Add Supervisor");
+        JButton btnAddSupervisor = new JButton("Thêm giám thị");
         btnAddSupervisor.setVisible(false);
         btnAddSupervisor.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_btnAddSupervisor = new GridBagConstraints();
@@ -261,7 +271,7 @@ public class RoomPanel extends JPanel {
         gbc_btnSearch.gridy = 0;
         panel_6_1.add(btnSearch, gbc_btnSearch);
 
-        JButton btnLoad = new JButton("Load data");
+        JButton btnLoad = new JButton("Load dữ liệu");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -293,7 +303,7 @@ public class RoomPanel extends JPanel {
         gbl_panel_7.rowWeights = new double[]{0.0};
         panel_7.setLayout(gbl_panel_7);
 
-        JLabel lblNewLabel = new JLabel("Examination");
+        JLabel lblNewLabel = new JLabel("Kì thi");
         lblNewLabel.setVisible(false);
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
@@ -350,7 +360,7 @@ public class RoomPanel extends JPanel {
                     textRoomName.setText(roomName);
                     textRoomLevel.setText(level);
                     textExaminationId.setText(examinationId);
-                    if (timeString == "morning") {
+                    if (timeString == "sáng") {
                         comboBoxRoomTime.setSelectedIndex(0);
                     } else {
                         comboBoxRoomTime.setSelectedIndex(1);
@@ -370,10 +380,10 @@ public class RoomPanel extends JPanel {
         roomList = roomBus.getRooms();
         Vector<String> vctHeader = new Vector<String>();
         vctHeader.add("Id");
-        vctHeader.add("Name");
-        vctHeader.add("Examination Id");
-        vctHeader.add("Level");
-        vctHeader.add("Time");
+        vctHeader.add("Tên phòng");
+        vctHeader.add("Kì thi");
+        vctHeader.add("Trình độ");
+        vctHeader.add("Ca thi");
         Vector vctData = new Vector<>();
         
         List<RoomDTO> crListSearch = new ArrayList<>();
@@ -386,19 +396,15 @@ public class RoomPanel extends JPanel {
             roomList = crListSearch;
         }
         
-        if (roomList.size() == 0) {
-            JOptionPane.showMessageDialog(getParent(), "Error Load data: Null data");
-        } else {
-            for (RoomDTO roomDTO : roomList) {
-                Vector<String> row = new Vector<String>();
-                row.add(Integer.toString(roomDTO.getId()));
-                row.add(roomDTO.getName());
-                row.add(roomDTO.getExamination());
-                row.add(roomDTO.getLevel());
-                boolean time = roomDTO.getTime();
-                row.add(time ? "morning" : "noon");
-                vctData.add(row);
-            }
+        for (RoomDTO roomDTO : roomList) {
+            Vector<String> row = new Vector<String>();
+            row.add(Integer.toString(roomDTO.getId()));
+            row.add(roomDTO.getName());
+            row.add(roomDTO.getExamination());
+            row.add(roomDTO.getLevel());
+            boolean time = roomDTO.getTime();
+            row.add(time ? "sáng" : "chiều");
+            vctData.add(row);
         }
         tableRoom.setModel(new DefaultTableModel(vctData, vctHeader));
 

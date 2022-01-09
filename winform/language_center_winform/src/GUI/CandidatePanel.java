@@ -68,7 +68,7 @@ public class CandidatePanel extends JPanel {
         panel.setLayout(new GridLayout(0, 1, 0, 0));
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panel_3.setBorder(new TitledBorder(null, "Xem chi tiết", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panel.add(panel_3);
         GridBagLayout gbl_panel_3 = new GridBagLayout();
         gbl_panel_3.rowHeights = new int[]{30, 40, 0, 40, 30};
@@ -77,7 +77,7 @@ public class CandidatePanel extends JPanel {
         gbl_panel_3.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
         panel_3.setLayout(gbl_panel_3);
 
-        JLabel lblNewLabel = new JLabel("Candidate Id");
+        JLabel lblNewLabel = new JLabel("Mã thí sinh");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
@@ -96,7 +96,7 @@ public class CandidatePanel extends JPanel {
         panel_3.add(textCandidateId, gbc_textCandidateId);
         textCandidateId.setColumns(10);
 
-        JLabel lblCandidateName = new JLabel("Candidate First Name");
+        JLabel lblCandidateName = new JLabel("Họ thí sinh");
         lblCandidateName.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblCandidateName = new GridBagConstraints();
         gbc_lblCandidateName.anchor = GridBagConstraints.WEST;
@@ -115,7 +115,7 @@ public class CandidatePanel extends JPanel {
         gbc_textCandidateFirstName.gridy = 1;
         panel_3.add(textCandidateFirstName, gbc_textCandidateFirstName);
 
-        JLabel lblNewLabel_1 = new JLabel("Candidate Last Name");
+        JLabel lblNewLabel_1 = new JLabel("Tên thí sinh");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
         gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
@@ -134,7 +134,7 @@ public class CandidatePanel extends JPanel {
         panel_3.add(textCandidateLastName, gbc_textCandidateLastName);
         textCandidateLastName.setColumns(10);
 
-        JLabel lblCandidateIdentification = new JLabel("Candidate Identification");
+        JLabel lblCandidateIdentification = new JLabel("CMT của thí sinh");
         lblCandidateIdentification.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_lblCandidateIdentification = new GridBagConstraints();
         gbc_lblCandidateIdentification.anchor = GridBagConstraints.WEST;
@@ -161,7 +161,7 @@ public class CandidatePanel extends JPanel {
         panel_2.add(panel_4);
         panel_4.setLayout(new GridLayout(0, 8, 0, 0));
 
-        JButton btnAdd = new JButton("Add");
+        JButton btnAdd = new JButton("Thêm");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addCandidate();
@@ -170,7 +170,7 @@ public class CandidatePanel extends JPanel {
         btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_4.add(btnAdd);
 
-        btnDelete = new JButton("Delete");
+        btnDelete = new JButton("Xóa");
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(textCandidateId.getText());
@@ -185,7 +185,7 @@ public class CandidatePanel extends JPanel {
         btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_4.add(btnDelete);
 
-        btnCreateRegistration = new JButton("Registration");
+        btnCreateRegistration = new JButton("Phiếu đăng kí");
         btnCreateRegistration.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openRegistrationDialog();
@@ -194,7 +194,7 @@ public class CandidatePanel extends JPanel {
         btnCreateRegistration.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_4.add(btnCreateRegistration);
 
-        JButton btnViewResult = new JButton("View Result");
+        JButton btnViewResult = new JButton("Xem kết quả");
         btnViewResult.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addCandidate();
@@ -202,7 +202,7 @@ public class CandidatePanel extends JPanel {
         });
         btnViewResult.setVisible(false);
 
-        btnViewDetail = new JButton("Detail");
+        btnViewDetail = new JButton("Xem chi tiết");
         btnViewDetail.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openDetailCandidateDialog();
@@ -214,7 +214,7 @@ public class CandidatePanel extends JPanel {
         btnViewResult.setFont(new Font("Tahoma", Font.PLAIN, 14));
         panel_4.add(btnViewResult);
 
-        JButton btnFindCandidate = new JButton("Find Candidate");
+        JButton btnFindCandidate = new JButton("Tìm thí sinh");
         btnFindCandidate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openFindCandidateDialog();
@@ -248,7 +248,7 @@ public class CandidatePanel extends JPanel {
         gbc_textField_1.gridy = 0;
         panel_6.add(textField_1, gbc_textField_1);
 
-        JButton btnSearch = new JButton("Search");
+        JButton btnSearch = new JButton("Tìm kiếm");
         btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
         GridBagConstraints gbc_btnSearch = new GridBagConstraints();
         gbc_btnSearch.fill = GridBagConstraints.BOTH;
@@ -258,7 +258,7 @@ public class CandidatePanel extends JPanel {
         gbc_btnSearch.gridy = 0;
         panel_6.add(btnSearch, gbc_btnSearch);
 
-        JButton btnLoad = new JButton("Load data");
+        JButton btnLoad = new JButton("Load dữ liệu");
         btnLoad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 loadData();
@@ -374,9 +374,9 @@ public class CandidatePanel extends JPanel {
         candidateBus = new CandidateBUS();
         boolean result = candidateBus.delete(id);
         if (result) {
-            JOptionPane.showMessageDialog(getParent(), "Delete Candidate Error");
+            JOptionPane.showMessageDialog(getParent(), "Xóa thí sinh thất bại");
         } else {
-            JOptionPane.showMessageDialog(getParent(), "Delete Candidate Successful");
+            JOptionPane.showMessageDialog(getParent(), "Xóa thí sinh thành công!!!");
         }
 
         loadData();
@@ -385,16 +385,16 @@ public class CandidatePanel extends JPanel {
     public void loadData() {
         Vector<String> vctHeader = new Vector<String>();
         vctHeader.add("Id");
-        vctHeader.add("Identification");
-        vctHeader.add("First Name");
-        vctHeader.add("Last Name");
+        vctHeader.add("Số CMT");
+        vctHeader.add("Họ");
+        vctHeader.add("Tên");
         vctHeader.add("email");
-        vctHeader.add("gender");
-        vctHeader.add("Date of birth");
-        vctHeader.add("Place of birth");
-        vctHeader.add("Issue Date");
-        vctHeader.add("Issue Place");
-        vctHeader.add("Phone");
+        vctHeader.add("Giới tính");
+        vctHeader.add("Ngày sinh");
+        vctHeader.add("Nơi sinh");
+        vctHeader.add("Ngày cấp CMT");
+        vctHeader.add("Nơi cấp CMT");
+        vctHeader.add("Số điện thoại");
 
         Vector vctData = new Vector<>();
         candidateBus = new CandidateBUS();

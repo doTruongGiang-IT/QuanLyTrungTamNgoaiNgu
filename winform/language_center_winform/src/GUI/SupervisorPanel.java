@@ -56,7 +56,7 @@ public class SupervisorPanel extends JPanel {
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "Details", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(null, "Xem chi tiết", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{80, 0, 130, 0};
@@ -65,7 +65,7 @@ public class SupervisorPanel extends JPanel {
 		gbl_panel_3.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
-		JLabel lblNewLabel = new JLabel("Supervisor Id");
+		JLabel lblNewLabel = new JLabel("Mã giám thị");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
@@ -84,7 +84,7 @@ public class SupervisorPanel extends JPanel {
 		panel_3.add(textSupervisorId, gbc_textSupervisorId);
 		textSupervisorId.setColumns(10);
 		
-		JLabel lblSupervisorName = new JLabel("Supervisor Name");
+		JLabel lblSupervisorName = new JLabel("Tên giám thị");
 		lblSupervisorName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblSupervisorName = new GridBagConstraints();
 		gbc_lblSupervisorName.weightx = 0.3;
@@ -111,7 +111,7 @@ public class SupervisorPanel extends JPanel {
 		panel_2.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 10, 0, 0));
 		
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Thêm");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = textSupervisorName.getText();
@@ -126,7 +126,7 @@ public class SupervisorPanel extends JPanel {
 		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnAdd);
 		
-		btnChange = new JButton("Change");
+		btnChange = new JButton("Sửa");
 		btnChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(textSupervisorId.getText());
@@ -141,7 +141,7 @@ public class SupervisorPanel extends JPanel {
 		btnChange.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnChange);
 		
-		btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Xóa");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(textSupervisorId.getText());
@@ -155,7 +155,7 @@ public class SupervisorPanel extends JPanel {
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panel_4.add(btnDelete);
 		
-		JButton btnViewRoom = new JButton("View Room");
+		JButton btnViewRoom = new JButton("Xem phòng thi");
 		btnViewRoom.setVisible(false);
 		btnViewRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -199,7 +199,7 @@ public class SupervisorPanel extends JPanel {
 		gbc_btnSearch.gridy = 0;
 		panel_6.add(btnSearch, gbc_btnSearch);
 		
-		JButton btnLoad = new JButton("Load data");
+		JButton btnLoad = new JButton("Load dữ liệu");
 		btnLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadData();

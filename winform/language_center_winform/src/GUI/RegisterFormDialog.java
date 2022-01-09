@@ -64,7 +64,7 @@ public class RegisterFormDialog extends JDialog {
         gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
         contentPanel.setLayout(gbl_contentPanel);
         {
-            JLabel lblNewLabel_1 = new JLabel("Candidate Id");
+            JLabel lblNewLabel_1 = new JLabel("Mã thí sinh");
             GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
             gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -84,7 +84,7 @@ public class RegisterFormDialog extends JDialog {
             textCandidateId.setColumns(10);
         }
         {
-            JLabel lblNewLabel_2 = new JLabel("Examination");
+            JLabel lblNewLabel_2 = new JLabel("Kì thi");
             GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
             gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +104,7 @@ public class RegisterFormDialog extends JDialog {
             textExaminationId.setColumns(10);
         }
         {
-            JLabel lblNewLabel_3 = new JLabel("Level");
+            JLabel lblNewLabel_3 = new JLabel("Trình độ");
             GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
             gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -123,7 +123,7 @@ public class RegisterFormDialog extends JDialog {
             contentPanel.add(comboBoxLevel, gbc_comboBoxLevel);
         }
         {
-            JLabel lblNewLabel_4 = new JLabel("Status");
+            JLabel lblNewLabel_4 = new JLabel("Trạng thái");
             GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
             gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);

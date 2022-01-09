@@ -132,7 +132,7 @@ namespace backend.Controllers
                 }
 
                 if (candidateSize == 0){
-                    break;
+                    continue;
                 }
 
                 int roomCount = candidateSize / minSize;
@@ -143,10 +143,10 @@ namespace backend.Controllers
                     canArange = true;
                 }
 
-                int roomMinValue;
-                int roomMaxValue;
-                int roomMaxCount;
-                int roomMinCount;
+                int roomMinValue;  
+                int roomMaxValue;  
+                int roomMaxCount;  
+                int roomMinCount; 
 
                 if (canArange) {
                     if (roomCount == 0){

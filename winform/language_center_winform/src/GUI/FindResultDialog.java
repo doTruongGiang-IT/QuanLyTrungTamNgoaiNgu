@@ -67,7 +67,7 @@ public class FindResultDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblNewLabel = new JLabel("First Name");
+			JLabel lblNewLabel = new JLabel("Tên thí sinh");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -87,7 +87,7 @@ public class FindResultDialog extends JDialog {
 			textFirstName.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("Last Name");
+			JLabel lblNewLabel_1 = new JLabel("Họ thí sinh");
 			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -107,7 +107,7 @@ public class FindResultDialog extends JDialog {
 			textLastName.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_2 = new JLabel("Phone");
+			JLabel lblNewLabel_2 = new JLabel("Số điện thoại");
 			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 			gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -127,7 +127,7 @@ public class FindResultDialog extends JDialog {
 			textPhone.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_3 = new JLabel("Candidate Number");
+			JLabel lblNewLabel_3 = new JLabel("Số báo danh");
 			GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 			gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -147,7 +147,7 @@ public class FindResultDialog extends JDialog {
 			textCandidateNumber.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_4 = new JLabel("Room");
+			JLabel lblNewLabel_4 = new JLabel("Phòng thi");
 			GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 			gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
@@ -167,7 +167,7 @@ public class FindResultDialog extends JDialog {
 			textRoom.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_5 = new JLabel("Speaking");
+			JLabel lblNewLabel_5 = new JLabel("Điểm Speaking");
 			GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 			gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
@@ -187,7 +187,7 @@ public class FindResultDialog extends JDialog {
 			textSpeaking.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_6 = new JLabel("Reading");
+			JLabel lblNewLabel_6 = new JLabel("Điểm Reading");
 			GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 			gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
@@ -207,7 +207,7 @@ public class FindResultDialog extends JDialog {
 			textReading.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_7 = new JLabel("Writing");
+			JLabel lblNewLabel_7 = new JLabel("Điểm Writing");
 			GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 			gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
@@ -227,7 +227,7 @@ public class FindResultDialog extends JDialog {
 			textWriting.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_8 = new JLabel("Listening");
+			JLabel lblNewLabel_8 = new JLabel("Điểm Listening");
 			GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
 			gbc_lblNewLabel_8.anchor = GridBagConstraints.EAST;
 			gbc_lblNewLabel_8.insets = new Insets(0, 0, 0, 5);

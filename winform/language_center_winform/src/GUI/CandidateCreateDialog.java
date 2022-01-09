@@ -65,7 +65,7 @@ public class CandidateCreateDialog extends JDialog {
         gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
         contentPanel.setLayout(gbl_contentPanel);
         {
-            JLabel lblNewLabel_6 = new JLabel("First Name");
+            JLabel lblNewLabel_6 = new JLabel("Tên");
             GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
             gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
@@ -84,7 +84,7 @@ public class CandidateCreateDialog extends JDialog {
             textFirstName.setColumns(10);
         }
         {
-            JLabel lblNewLabel = new JLabel("Last Name");
+            JLabel lblNewLabel = new JLabel("Họ");
             GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
             gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
             gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -103,7 +103,7 @@ public class CandidateCreateDialog extends JDialog {
             textLastName.setColumns(10);
         }
         {
-            JLabel lblNewLabel_1 = new JLabel("Identification");
+            JLabel lblNewLabel_1 = new JLabel("Số CMT");
             GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
             gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
@@ -122,7 +122,7 @@ public class CandidateCreateDialog extends JDialog {
             textIdentification.setColumns(10);
         }
         {
-            JLabel lblNewLabel_2 = new JLabel("Issue_date");
+            JLabel lblNewLabel_2 = new JLabel("Ngày cung cấp CMT");
             GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
             gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
@@ -140,7 +140,7 @@ public class CandidateCreateDialog extends JDialog {
             contentPanel.add(dateChooserIssueDate, gbc_dateChooserIssueDate);
         }
         {
-            JLabel lblNewLabel_3 = new JLabel("Issue_place");
+            JLabel lblNewLabel_3 = new JLabel("Nơi cấp CMT");
             GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
             gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -178,7 +178,7 @@ public class CandidateCreateDialog extends JDialog {
             textEmail.setColumns(10);
         }
         {
-            JLabel lblNewLabel_5 = new JLabel("Gender");
+            JLabel lblNewLabel_5 = new JLabel("Giới tính");
             GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
             gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
@@ -197,7 +197,7 @@ public class CandidateCreateDialog extends JDialog {
             textGender.setColumns(10);
         }
         {
-            JLabel lblNewLabel_7 = new JLabel("Date of birth");
+            JLabel lblNewLabel_7 = new JLabel("Ngày sinh");
             GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
             gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
@@ -215,7 +215,7 @@ public class CandidateCreateDialog extends JDialog {
             contentPanel.add(dateChooserDateofbirth, gbc_dateChooserDateofbirth);
         }
         {
-            JLabel lblNewLabel_8 = new JLabel("Place of birth");
+            JLabel lblNewLabel_8 = new JLabel("Nơi sinh");
             GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
             gbc_lblNewLabel_8.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_8.insets = new Insets(0, 0, 5, 5);
@@ -234,7 +234,7 @@ public class CandidateCreateDialog extends JDialog {
             textPlaceofbirth.setColumns(10);
         }
         {
-            JLabel lblNewLabel_9 = new JLabel("Phone");
+            JLabel lblNewLabel_9 = new JLabel("Số điện thoại");
             GridBagConstraints gbc_lblNewLabel_9 = new GridBagConstraints();
             gbc_lblNewLabel_9.anchor = GridBagConstraints.EAST;
             gbc_lblNewLabel_9.insets = new Insets(0, 0, 0, 5);
@@ -304,10 +304,10 @@ public class CandidateCreateDialog extends JDialog {
         CandidateBUS bus = new CandidateBUS();
         boolean result = bus.insert(dto);
         if (!result) {
-			JOptionPane.showMessageDialog(getParent(), "Insert Candidate Error");
+			JOptionPane.showMessageDialog(getParent(), "Thêm thí sinh thất bại");
 		}
 		else {
-			JOptionPane.showMessageDialog(getParent(), "Insert Candidate Successful");
+			JOptionPane.showMessageDialog(getParent(), "Thêm thí sinh thành công!!!");
 		}
         this.dispose();
     }

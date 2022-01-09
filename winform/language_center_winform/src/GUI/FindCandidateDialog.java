@@ -60,7 +60,7 @@ public class FindCandidateDialog extends JDialog {
 		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
 		{
-			JLabel lblNewLabel = new JLabel("First Name");
+			JLabel lblNewLabel = new JLabel("Tên thí sinh");
 			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -79,7 +79,7 @@ public class FindCandidateDialog extends JDialog {
 			textFirstName.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("Phone");
+			JLabel lblNewLabel_1 = new JLabel("Số điện thoại");
 			lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
 			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
