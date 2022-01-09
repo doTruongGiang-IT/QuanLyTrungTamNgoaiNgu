@@ -35,7 +35,11 @@ public class MainGUI {
 
     private JFrame mainFrame;
     public JPanel panelContent = new JPanel(new CardLayout(0, 0));
-
+    ExaminationPanel examCard;
+    SupervisorPanel supervisorCard;
+    CandidatePanel candidateCard;
+    ResultPanel resultCard;
+    RoomPanel roomCard;
     /**
      * Launch the application.
      */
@@ -65,16 +69,16 @@ public class MainGUI {
         wc.setHorizontalAlignment(SwingConstants.CENTER);
         panelWelcome.setLayout(new BorderLayout());
         panelWelcome.add(wc, BorderLayout.CENTER);
-        ExaminationPanel examCard = new ExaminationPanel();
+        examCard = new ExaminationPanel();
         panelContent.add(panelWelcome, "welcomeCard");
         panelContent.add(examCard, "examCard");
-        SupervisorPanel supervisorCard = new SupervisorPanel();
+        supervisorCard = new SupervisorPanel();
         panelContent.add(supervisorCard, "supervisorCard");
-        CandidatePanel candidateCard = new CandidatePanel();
+        candidateCard = new CandidatePanel();
         panelContent.add(candidateCard, "candidateCard");
-        ResultPanel resultCard = new ResultPanel();
+        resultCard = new ResultPanel();
         panelContent.add(resultCard, "resultCard");
-        RoomPanel roomCard = new RoomPanel();
+        roomCard = new RoomPanel();
         panelContent.add(roomCard, "roomCard");
     }
 
@@ -110,6 +114,7 @@ public class MainGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 loadRoom();
+                roomCard.onLoad();
             }
         });
 
@@ -138,6 +143,7 @@ public class MainGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 loadResult();
+                resultCard.onLoad();
             }
         });
         panelBtn.add(btnResult);

@@ -376,6 +376,7 @@ public class RoomPanel extends JPanel {
     public void loadData() {
 //		String examString = comboBoxExamination.getSelectedItem().toString();
 //		String[] examStringlsit = examString.split("-");
+        onLoad();
         roomBus = new RoomBUS();
         roomList = roomBus.getRooms();
         Vector<String> vctHeader = new Vector<String>();
@@ -450,10 +451,12 @@ public class RoomPanel extends JPanel {
             }
         }
 
-        comboBoxExam.removeAllItems();
+        if (comboBoxExam != null){
+            comboBoxExam.removeAllItems();
 
-        for (String selection : eStringList) {
-            comboBoxExam.addItem(selection);
+            for (String selection : eStringList) {
+                comboBoxExam.addItem(selection);
+            }
         }
         disableButton();
     }

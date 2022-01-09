@@ -365,6 +365,10 @@ public class ResultPanel extends JPanel {
                 int examIndex = comboBoxExam.getSelectedIndex();
                 String examString = comboBoxExam.getItemAt(examIndex);
                 int exam_id = 0;
+                if (examString == null) {
+                    return ;
+                }
+                
                 if (examString.equals("Tất cả kì thi")) {
                     is_selection = true;
                 } else {
@@ -375,7 +379,7 @@ public class ResultPanel extends JPanel {
                 room_ids.clear();
                 if (rList != null) {
                     for (RoomDTO roomDTO : rList) {
-                        if (is_selection || roomDTO.getExamination_id() == exam_id) {
+                        if (!is_selection && roomDTO.getExamination_id() == exam_id) {
                             rStringList.add(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             System.out.println(Integer.toString(roomDTO.getId()) + " | " + roomDTO.getName());
                             room_ids.add(roomDTO.getId());
@@ -497,10 +501,12 @@ public class ResultPanel extends JPanel {
             }
         }
 
-        comboBoxExam.removeAllItems();
+        if (comboBoxExam != null){ 
+            comboBoxExam.removeAllItems();
 
-        for (String selection : eStringList) {
-            comboBoxExam.addItem(selection);
+            for (String selection : eStringList) {
+                comboBoxExam.addItem(selection);
+            }
         }
 
         rStringList = new Vector<String>();
