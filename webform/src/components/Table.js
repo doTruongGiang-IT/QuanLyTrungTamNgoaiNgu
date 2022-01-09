@@ -13,11 +13,14 @@ const TableComponent = ({tab, examination, room}) => {
     const search = useSelector(state => state.search);
     const candidate = useSelector(state => state.candidate.candidate);
     const candidatesOfRoom = useSelector(state => state.candidate.allCandidate);
+    const rooms = useSelector(state => state.room);
     let searchResult = JSON.parse(localStorage.getItem("search_result"));
     let candidates = JSON.parse(localStorage.getItem("all_candidate_of_room_of_examination"));
+    let allRoomOfExaminationAndLevel = JSON.parse(localStorage.getItem("all_room_of_examination_and_level"));
     let dataSchedule = [];
     let dataScore = [];
     let dataCandidates = [];
+    let dataStats = [];
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -156,6 +159,21 @@ const TableComponent = ({tab, examination, room}) => {
         },
     ];
 
+    const columnStats = [
+        {
+            title: 'Tên phòng',
+            dataIndex: 'name',
+            key: 'name',
+            width: '50%'
+        },
+        {
+            title: 'Số lượng thí sinh',
+            dataIndex: 'candidates',
+            key: 'candidates',
+            width: '50%'
+        },
+    ];
+
     if(search.message === undefined) {
         dataSchedule = [
             {
@@ -210,9 +228,19 @@ const TableComponent = ({tab, examination, room}) => {
         });
     };
 
+    if(rooms.data) {
+        dataStats = rooms.data.map((room, index) => {
+            return {
+                "key": index,
+                "name": room.name,
+                "candidates": room.count
+            };
+        });
+    };
+
     return (
         <>
-            <Table columns={tab === "schedule" ? columnsSchedule : (tab === "score" ? columnsScore : columnsCandidates)} dataSource={tab === "schedule" ? dataSchedule : (tab === "score" ? dataScore : dataCandidates)} pagination={false} />
+            <Table columns={tab === "schedule" ? columnsSchedule : (tab === "score" ? columnsScore : (tab === "candidates" ? columnsCandidates : columnStats))} dataSource={tab === "schedule" ? dataSchedule : (tab === "score" ? dataScore : (tab === "candidates" ? dataCandidates : dataStats))} pagination={false} />
             <Modal title="Thông tin chi tiết" visible={isModalVisible} footer={[]} onCancel={handleCancel}>
             {
                 content === "detail" ? 
