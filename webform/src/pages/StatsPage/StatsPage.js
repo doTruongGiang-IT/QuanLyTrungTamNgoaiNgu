@@ -3,16 +3,21 @@ import '../CandidatePage/CandidatePage.css';
 import { Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from "../../actions/index";
+import TableComponent from '../../components/Table';
 
 const { Option } = Select;
 
 const StatsPage = () => {
     const dispatch = useDispatch();
     const [examination, setExamination] = useState(0);
+    const [level, setLevel] = useState("");
     const examinations = useSelector(state => state.examination);
     const rooms = useSelector(state => state.room);
+    // const candidates = useSelector(state => state.candidate);
     let allExamination = JSON.parse(localStorage.getItem("all_examination"));
-    let allRoomOfExaminationAndLevel = JSON.parse(localStorage.getItem("all_room_of_examination_and_level"));
+    let candidatesOfRoom = JSON.parse(localStorage.getItem("all_candidate_of_room_of_examination"));
+    let numberOfCandidate = JSON.parse(localStorage.getItem("number_of_candidate"));
+    let statsCandidates = 0;
 
     useEffect(() => {
         dispatch(actions.getAllExaminationRequest());
@@ -22,8 +27,18 @@ const StatsPage = () => {
         setExamination(value);
     };
 
-    const handleChangeLevel = (value) => {
-        dispatch(actions.getAllRoomOfExaminationAndLevelRequest(examination, value));
+    const handleChangeLevel = async (value) => {
+        setLevel(value);
+        await dispatch(actions.getAllRoomOfExaminationAndLevelRequest(examination, value));
+        // statsCandidate();
+    };
+
+    const statsCandidate = () => {
+        if(level !== "") {
+            let allRoomOfExaminationAndLevel = JSON.parse(localStorage.getItem("all_room_of_examination_and_level"));
+            statsCandidates = allRoomOfExaminationAndLevel.data.reduce((pre, current) => pre + Number.parseInt(current.count), 0);
+        };
+        return statsCandidates;
     };
 
     return (
@@ -41,11 +56,12 @@ const StatsPage = () => {
                     <Option value="A2">A2</Option>
                     <Option value="B1">B1</Option>
                 </Select>
-                <span style={{marginLeft: 10, color: "gray"}}><strong>Số lượng kỳ thi:</strong> <span>{allExamination.data.length}</span></span>
+                <span style={{marginLeft: 10, color: "gray"}}><strong>Số lượng kỳ thi:</strong> <span>{examinations.data?.length}</span></span>
             </div>
-            <div className='stats_results candidates_results'>
-                <h2><strong>Số lượng phòng thi:</strong> <span>{allRoomOfExaminationAndLevel.data.length}</span></h2>
-                <h2><strong>Số lượng thí sinh:</strong> <span>132</span></h2>
+            <div className='candidates_results'>
+                <h2 style={{textAlign: "left"}}><strong>Tổng số phòng thi:</strong> <span>{rooms.data?.length}</span></h2>
+                <h2 style={{textAlign: "left"}}><strong>Tổng số thí sinh:</strong> <span>{statsCandidate()}</span></h2>
+                <TableComponent tab="stats" />
             </div>
         </div>
     )

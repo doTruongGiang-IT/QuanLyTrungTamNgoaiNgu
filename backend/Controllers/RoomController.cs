@@ -88,8 +88,8 @@ namespace backend.Controllers
         [HttpGet("Examination/Level/{examination_id}/{level}")]
         public IActionResult GetByExamLevel(int examination_id, string level)
         {
-            Dictionary<string, RoomDTO[]> dictionary = new Dictionary<string, RoomDTO[]>();
-            RoomDTO[] roomDTOs = this.repository.GetByExamLevel(examination_id, level).Cast<RoomDTO>().ToArray();
+            Dictionary<string, StatisticDTO[]> dictionary = new Dictionary<string, StatisticDTO[]>();
+            StatisticDTO[] roomDTOs = this.repository.GetByExamLevel(examination_id, level).Cast<StatisticDTO>().ToArray();
             dictionary.Add("data", roomDTOs);
             return Ok(dictionary);
         }

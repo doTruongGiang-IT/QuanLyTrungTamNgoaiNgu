@@ -14,6 +14,7 @@ namespace backend.Models.Repositories
         public ExaminationDTO Create(ExaminationDTO examinationDTO)
         {
             Examination examination = examinationDTO.ConvertToExamination();
+            examination.registration_status=true;
             DateTime now = DateTime.Now;
             examination.date = examination.date.AddHours(now.Hour);
             examination.date = examination.date.AddMinutes(now.Minute);
@@ -63,7 +64,6 @@ namespace backend.Models.Repositories
             examination.date.AddHours(now.Hour);
             examination.date.AddMinutes(now.Minute);
             examination.date.AddSeconds(now.Second);
-            Console.WriteLine(examination.date + " | Kim Bao");
             if(DateTime.Compare(examination.date, now) < 0)
             {
                 return null;

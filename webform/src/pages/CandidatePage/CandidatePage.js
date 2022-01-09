@@ -35,18 +35,18 @@ const CandidatePage = () => {
             <div className='candidates_select'>
                 <Select placeholder="Chọn kỳ thi" style={{ width: 300 }} onChange={handleChangeExamination}>
                     {
-                        allExamination.data.length > 0 ?
-                        allExamination.data.map((examination, index) => {
+                        examinations.data ?
+                        examinations.data.map((examination, index) => {
                             return <Option key={index} value={examination.id}>{examination.name}</Option>
                         }) : ""
                     }
                 </Select>
                 <Select placeholder="Chọn phòng thi" style={{ width: 150 }} onChange={handleChangeRoom} >
                     {
-                        allRoomOfExamination.data.length > 0 ?
-                        allRoomOfExamination.data.map((room, index) => {
+                        rooms.data ?
+                        rooms.data.map((room, index) => {
                             return <Option key={index} value={room.id}>{room.name}</Option>
-                        }) : <Option value={1}>blabla</Option>
+                        }) : ""
                     }
                 </Select>
             </div>

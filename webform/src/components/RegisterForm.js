@@ -105,7 +105,7 @@ const RegisterForm = React.forwardRef((props, ref) => {
                     name="examination"
                     label="Kỳ thi"
                 >
-                    <Input defaultValue={props.currentExamination ? props.currentExamination : current_examination.name} disabled={true} />
+                    <Input defaultValue={current_examination !== null ? current_examination.name : ""} disabled={true} />
                 </Form.Item>
 
                 <Form.Item
