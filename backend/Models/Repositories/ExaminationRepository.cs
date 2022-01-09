@@ -14,6 +14,7 @@ namespace backend.Models.Repositories
         public ExaminationDTO Create(ExaminationDTO examinationDTO)
         {
             Examination examination = examinationDTO.ConvertToExamination();
+            examination.registration_status=true;
             DateTime now = DateTime.Now;
             examination.date = examination.date.AddHours(now.Hour);
             examination.date = examination.date.AddMinutes(now.Minute);
